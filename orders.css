@@ -1,0 +1,40 @@
+.tableBox {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+}
+
+.tableBox .orders-table {
+    position: relative;
+    min-height: 500px;
+    background: var(--white);
+    padding: 20px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+}
+
+.orders-table-content {
+    overflow: auto;
+}
+
+.orders-table-content table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.orders-table-content table th,
+td {
+    padding: 15px;
+    text-align: left;
+    font-size: .9rem;
+    color: #222;
+    border-bottom: 0.5px solid #ddd;
+}
+
+.orders-table-content tr {
+    transition: 0.4s;
+}
+
+.orders-table-content tr:not(:first-child):hover {
+    background-color: var(--green1);
+}
