@@ -1,0 +1,149 @@
+.table {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+}
+
+.table .transaction-table {
+    position: relative;
+    min-height: 500px;
+    background: var(--white);
+    padding: 20px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 0px;
+}
+
+/*Search Invoice No*/
+.grid-container input[type=text] {
+    background-color: white;
+    padding: 8px 15px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    border-color: #f2f2f2;
+    border-width: 1px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+.grid-container .search-container button {
+    position: absolute;
+    float: right;
+    padding: 8px 12px;
+    margin-top: 8px;
+    margin-right: 40px;
+    background: #f2f2f2;
+    font-size: 14px;
+    border-color: #f2f2f2;
+    border-width: 1px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    cursor: pointer;
+  }
+.grid-container .search-container button:hover {
+    background: #d2d2d2;
+}
+
+/* Filter Dropdown Button */
+.dropbtn {
+    background-color: #f2f2f2;
+    color: black;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    position: sticky;
+    padding: 8px 50px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    border-width: 1px;
+    border-radius: 20px;
+    border-color: #f2f2f2;
+}
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #d2d2d2;
+}
+.filter-dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f2f2f2;
+    min-width: 155px;
+    border: 1px solid #f2f2f2;
+    border-radius: 20px;
+}
+.dropdown-content a {
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content a:hover {
+    background-color: #d2d2d2;
+    border-radius: 20px;
+}
+/* Show the dropdown content */
+.show {
+    display:block;
+}
+
+/* PDF Button */
+.pdf-button {
+    float: right;
+    background-color: #f2f2f2;
+    color: black;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    position: sticky;
+    padding: 8px 50px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    border-width: 1px;
+    border-radius: 20px;
+    border-color: #f2f2f2;
+}
+.pdf-button:hover {
+    background-color: #696eff;
+    color: white;
+}
+
+.transaction-table-content {
+    overflow: auto;
+}
+
+.transaction-table-content table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.transaction-table-content table th,
+td {
+    padding: 15px;
+    text-align: left;
+    font-size: .9rem;
+    color: #222;
+    border-bottom: 0.5px solid #ddd;
+}
+
+/* Delete Invoice Button */
+.delete-button {
+    background: #f2f2f2;
+    font-size: 22px;
+    padding-top: 4px;
+    min-width: 34px;
+    border-color: #f2f2f2;
+    border-width: 1px;
+    border-radius: 50px;
+}
+.delete-button:hover {
+    background: #fe4747;
+    color: white;
+}
