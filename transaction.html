@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transaction</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/transaction.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="transaction.css">
     <link rel="icon" type="image/jpg" href="images/profile.jpg">
+    <script src="https://kit.fontawesome.com/4fdfa3530e.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -100,12 +101,12 @@
                         <div class="search-container">
                             <form>
                                 <input type="text" placeholder="Invoice No.." name="search-invoice-no">
-                                <button type="submit"><ion-icon name="search-outline"></ion-icon></button>
+                                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></i></button>
                             </form>
                         </div>
                         <div class="grid-child filter">
                             <div class="filter-dropdown">
-                                <button onclick="dropdownFunction()" class="dropbtn">Filter By</button>
+                                <button onclick="dropdownFunction()" class="dropbtn">Filter By <i class="fa-solid fa-filter"></i></button>
                                 <div id="dropdownContent" class="dropdown-content">
                                     <a href="#latest">Latest</a>
                                     <a href="#today">Today</a>
@@ -117,7 +118,7 @@
                             </div>
                         </div>
                         <div class="grid-child pdf">
-                            <button class="pdf-button">PDF</button>
+                            <button class="pdf-button">PDF <i class="fa-regular fa-file-pdf"></i></button>
                         </div>
                     </div>
                     <div class="transaction-table-content">
@@ -125,7 +126,7 @@
                             <thead>
                                 <tr>
                                     <th>Date</th>
-                                    <th>Invoice No</th>
+                                    <th onclick="sortTable(0)">Invoice No</th>
                                     <th>Item</th>
                                     <th>Quantity</th>
                                     <th>Amount</th>
@@ -136,7 +137,7 @@
                             <tbody>
                                 <tr>
                                     <td>20/11/2023</td>
-                                    <td>#321119</td>
+                                    <td>3</td>
                                     <td>Gu Mor Kak</td>
                                     <td>2</td>
                                     <td>RM17.80</td>
@@ -144,7 +145,7 @@
                                 </tr>
                                 <tr>
                                     <td>20/11/2023</td>
-                                    <td>#321119</td>
+                                    <td>1</td>
                                     <td>Gu Mor Kak</td>
                                     <td>2</td>
                                     <td>RM17.80</td>
@@ -152,7 +153,7 @@
                                 </tr>
                                 <tr>
                                     <td>20/11/2023</td>
-                                    <td>#321119</td>
+                                    <td>2</td>
                                     <td>Gu Mor Kak</td>
                                     <td>2</td>
                                     <td>RM17.80</td>
@@ -160,7 +161,7 @@
                                 </tr>
                                 <tr>
                                     <td>20/11/2023</td>
-                                    <td>#321119</td>
+                                    <td>2</td>
                                     <td>Gu Mor Kak</td>
                                     <td>2</td>
                                     <td>RM17.80</td>
@@ -168,7 +169,7 @@
                                 </tr>
                                 <tr>
                                     <td>20/11/2023</td>
-                                    <td>#321119</td>
+                                    <td>2</td>
                                     <td>Gu Mor Kak</td>
                                     <td>2</td>
                                     <td>RM17.80</td>
@@ -176,7 +177,7 @@
                                 </tr>
                                 <tr>
                                     <td>20/11/2023</td>
-                                    <td>#321119</td>
+                                    <td>2</td>
                                     <td>Gu Mor Kak</td>
                                     <td>2</td>
                                     <td>RM17.80</td>
@@ -184,7 +185,7 @@
                                 </tr>
                                 <tr>
                                     <td>20/11/2023</td>
-                                    <td>#321119</td>
+                                    <td>2</td>
                                     <td>Gu Mor Kak</td>
                                     <td>2</td>
                                     <td>RM17.80</td>
@@ -192,7 +193,7 @@
                                 </tr>
                                 <tr>
                                     <td>20/11/2023</td>
-                                    <td>#321119</td>
+                                    <td>2</td>
                                     <td>Gu Mor Kak</td>
                                     <td>2</td>
                                     <td>RM17.80</td>
@@ -200,7 +201,7 @@
                                 </tr>
                                 <tr>
                                     <td>20/11/2023</td>
-                                    <td>#321119</td>
+                                    <td>2</td>
                                     <td>Gu Mor Kak</td>
                                     <td>2</td>
                                     <td>RM17.80</td>
@@ -208,7 +209,7 @@
                                 </tr>
                                 <tr>
                                     <td>20/11/2023</td>
-                                    <td>#321119</td>
+                                    <td>2</td>
                                     <td>Gu Mor Kak</td>
                                     <td>2</td>
                                     <td>RM17.80</td>
@@ -226,15 +227,6 @@
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $('#example').DataTable();
-        });
-    </script>
     
     <script>
         // MenuToggle

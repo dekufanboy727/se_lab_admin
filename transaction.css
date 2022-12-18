@@ -1,9 +1,9 @@
+/* Transaction Table */
 .table {
     position: relative;
     width: 100%;
     padding: 20px;
 }
-
 .table .transaction-table {
     position: relative;
     min-height: 500px;
@@ -13,13 +13,25 @@
     border-radius: 20px;
 }
 
+/* Transaction Table Header */
+.transaction-table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.transaction-table-header h2 {
+    font-weight: 600;
+    color: var(--green2);
+}
+
+/* Container (Search Bar, Filter Button, and PDF Button) */
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 0px;
 }
 
-/*Search Invoice No*/
+/*Search Bar Invoice No*/
 .grid-container input[type=text] {
     background-color: white;
     padding: 8px 15px;
@@ -54,9 +66,8 @@
     background-color: #f2f2f2;
     color: black;
     margin-top: 8px;
-    margin-bottom: 8px;
     position: sticky;
-    padding: 8px 50px;
+    padding: 8px 40px;
     text-align: center;
     font-size: 14px;
     font-weight: bold;
@@ -65,7 +76,8 @@
     border-color: #f2f2f2;
 }
 .dropbtn:hover, .dropbtn:focus {
-    background-color: #d2d2d2;
+    background-color: #7a7a7a;
+    color: white;
 }
 .filter-dropdown {
     position: relative;
@@ -115,15 +127,14 @@
     color: white;
 }
 
+/* Transaction Table Content */
 .transaction-table-content {
     overflow: auto;
 }
-
 .transaction-table-content table {
     border-collapse: collapse;
     width: 100%;
 }
-
 .transaction-table-content table th,
 td {
     padding: 15px;
