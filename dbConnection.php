@@ -1,5 +1,5 @@
 <?php
-error_reporting(0); //set this to 0 if it's finished or else there's going to be problems
+
 global $conn;
 
 $host = "localhost";
@@ -8,9 +8,8 @@ $pass = "";
 $db = "se_lab";
 
 $conn = new mysqli($host, $user, $pass, $db);
-if(!$conn){
-    die("connection failed: " . mysqli_connect_error());
-    mysqli_close($conn);
+if($conn->connect_error){
+    die("connection failed: " . $conn->connect_error);
 }
 
 ?>
