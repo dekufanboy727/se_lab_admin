@@ -55,7 +55,7 @@ include "dbConnection.php"
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="transaction.html">
                         <span class="icon">
                             <ion-icon name="cash-outline"></ion-icon>
                         </span>
