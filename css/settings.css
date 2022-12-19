@@ -219,6 +219,15 @@ body {
     color: var(--green2);
 }
 
+.btn {
+    position: relative;
+    padding: 5px 10px;
+    background: var(--green2);
+    text-decoration: none;
+    color: var(--white);
+    border-radius: 6px;
+}
+
 /* form */
 .row {
     margin-top: 15px;
@@ -237,7 +246,7 @@ label {
 }
 
 input[type=submit] {
-    background-color: #04AA6D;
+    background-color: var(--green2);
     color: white;
     padding: 12px 20px;
     border: none;
@@ -247,7 +256,7 @@ input[type=submit] {
 }
 
 input[type=submit]:hover {
-    background-color: #45a049;
+    background-color: var(--green1);
 }
 
 .col-25 {
