@@ -283,7 +283,6 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     margin: 2px 0;
     white-space: nowrap;
     justify-content: flex-end;
-    
 }
 
 .pagination {
@@ -320,14 +319,16 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     margin-left: -1px;
 }
 
-.active>.page-link, .page-link.active {
-    z-index: 3;
+.active>.page-link,
+.page-link.active {
+    z-index: 1;
     color: var(--bs-pagination-active-color);
     background-color: var(--green1);
     border-color: var(--green2);
 }
 
-.disabled>.page-link, .page-link.disabled {
+.disabled>.page-link,
+.page-link.disabled {
     color: var(--bs-pagination-disabled-color);
     pointer-events: none;
     background-color: var(--bs-pagination-disabled-bg);
@@ -346,14 +347,13 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
-.page-link:hover{
+.page-link:hover {
     background: var(--green2);
 }
 
 a:-webkit-any-link {
     color: var(--black1);
     cursor: pointer;
-    text-decoration: underline;
 }
 
 /* responsive design */
