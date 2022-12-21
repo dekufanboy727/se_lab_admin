@@ -283,7 +283,6 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     margin: 2px 0;
     white-space: nowrap;
     justify-content: flex-end;
-    
 }
 
 .pagination {
@@ -312,6 +311,80 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     list-style: none;
 }
 
+/* Dropdown Button */
+.dropbtn {
+    background-color: var(--green1);
+    color: var(--black1);
+    padding: 5px 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid var(--black2);
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover,
+.dropbtn:focus {
+    background-color: var(--black1);
+    color: var(--white);
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    font-size: 16px;
+    padding: 10px 10px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {
+    display: block;
+}
+
+tbody select {
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+tbody select:hover {
+    background: var(--black1);
+    color: var(--white);
+}
+
+tbody select option {
+    background: var(--white);
+    color: var(--black1);
+}
+
+td select option:hover {
+    background: red;
+}
+
 .page-item {
     margin-right: 10px;
 }
@@ -320,14 +393,16 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     margin-left: -1px;
 }
 
-.active>.page-link, .page-link.active {
-    z-index: 3;
+.active>.page-link,
+.page-link.active {
+    z-index: 1;
     color: var(--bs-pagination-active-color);
     background-color: var(--green1);
     border-color: var(--green2);
 }
 
-.disabled>.page-link, .page-link.disabled {
+.disabled>.page-link,
+.page-link.disabled {
     color: var(--bs-pagination-disabled-color);
     pointer-events: none;
     background-color: var(--bs-pagination-disabled-bg);
@@ -346,14 +421,13 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
-.page-link:hover{
+.page-link:hover {
     background: var(--green2);
 }
 
 a:-webkit-any-link {
     color: var(--black1);
     cursor: pointer;
-    text-decoration: underline;
 }
 
 /* responsive design */
