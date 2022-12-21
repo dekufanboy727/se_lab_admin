@@ -1,0 +1,11 @@
+.container{
+    display: flex;
+}
+
+.colour{
+    width: 50vh;
+    text-align: center;
+    color: black;
+    font-size: 30px;
+    padding: 20vh 0;
+}

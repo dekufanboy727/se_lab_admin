@@ -1,0 +1,93 @@
+body{
+	margin: 0;	
+}
+.nav_bar{
+    background-color: #E8CBB1;
+    padding: 5px 5px;
+    font-family: 'Marhey', cursive;
+    height: 70px;
+}
+.logo,
+.pages{
+    display: inline-block;
+}
+.pages{
+    position: relative;
+    float: right;
+}
+.pages ul li{
+    list-style: none;
+    display: inline-block;
+    text-align: center;
+    margin: 0 30px;
+    padding-top: 8px;
+}
+.pages ul li a{
+    position: relative;
+	text-decoration: none;
+    color: black;
+    width: 0;
+}
+.pages ul li a::after{
+    content: "";
+    display: block;
+    background-color: #4C5D70;
+    height: 3px;
+    width: 0%;
+    border-radius: 20px;
+    position: absolute;
+    left: 50%;
+}
+.pages ul li a:hover::after{
+    left: 0;
+    width: 100%;
+    transition: 0.3s ease-in-out;
+}
+.pages ul li .active::after{
+    content: "";
+    display: block;
+    background-color: #4C5D70;
+    height: 3px;
+    width: 100%;
+    border-radius: 20px;
+    position: absolute;
+    left: 0;
+}
+
+.login{
+    position: relative;
+    float: right;
+    background-color: #4C5D70;
+    color: #E8CBB1;
+    width: 120px;
+    height: 30px;
+    border-radius: 30px;
+    text-align: center;
+    text-decoration: none;
+    margin: 17px 15px;
+    padding: 5px 5px 0;
+    box-shadow: 5px 5px 8px grey;
+    z-index: 1;
+}
+.login::before{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #E8CBB1;
+    border-radius: 30px;
+    border: 2px solid #4C5D70;
+    z-index: -1;
+    transform: scaleX(0);
+    transition: transform 0.3s ease-in-out;
+}
+.login:hover{
+    color: #4C5D70;
+}
+.login:hover::before,
+.login:focus::before{
+    transform: scaleX(1);
+}
