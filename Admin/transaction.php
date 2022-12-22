@@ -48,7 +48,7 @@ include "dbConnection.php"
                     </a>
                 </li>
                 <li>
-                    <a href="orders.html">
+                    <a href="orders.php">
                         <span class="icon">
                             <ion-icon name="cart-outline"></ion-icon>
                         </span>
@@ -64,7 +64,7 @@ include "dbConnection.php"
                     </a>
                 </li>
                 <li class="hovered active">
-                    <a href="transaction.html">
+                    <a href="transaction.php">
                         <span class="icon">
                             <ion-icon name="cash-outline"></ion-icon>
                         </span>
@@ -80,7 +80,7 @@ include "dbConnection.php"
                     </a>
                 </li>
                 <li>
-                    <a href="settings.html">
+                    <a href="settings.php">
                         <span class="icon">
                             <ion-icon name="settings-outline"></ion-icon>
                         </span>
