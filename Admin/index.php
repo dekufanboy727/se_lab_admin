@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 global $conn;
 
@@ -19,6 +20,13 @@ include "dbConnection.php"
 </head>
 
 <body>
+    <?php //Session Control
+        if (empty($_SESSION['logged_in']) == true)
+        {
+            echo "You are not Logged in";
+            header("Location: adminlogout.php");
+        }
+    ?>
     <div class="container">
         <div class="navigation">
             <ul>
@@ -39,7 +47,7 @@ include "dbConnection.php"
                     </a>
                 </li>
                 <li>
-                    <a href="orders.html">
+                    <a href="orders.php">
                         <span class="icon">
                             <ion-icon name="cart-outline"></ion-icon>
                         </span>
@@ -47,7 +55,7 @@ include "dbConnection.php"
                     </a>
                 </li>
                 <li>
-                    <a href="products.html">
+                    <a href="#">
                         <span class="icon">
                             <ion-icon name="fast-food-outline"></ion-icon>
                         </span>
@@ -55,7 +63,7 @@ include "dbConnection.php"
                     </a>
                 </li>
                 <li>
-                    <a href="transaction.html">
+                    <a href="transaction.php">
                         <span class="icon">
                             <ion-icon name="cash-outline"></ion-icon>
                         </span>
@@ -71,7 +79,7 @@ include "dbConnection.php"
                     </a>
                 </li>
                 <li>
-                    <a href="settings.html">
+                    <a href="settings.php">
                         <span class="icon">
                             <ion-icon name="settings-outline"></ion-icon>
                         </span>
@@ -79,7 +87,7 @@ include "dbConnection.php"
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="adminlogout.php">
                         <span class="icon">
                             <ion-icon name="exit-outline"></ion-icon>
                         </span>
