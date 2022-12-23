@@ -110,7 +110,7 @@ session_start();
                     <input type="submit" value="Log In">
                 </div>
                 <div class="form-control">
-                    <p>Don't have an account? <a href="registration.php">Sign up now</a>.</p>
+                    <p>Don't have an account? <a href="#">Sign up now</a>.</p>
                 </div>
             </form>
         </div>
