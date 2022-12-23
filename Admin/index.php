@@ -47,7 +47,7 @@ include "dbConnection.php"
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="orders.php">
                         <span class="icon">
                             <ion-icon name="cart-outline"></ion-icon>
                         </span>
