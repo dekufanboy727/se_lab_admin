@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 22, 2022 at 02:47 PM
+-- Generation Time: Dec 23, 2022 at 10:34 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -112,16 +112,17 @@ CREATE TABLE `orders` (
   `order_amount` double NOT NULL,
   `order_date` datetime NOT NULL,
   `order_collection` text NOT NULL,
-  `pickup_time` datetime DEFAULT NULL
+  `pickup_time` datetime DEFAULT NULL,
+  `Status` varchar(10) NOT NULL DEFAULT 'preparing'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`order_id`, `order_amount`, `order_date`, `order_collection`, `pickup_time`) VALUES
-(1, 50.5, '2022-12-13 17:31:47', 'takeaway', '2022-12-13 18:31:47'),
-(2, 5, '2022-12-15 00:00:00', 'Pick Up', '2022-12-15 00:00:00');
+INSERT INTO `orders` (`order_id`, `order_amount`, `order_date`, `order_collection`, `pickup_time`, `Status`) VALUES
+(1, 50.5, '2022-12-13 17:31:47', 'takeaway', '2022-12-13 18:31:47', 'cancel'),
+(2, 5, '2022-12-15 00:00:00', 'Pick Up', '2022-12-15 00:00:00', 'preparing');
 
 -- --------------------------------------------------------
 
@@ -130,21 +131,22 @@ INSERT INTO `orders` (`order_id`, `order_amount`, `order_date`, `order_collectio
 --
 
 CREATE TABLE `order_product` (
-  `id` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL
+  `id` int(100) NOT NULL,
+  `order_id` int(100) NOT NULL,
+  `product_id` int(100) NOT NULL,
+  `quantity` int(100) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `order_product`
 --
 
-INSERT INTO `order_product` (`id`, `order_id`, `product_id`) VALUES
-(0, 1, 1),
-(0, 1, 2),
-(0, 1, 3),
-(0, 2, 4),
-(0, 2, 5);
+INSERT INTO `order_product` (`id`, `order_id`, `product_id`, `quantity`) VALUES
+(1, 1, 1, 1),
+(2, 1, 2, 2),
+(3, 1, 3, 2),
+(4, 2, 4, 3),
+(5, 2, 5, 2);
 
 -- --------------------------------------------------------
 
@@ -202,6 +204,12 @@ ALTER TABLE `customer`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`order_id`);
+
+--
+-- Indexes for table `order_product`
+--
+ALTER TABLE `order_product`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `product`
