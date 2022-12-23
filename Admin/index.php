@@ -55,7 +55,7 @@ include "dbConnection.php"
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="products.php">
                         <span class="icon">
                             <ion-icon name="fast-food-outline"></ion-icon>
                         </span>
