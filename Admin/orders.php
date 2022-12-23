@@ -4,7 +4,6 @@ session_start();
 global $conn;
 
 include "dbConnection.php"
-
 ?>
 
 <!DOCTYPE html>
@@ -97,6 +96,21 @@ include "dbConnection.php"
             </ul>
         </div>
 
+        <?php 
+        
+            $sql = mysqli_query($conn,"select * from orders");
+
+            //Get Update id and status  
+            if (isset($_GET['id']) && isset($_GET['status'])) {  
+            $id=$_GET['id'];  
+            $status=$_GET['status'];  
+            mysqli_query($conn, "update orders SET Status='$status' where order_id='$id'");  
+            header("location:orders.php");  
+            die();  
+        }  
+        
+        ?>
+
         <div class="main">
             <div class="topbar">
                 <div class="toggle">
@@ -121,204 +135,60 @@ include "dbConnection.php"
                                     <th>Date</th>
                                     <th>Amount</th>
                                     <th>Collection</th>
-                                    <th>Product</th>
+                                    <th>Product List</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>22/7/2022 19:30:00</td>
-                                    <td>RM50.50</td>
-                                    <td>Takeaway</td>
-                                    <td>Halzenut Latte</td>
-                                    <td>Paid</td>
-                                    <td>
-                                        <select onchange="status_update(this.options[this.selectedIndex].value)"> <!-- this.options[this.selectedIndex].value, <?php echo $row['id'] ?> -->
-                                            <option selected disabled>Update Status</option>
-                                            <option value="preparing">Preparing</option>
-                                            <option value="done">Done</option>
-                                            <option value="calcel">Cancel</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>22/7/2022 19:30:00</td>
-                                    <td>RM50.50</td>
-                                    <td>Takeaway</td>
-                                    <td>Halzenut Latte</td>
-                                    <td>Paid</td>
-                                    <td>
-                                        <select onchange="status_update(this.options[this.selectedIndex].value)"> <!-- this.options[this.selectedIndex].value, <?php echo $row['id'] ?> -->
-                                            <option selected disabled>Update Status</option>
-                                            <option value="preparing">Preparing</option>
-                                            <option value="done">Done</option>
-                                            <option value="calcel">Cancel</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>22/7/2022 19:30:00</td>
-                                    <td>RM50.50</td>
-                                    <td>Takeaway</td>
-                                    <td>Halzenut Latte</td>
-                                    <td>Paid</td>
-                                    <td>
-                                        <select onchange="status_update(this.options[this.selectedIndex].value)"> <!-- this.options[this.selectedIndex].value, <?php echo $row['id'] ?> -->
-                                            <option selected disabled>Update Status</option>
-                                            <option value="preparing">Preparing</option>
-                                            <option value="done">Done</option>
-                                            <option value="calcel">Cancel</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>22/7/2022 19:30:00</td>
-                                    <td>RM50.50</td>
-                                    <td>Takeaway</td>
-                                    <td>Halzenut Latte</td>
-                                    <td>Paid</td>
-                                    <td>
-                                        <select onchange="status_update(this.options[this.selectedIndex].value)"> <!-- this.options[this.selectedIndex].value, <?php echo $row['id'] ?> -->
-                                            <option selected disabled>Update Status</option>
-                                            <option value="preparing">Preparing</option>
-                                            <option value="done">Done</option>
-                                            <option value="calcel">Cancel</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>22/7/2022 19:30:00</td>
-                                    <td>RM50.50</td>
-                                    <td>Takeaway</td>
-                                    <td>Halzenut Latte</td>
-                                    <td>Paid</td>
-                                    <td>
-                                        <select onchange="status_update(this.options[this.selectedIndex].value)"> <!-- this.options[this.selectedIndex].value, <?php echo $row['id'] ?> -->
-                                            <option selected disabled>Update Status</option>
-                                            <option value="preparing">Preparing</option>
-                                            <option value="done">Done</option>
-                                            <option value="calcel">Cancel</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>22/7/2022 19:30:00</td>
-                                    <td>RM50.50</td>
-                                    <td>Takeaway</td>
-                                    <td>Halzenut Latte</td>
-                                    <td>Paid</td>
-                                    <td>
-                                        <select onchange="status_update(this.options[this.selectedIndex].value)"> <!-- this.options[this.selectedIndex].value, <?php echo $row['id'] ?> -->
-                                            <option selected disabled>Update Status</option>
-                                            <option value="preparing">Preparing</option>
-                                            <option value="done">Done</option>
-                                            <option value="calcel">Cancel</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>22/7/2022 19:30:00</td>
-                                    <td>RM50.50</td>
-                                    <td>Takeaway</td>
-                                    <td>Halzenut Latte</td>
-                                    <td>Paid</td>
-                                    <td>
-                                        <select onchange="status_update(this.options[this.selectedIndex].value)"> <!-- this.options[this.selectedIndex].value, <?php echo $row['id'] ?> -->
-                                            <option selected disabled>Update Status</option>
-                                            <option value="preparing">Preparing</option>
-                                            <option value="done">Done</option>
-                                            <option value="calcel">Cancel</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>22/7/2022 19:30:00</td>
-                                    <td>RM50.50</td>
-                                    <td>Takeaway</td>
-                                    <td>Halzenut Latte</td>
-                                    <td>Paid</td>
-                                    <td>
-                                        <select onchange="status_update(this.options[this.selectedIndex].value)"> <!-- this.options[this.selectedIndex].value, <?php echo $row['id'] ?> -->
-                                            <option selected disabled>Update Status</option>
-                                            <option value="preparing">Preparing</option>
-                                            <option value="done">Done</option>
-                                            <option value="calcel">Cancel</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>22/7/2022 19:30:00</td>
-                                    <td>RM50.50</td>
-                                    <td>Takeaway</td>
-                                    <td>Halzenut Latte</td>
-                                    <td>Paid</td>
-                                    <td>
-                                        <select onchange="status_update(this.options[this.selectedIndex].value)"> <!-- this.options[this.selectedIndex].value, <?php echo $row['id'] ?> -->
-                                            <option selected disabled>Update Status</option>
-                                            <option value="preparing">Preparing</option>
-                                            <option value="done">Done</option>
-                                            <option value="calcel">Cancel</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>22/7/2022 19:30:00</td>
-                                    <td>RM50.50</td>
-                                    <td>Takeaway</td>
-                                    <td>Halzenut Latte</td>
-                                    <td>Paid</td>
-                                    <td>
-                                        <select onchange="status_update(this.options[this.selectedIndex].value)"> <!-- this.options[this.selectedIndex].value, <?php echo $row['id'] ?> -->
-                                            <option selected disabled>Update Status</option>
-                                            <option value="preparing">Preparing</option>
-                                            <option value="done">Done</option>
-                                            <option value="calcel">Cancel</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>22/7/2022 19:30:00</td>
-                                    <td>RM50.50</td>
-                                    <td>Takeaway</td>
-                                    <td>Halzenut Latte</td>
-                                    <td>Paid</td>
-                                    <td>
-                                        <select onchange="status_update(this.options[this.selectedIndex].value)"> <!-- this.options[this.selectedIndex].value, <?php echo $row['id'] ?> -->
-                                            <option selected disabled>Update Status</option>
-                                            <option value="preparing">Preparing</option>
-                                            <option value="done">Done</option>
-                                            <option value="calcel">Cancel</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>22/7/2022 19:30:00</td>
-                                    <td>RM50.50</td>
-                                    <td>Takeaway</td>
-                                    <td>Halzenut Latte</td>
-                                    <td>Paid</td>
-                                    <td>
-                                        <select onchange="status_update(this.options[this.selectedIndex].value)"> <!-- this.options[this.selectedIndex].value, <?php echo $row['id'] ?> -->
-                                            <option selected disabled>Update Status</option>
-                                            <option value="preparing">Preparing</option>
-                                            <option value="done">Done</option>
-                                            <option value="calcel">Cancel</option>
-                                        </select>
-                                    </td>
-                                </tr>
+                            <?php  
+                                $i=1;  
+                                if (mysqli_num_rows($sql)>0) {  
+                                        while ($row=mysqli_fetch_assoc($sql)) { 
+                            ?>  
+                                        <?php 
+                                            $sql1 = mysqli_query($conn, "select * from order_product where order_id = '".$row['order_id']."';");
+                                        ?>
+                                        <tr>  
+                                            <td><?php echo $i++ ?></td>  
+                                            <td><?php echo $row['order_date'] ?></td>  
+                                            <td><?php echo $row['order_amount'] ?></td>
+                                            <td><?php echo $row['order_collection'] ?></td>  
+                                            <td>
+                                                <?php  
+                                                    while($row1=mysqli_fetch_assoc($sql1)){
+                                                        $sql2 = mysqli_query($conn,"select * from product where product_id ='".$row1['product_id']."';");
+                                                        $row2 = mysqli_fetch_assoc($sql2);
+                                                        echo $row2['name'];
+                                                        echo "x";
+                                                        echo $row1['quantity'];
+                                                        echo "|";
+                                                    }?>
+                                            </td>    
+                                            <td>  
+                                                <?php  
+                                                if ($row['Status']=='preparing') {  
+                                                        echo "Preparing";  
+                                                }if ($row['Status']=='done') {  
+                                                        echo "Done";  
+                                                }if ($row['Status']=='cancel') {  
+                                                        echo "Cancel";  
+                                                }  
+                                                ?>  
+                                            </td>
+                                            <td>
+                                                <input type="hidden" name= "id" value = "<?php echo $row['order_id']; ?>">
+                                                <select id ="status" name= "status" onchange="status_update(this.options[this.selectedIndex].value,'<?php echo $row['order_id']; ?>')" >  
+                                                    <option selected disabled>Update Status</option>
+                                                    <option value="preparing">Preparing</option>
+                                                    <option value="done">Done</option>
+                                                    <option value="cancel">Cancel</option>
+                                                </select>
+                                            </td>
+                                            </form>
+                                        </tr>       
+                                <?php      }  
+                                    } ?>
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -377,8 +247,9 @@ include "dbConnection.php"
 
         // update status to database https://www.youtube.com/watch?v=zc1F50TeyIY
         //status_update(value, id)
-        function status_update(value) {
-            alert(value);
+        function status_update(value ,id) {
+            let url = window.location;
+            window.location.href = url +"?id="+id+"&status="+value;
         }
     </script>
 
