@@ -3,110 +3,119 @@ session_start();
 ?>
 
 <!DOCTYPE html>
-<html>
-    <head>
-        <link href="https://fonts.googleapis.com/css?family=Akaya+Telivigala&display=swap" rel="stylesheet" />
-        <link href="./css/admin_login.css" rel="stylesheet" />
-        <title>Document</title>
-    </head>
-    <body>
-        <?php
-            include 'dbConnection.php'; //include connection to the db
+<html lang="en">
 
-            //Declarations
-            $email = $pass = "";
-            $emailErr = $passErr ="";
-            $error= "";
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In</title>
+    <link rel="icon" type="image/jpg" href="images/profile.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/admin_login.css">
+</head>
 
-            //Validate the form
-            if ($_SERVER["REQUEST_METHOD"] == "POST")
-            {
-                //Validate email
-                if(empty($_POST["email"]))
-                {
-                    $emailErr = "*Email is required!";
-                }
-                else
-                {
-                    $email = $_POST["email"];
-                }
+<body>
+    <?php
+    include 'dbConnection.php'; //include connection to the db
 
-                //Validate Password
-                if(empty($_POST["pass"]))
-                {
-                    $passErr = "*Password is required!";
-                }
-                else
-                {
-                    $pass = test($_POST["pass"]);
-                }
+    //Declarations
+    $email = $pass = "";
+    $emailErr = $passErr = "";
+    $error = "";
 
-            }
+    //Validate the form
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        //Validate email
+        if (empty($_POST["email"])) {
+            $emailErr = "*Email is required!";
+        } else {
+            $email = $_POST["email"];
+        }
 
-            function test($data)
-            {
-                $data = trim($data);
-                $data = stripslashes($data);
-                $data = htmlspecialchars($data);
-                return $data;
-            }
+        //Validate Password
+        if (empty($_POST["pass"])) {
+            $passErr = "*Password is required!";
+        } else {
+            $pass = test($_POST["pass"]);
+        }
+    }
 
-            //No error in input
-            //Check whether the admin exists 
-            if (!empty($_POST["email"])&& !empty($_POST["pass"])) 
-            {
-                $sql = "SELECT * FROM admin WHERE email ='$email' AND pass ='$pass'"; //Find the admin acc
-                $isFound = mysqli_query($conn,$sql); //Check is it exists
-                
-                //Found the admin
-                if(mysqli_num_rows($isFound) == 1) 
-                {   
-                    //echo "Login successful";
-                    //Redirecting admin to home menu
-                    $_SESSION['logged_in'] = true;
-                    header("Location: index.php");
-                }   
-                else
-                {
-                    //echo "Login unsuccessful";
-                    $error = "Incorrect email or password! Please try again.";
-                }
-            }
+    function test($data)
+    {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
 
-        ?>
-        <div class="v35_2">
-            <div class="v35_3">
-                <div class="v35_4"></div>
-                <div class="v35_12"></div>
-            </div>
-            <div class="v36_13">
+    //No error in input
+    //Check whether the admin exists 
+    if (!empty($_POST["email"]) && !empty($_POST["pass"])) {
+        $sql = "SELECT * FROM admin WHERE email ='$email' AND pass ='$pass'"; //Find the admin acc
+        $isFound = mysqli_query($conn, $sql); //Check is it exists
 
-            </div>
-            <span class="v37_14">Log In</span>
-            <span class="v37_15">Welcome back Admin! Please enter your details</span>
-            <span class="v37_26">Remember me</span>
-            <span class="v37_30">Forgot password?</span>
-            <form method="post" action="<?php echo $_SERVER["PHP_SELF"];?>">
-                
-                <div class="v37_19">
-                    <div class="v37_17"></div>
-                    <span class="v37_16">Email</span>
-                    <input type="text" class="v37_17" name = "email" id="email"></input>
-                    <span class="error"> <?php echo $emailErr; ?> </span>
+        //Found the admin
+        if (mysqli_num_rows($isFound) == 1) {
+            //echo "Login successful";
+            //Redirecting admin to home menu
+            $_SESSION['logged_in'] = true;
+            header("Location: index.php");
+        } else {
+            //echo "Login unsuccessful";
+            $error = "Incorrect email or password! Please try again.";
+        }
+    }
+
+    ?>
+
+    <div class="header">
+        <a href="#"><img src="images/v35_12.png" alt="logo"></a>
+        <a href="#"><button class="btn" title="Go back to home page"><i class="fas fa-times"></i></button></a>
+    </div>
+
+    <div class="content">
+        <div class="container">
+            <div class="title">Log In</div>
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" class="form" id="form">
+                <div class="form-control">
+                    <label>Email</label>
+                    <input type="text" id="email" name="email" placeholder="Enter your email">
+                    <div class="icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <i class="fas fa-check-circle"></i>
+                    <i class="fas fa-exclamation-circle"></i>
+                    <small>Error Message</small>
+                    <span style="color:#e74c3c;font-size: smaller;"><?php echo $emailErr; ?></span>
                 </div>
-                <div class="v37_20">
-                    <div class="v37_21"></div>
-                    <span class="v37_23">Password</span>
-                    <input type="password" class="v37_21" name = "pass" id="pass"></input>
-                    <span class="error"> <?php echo $passErr; ?> </span>
-                    <div class="v37_25"></div>
+                <div class="form-control">
+                    <label>Password</label>
+                    <input type="password" id="pass" name="pass" placeholder="Enter your password" title="Must contain one uppercase, one lower case, one special character ( ! @ # $ % ^ & * ), numbers and no space, and at least 6 digits length">
+                    <div class="icon">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <i class="fas fa-eye" id="togglePassword" onclick="togglePassword()"></i>
+                    <i class="fas fa-check-circle"></i>
+                    <i class="fas fa-exclamation-circle"></i>
+                    <small>Error Message</small>
+                    <span style="color:#e74c3c;font-size: smaller;"><?php echo $passErr; ?></span>
                 </div>
-                <div class="v37_34">
-                    <span class = "error"><?php echo $error; ?></span>
-                    <input type="submit" class="v37_32" value="Login"></input>  
+                <div class="form-control" style="margin: 0;">
+                    <small>Error Message</small>
+                    <span style="color:#e74c3c;font-size: smaller;"><?php echo $error; ?></span>
+                </div>
+
+                <div class="button" id="button">
+                    <input type="reset" value="Clear" onclick="myReset()">
+                    <input type="submit" value="Log In">
                 </div>
             </form>
-            <div class="v37_28"></div>
         </div>
-    </body>
+        <!--End class container-->
+    </div>
+
+    <script type="text/javascript" src="adminloginValidation.js"></script>
+
+</body>
+
 </html>
