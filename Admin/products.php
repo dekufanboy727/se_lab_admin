@@ -131,7 +131,7 @@ include "dbConnection.php"
                         <div class="search-container">
                             <input type="text" id="myInput" onkeyup="mySearchFunction()" placeholder="Search Here.." name="products-search-bar" title="Type in a product">
                         </div>
-                        <a href="products_add.html" class="button">Add</a>
+                        <a href="add_product.php" class="button">Add</a>
                         <a href="products_best_seller.html" class="button">Best Seller</a>
                     </div>
                     <div class="products-table-content">
@@ -166,9 +166,9 @@ include "dbConnection.php"
                                         $row1 = mysqli_fetch_assoc($sql1)
                             ?>
                                         <tr>
-                                            <td><?php echo $row['product_img'] ?></td>
+                                            <td><?php echo '<img src="'.$row["product_img"].'" height ="100" width = "100">' ?></td>
                                             <td><?php echo $row1['type_name']?></td>
-                                            <td id = "product_name"><?php echo $row['name'] ?></td>
+                                            <td id = "product_name"><?php echo $row['product_name'] ?></td>
                                             <td><?php echo $row['product_desc'] ?></td>
                                             <td><?php echo $row['price'] ?></td>
                                             <td><?php echo $row['product_quan'] ?></td>
