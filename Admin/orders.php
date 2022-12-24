@@ -20,11 +20,10 @@ include "dbConnection.php"
 
 <body>
     <?php //Session Control
-        if (empty($_SESSION['logged_in']) == true)
-        {
-            echo "You are not Logged in";
-            header("Location: adminlogout.php");
-        }
+    if (empty($_SESSION['logged_in']) == true) {
+        echo "You are not Logged in";
+        header("Location: adminlogout.php");
+    }
     ?>
     <div class="container">
         <div class="navigation">
@@ -96,19 +95,19 @@ include "dbConnection.php"
             </ul>
         </div>
 
-        <?php 
-        
-            $sql = mysqli_query($conn,"select * from orders");
+        <?php
 
-            //Get Update id and status  
-            if (isset($_GET['id']) && isset($_GET['status'])) {  
-            $id=$_GET['id'];  
-            $status=$_GET['status'];  
-            mysqli_query($conn, "update orders SET Status='$status' where order_id='$id'");  
-            header("location:orders.php");  
-            die();  
-        }  
-        
+        $sql = mysqli_query($conn, "select * from orders");
+
+        //Get Update id and status  
+        if (isset($_GET['id']) && isset($_GET['status'])) {
+            $id = $_GET['id'];
+            $status = $_GET['status'];
+            mysqli_query($conn, "update orders SET Status='$status' where order_id='$id'");
+            header("location:orders.php");
+            die();
+        }
+
         ?>
 
         <div class="main">
@@ -141,44 +140,46 @@ include "dbConnection.php"
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php  
-                                $i=1;  
-                                if (mysqli_num_rows($sql)>0) {  
-                                        while ($row=mysqli_fetch_assoc($sql)) { 
-                            ?>  
-                                        <?php 
-                                            $sql1 = mysqli_query($conn, "select * from order_product where order_id = '".$row['order_id']."';");
+                                <?php
+                                $i = 1;
+                                if (mysqli_num_rows($sql) > 0) {
+                                    while ($row = mysqli_fetch_assoc($sql)) {
+                                ?>
+                                        <?php
+                                        $sql1 = mysqli_query($conn, "select * from order_product where order_id = '" . $row['order_id'] . "';");
                                         ?>
-                                        <tr>  
-                                            <td><?php echo $i++ ?></td>  
-                                            <td><?php echo $row['order_date'] ?></td>  
+                                        <tr>
+                                            <td><?php echo $i++ ?></td>
+                                            <td><?php echo $row['order_date'] ?></td>
                                             <td><?php echo $row['order_amount'] ?></td>
-                                            <td><?php echo $row['order_collection'] ?></td>  
+                                            <td><?php echo $row['order_collection'] ?></td>
                                             <td>
-                                                <?php  
-                                                    while($row1=mysqli_fetch_assoc($sql1)){
-                                                        $sql2 = mysqli_query($conn,"select * from product where product_id ='".$row1['product_id']."';");
-                                                        $row2 = mysqli_fetch_assoc($sql2);
-                                                        echo $row2['name'];
-                                                        echo "x";
-                                                        echo $row1['quantity'];
-                                                        echo "|";
-                                                    }?>
-                                            </td>    
-                                            <td>  
-                                                <?php  
-                                                if ($row['Status']=='preparing') {  
-                                                        echo "Preparing";  
-                                                }if ($row['Status']=='done') {  
-                                                        echo "Done";  
-                                                }if ($row['Status']=='cancel') {  
-                                                        echo "Cancel";  
-                                                }  
-                                                ?>  
+                                                <?php
+                                                while ($row1 = mysqli_fetch_assoc($sql1)) {
+                                                    $sql2 = mysqli_query($conn, "select * from product where product_id ='" . $row1['product_id'] . "';");
+                                                    $row2 = mysqli_fetch_assoc($sql2);
+                                                    echo $row2['name'];
+                                                    echo "x";
+                                                    echo $row1['quantity'];
+                                                    echo "|";
+                                                } ?>
                                             </td>
                                             <td>
-                                                <input type="hidden" name= "id" value = "<?php echo $row['order_id']; ?>">
-                                                <select id ="status" name= "status" onchange="status_update(this.options[this.selectedIndex].value,'<?php echo $row['order_id']; ?>')" >  
+                                                <?php
+                                                if ($row['Status'] == 'preparing') {
+                                                    echo "Preparing";
+                                                }
+                                                if ($row['Status'] == 'done') {
+                                                    echo "Done";
+                                                }
+                                                if ($row['Status'] == 'cancel') {
+                                                    echo "Cancel";
+                                                }
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <input type="hidden" name="id" value="<?php echo $row['order_id']; ?>">
+                                                <select id="status" name="status" onchange="status_update(this.options[this.selectedIndex].value,'<?php echo $row['order_id']; ?>')">
                                                     <option selected disabled>Update Status</option>
                                                     <option value="preparing">Preparing</option>
                                                     <option value="done">Done</option>
@@ -186,18 +187,18 @@ include "dbConnection.php"
                                                 </select>
                                             </td>
                                             </form>
-                                        </tr>       
-                                <?php      }  
-                                    } ?>
+                                        </tr>
+                                <?php      }
+                                } ?>
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Age</th>
-                                    <th>Start date</th>
-                                    <th>Salary</th>
+                                    <th>ID</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Collection</th>
+                                    <th>Product List</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </tfoot>
@@ -215,7 +216,7 @@ include "dbConnection.php"
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#example').DataTable();
         });
     </script>
@@ -226,13 +227,13 @@ include "dbConnection.php"
         let navigation = document.querySelector('.navigation');
         let main = document.querySelector('.main');
 
-        toggle.onclick = function () {
+        toggle.onclick = function() {
             navigation.classList.toggle('active');
             main.classList.toggle('active');
         }
 
         // Close the dropdown if the user clicks outside of it
-        window.onclick = function (event) {
+        window.onclick = function(event) {
             if (!event.target.matches('.dropbtn')) {
                 var dropdowns = document.getElementsByClassName("dropdown-content");
                 var i;
@@ -247,9 +248,9 @@ include "dbConnection.php"
 
         // update status to database https://www.youtube.com/watch?v=zc1F50TeyIY
         //status_update(value, id)
-        function status_update(value ,id) {
+        function status_update(value, id) {
             let url = window.location;
-            window.location.href = url +"?id="+id+"&status="+value;
+            window.location.href = url + "?id=" + id + "&status=" + value;
         }
     </script>
 
