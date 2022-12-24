@@ -1,0 +1,92 @@
+/* Products Table */
+.table {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+}
+.table .products-table {
+    position: relative;
+    min-height: 500px;
+    background: var(--white);
+    padding: 20px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+}
+
+/* Products Table Header */
+.products-table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.products-table-header h2 {
+    font-weight: 600;
+    color: var(--green2);
+}
+
+/*** Search Bar ***/
+/* Search Bar Input Field*/
+.search-container {
+    position: relative;
+    width: 300px;
+    margin: 8px 10px;
+    padding-right: 50px;
+}
+
+.search-container label {
+    position: relative;
+}
+
+.search-container label input {
+    height: 40px;
+    border-radius: 40px;
+    font-size: 14px;
+    padding: 5px 20px;
+    padding-left: 52px;
+    outline: none;
+    border: 1px solid var(--black2);
+}
+.search-container label i {
+    position: absolute;
+    top: 0;
+    left: 13px;
+    padding-right: 10px;
+    font-size: 1.2em;
+    border-right: 1.5px solid #a7a7a7;
+    border-radius: 1px;
+}
+/* Manage Products Buttons */
+.manage-product-button {
+    float: inline-end;
+}
+.manage-product-button a {
+    height: 40px;
+    background-color: #f2f2f2;
+    color: black;
+    text-decoration: none;
+    margin-right: 10px;
+    padding: 8px 20px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    border-width: 1px;
+    border-radius: 20px;
+    border-color: #f2f2f2;
+}
+
+
+/* Products Table Content */
+.products-table-content {
+    overflow: auto;
+}
+.products-table-content table {
+    border-collapse: collapse;
+    width: 100%;
+}
+.products-table-content .products-table-data th, td {
+    padding: 15px;
+    text-align: justify;
+    font-size: .9rem;
+    color: #222;
+    border-bottom: 0.5px solid #ddd;
+}
