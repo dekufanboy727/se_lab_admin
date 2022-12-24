@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 24, 2022 at 07:23 PM
+-- Generation Time: Dec 24, 2022 at 11:27 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -121,8 +121,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `order_amount`, `order_date`, `order_collection`, `pickup_time`, `Status`) VALUES
-(1, 50.5, '2022-12-13 17:31:47', 'takeaway', '2022-12-13 18:31:47', 'done'),
-(2, 5, '2022-12-15 00:00:00', 'Pick Up', '2022-12-15 00:00:00', 'done');
+(1, 50.5, '2022-12-13 17:31:47', 'takeaway', '2022-12-13 18:31:47', 'preparing'),
+(2, 5, '2022-12-15 00:00:00', 'Pick Up', '2022-12-15 00:00:00', 'cancel');
 
 -- --------------------------------------------------------
 
@@ -156,7 +156,7 @@ INSERT INTO `order_product` (`id`, `order_id`, `product_id`, `quantity`) VALUES
 
 CREATE TABLE `product` (
   `product_id` int(11) NOT NULL,
-  `name` text NOT NULL,
+  `product_name` text NOT NULL,
   `price` float NOT NULL,
   `product_type` int(100) NOT NULL,
   `product_desc` text NOT NULL,
@@ -169,12 +169,13 @@ CREATE TABLE `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`product_id`, `name`, `price`, `product_type`, `product_desc`, `product_quan`, `product_cal`, `product_img`) VALUES
+INSERT INTO `product` (`product_id`, `product_name`, `price`, `product_type`, `product_desc`, `product_quan`, `product_cal`, `product_img`) VALUES
 (1, 'Gu Mor Kak', 8.9, 1, '“Gu Mor Kak” or Demon Cow’s Horn Biscuit is a chinese homemade traditional biscuit that is packed with savory rosated chicken fillings, with a thin layered crust wrapped around it. It’s crunchy textute and salty with a hint a sweetness flavour is exactly why Gu Mor Kak is one of our cafe’s signature pastries and best seller. ', 90, 35, ''),
 (2, 'Geh Bo Gok Tat', 6.9, 1, 'Homemade Portuguese style egg tart baked with an outer layer of crust, fragant egg fillings and a layer of burnt cheese on top. It’s aromatic, sweet and satly fillings combined with the crusty outer layer is definately a must try. ', 40, 125, ''),
 (3, 'Kopi Bancuh', 5, 3, 'Black coffee with sugar and evaporated milk, which is similar to condensed milk, but unsweetened.', 100, 40, ''),
 (4, 'Teh Bancuh', 5, 3, 'A popular hot milk tea beverage most commonly found in restaurants, outdoor stalls, mamaks and kopitiams within the Southeast Asian countries of Malaysia, Indonesia, Singapore and Thailand', 100, 40, ''),
-(5, 'Oreo Cheesecake', 4.5, 2, 'Served fresh of the fridge with butter and oreo crumps as the base, special homemade cream cheese and milk recipe as the middle layer and top it off with oreo poweder sprinkles and a piece of oreo biscuit. Oreo lovers what are you waiting for? Try it now.', 60, 562, '');
+(5, 'Oreo Cheesecake', 4.5, 2, 'Served fresh of the fridge with butter and oreo crumps as the base, special homemade cream cheese and milk recipe as the middle layer and top it off with oreo poweder sprinkles and a piece of oreo biscuit. Oreo lovers what are you waiting for? Try it now.', 60, 562, ''),
+(7, 'cup', 3, 3, '3', 3, 3, 'product_images/cappuccino.jpg');
 
 -- --------------------------------------------------------
 
@@ -281,7 +282,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
