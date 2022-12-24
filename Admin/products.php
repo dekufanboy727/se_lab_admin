@@ -27,6 +27,20 @@ include "dbConnection.php"
             echo "You are not Logged in";
             header("Location: adminlogout.php");
         }
+
+        $notice = "";
+        //Product Deletion
+        if($_SERVER["REQUEST_METHOD"] == "GET")
+        {
+            if(isset($_GET['product']) == true){
+                $deleteid = $_GET['product'];
+                $sql3 = "DELETE FROM product WHERE product_id = '$deleteid'";
+                $result = mysqli_query($conn,$sql3);
+                if($result === true)
+                    $notice = "A product is deleted!";
+                    header("Location: products.php");
+            }
+        }
     ?>
     <div class="container">
         <div class="navigation">
@@ -136,19 +150,6 @@ include "dbConnection.php"
                                 </tr>
                             </thead>
                             <?php
-                                $notice = "";
-                                //Product Deletion
-                                if($_SERVER["REQUEST_METHOD"] == "POST")
-                                {
-                                    if(isset($_POST['delete_id']) == true){
-                                        $deleteid = $_POST['delete_id'];
-                                        $sql3 = "DELETE FROM product WHERE product_id = '$deleteid'";
-                                        $result = mysqli_query($conn,$sql3);
-                                        if($result === true)
-                                            $notice = "A product is deleted!";
-                                    }
-                                }
-
                                 //Output delete successfully
                                 echo '<p align=center style="font-size:20px;font-family: Monaco;">';
                                 echo $notice;
@@ -174,9 +175,7 @@ include "dbConnection.php"
                                             <td><?php echo $row['product_cal'] ?></td>
                                             <?php 
                                                 echo '<td><a href="edit_product.php?product='.$row['product_id'].'"><ion-icon name="create"></a></td>';
-                                                echo '<form name="delete" method="post" action="'.$_SERVER["PHP_SELF"].'">';
-                                                echo '<td><button type="submit" class="delete-button"><ion-icon name="trash-outline"></ion-icon></button></td>';
-                                                echo '<input type="hidden" id="delete_id" name="delete_id" value="'.$row['product_id'].'"></form>';
+                                                echo '<td><a href="javascript: myDeleteConfirmationFunction('.$row['product_id'].')"  alt = "delete" class="delete-button"><ion-icon name="trash-outline"></ion-icon></a></td>';
                                             ?>
                                         </tr>
                                 <?php      }
@@ -224,6 +223,13 @@ include "dbConnection.php"
                     tr[i].style.display = "none";
                 }
                 }
+            }
+        }
+
+        function myDeleteConfirmationFunction(uid) {
+            if (confirm('Are You Sure to Delete this Record?'))
+            {
+                window.location.href = 'products.php?product=' + uid;
             }
         }
     </script>
