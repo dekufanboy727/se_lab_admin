@@ -136,10 +136,11 @@ include "dbConnection.php"
                                 </label>
                             </th>
                             <th class="manage-product-button">
-                                <a href="products_add.html" class="button">Add <i class="fa-solid fa-plus"></i></a>
+                                <a href="add_product.php" class="button">Add <i class="fa-solid fa-plus"></i></a>
                             </th>
                         </tr>
                     </table>
+
                     <div class="products-table-content">
                         <table id="myTable">
                             <thead>
@@ -171,9 +172,9 @@ include "dbConnection.php"
                                         $row1 = mysqli_fetch_assoc($sql1)
                             ?>
                                         <tr>
-                                            <td><?php echo $row['product_img'] ?></td>
+                                            <td><?php echo '<img src="'.$row["product_img"].'" height ="100" width = "100">' ?></td>
                                             <td><?php echo $row1['type_name']?></td>
-                                            <td id = "product_name"><?php echo $row['name'] ?></td>
+                                            <td id = "product_name"><?php echo $row['product_name'] ?></td>
                                             <td><?php echo $row['product_desc'] ?></td>
                                             <td><?php echo $row['price'] ?></td>
                                             <td><?php echo $row['product_quan'] ?></td>

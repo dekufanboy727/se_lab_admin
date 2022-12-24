@@ -158,7 +158,7 @@ include "dbConnection.php"
                                                 while ($row1 = mysqli_fetch_assoc($sql1)) {
                                                     $sql2 = mysqli_query($conn, "select * from product where product_id ='" . $row1['product_id'] . "';");
                                                     $row2 = mysqli_fetch_assoc($sql2);
-                                                    echo $row2['name'];
+                                                    echo $row2['product_name'];
                                                     echo "x";
                                                     echo $row1['quantity'];
                                                     echo "|";
