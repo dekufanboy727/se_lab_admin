@@ -71,7 +71,7 @@ include "dbConnection.php"
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="events.html">
                         <span class="icon">
                             <ion-icon name="sparkles-outline"></ion-icon>
                         </span>

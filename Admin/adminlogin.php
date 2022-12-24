@@ -109,6 +109,8 @@ session_start();
                     <input type="reset" value="Clear" onclick="myReset()">
                     <input type="submit" value="Log In">
                 </div>
+                <div class="form-control"></div>
+                <div class="form-control"></div>
             </form>
         </div>
         <!--End class container-->
