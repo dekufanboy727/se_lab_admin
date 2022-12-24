@@ -14,8 +14,8 @@ include "dbConnection.php"
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="stylesheet" type="text/css" href="products.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/products.css">
     <link rel="icon" type="image/jpg" href="images/profile.jpg">
     <script src="https://kit.fontawesome.com/4fdfa3530e.js" crossorigin="anonymous"></script>
 </head>
@@ -127,13 +127,19 @@ include "dbConnection.php"
                     <div class="products-table-header">
                         <h2>Products</h2>
                     </div>
-                    <div class="controller-container">
-                        <div class="search-container">
-                            <input type="text" id="myInput" onkeyup="mySearchFunction()" placeholder="Search Here.." name="products-search-bar" title="Type in a product">
-                        </div>
-                        <a href="products_add.html" class="button">Add</a>
-                        <a href="products_best_seller.html" class="button">Best Seller</a>
-                    </div>
+                    <table>
+                        <tr>
+                            <th class="search-container">
+                                <label>
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                    <input type="text" id="myInput" onkeyup="mySearchFunction()" placeholder="Search Here.." name="products-search-bar" title="Type in a product">
+                                </label>
+                            </th>
+                            <th class="manage-product-button">
+                                <a href="products_add.html" class="button">Add <i class="fa-solid fa-plus"></i></a>
+                            </th>
+                        </tr>
+                    </table>
                     <div class="products-table-content">
                         <table id="myTable">
                             <thead>
@@ -145,8 +151,7 @@ include "dbConnection.php"
                                     <th>Price (RM)</th>
                                     <th>Quantity</th>
                                     <th>Calorie (kcal)</th>
-                                    <th></th>
-                                    <th></th>
+                                    <th colspan="2">Action</th>
                                 </tr>
                             </thead>
                             <?php
