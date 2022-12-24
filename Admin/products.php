@@ -114,60 +114,73 @@ include "dbConnection.php"
                         <h2>Products</h2>
                     </div>
                     <div class="controller-container">
-                        <a href="products_add.html" class="button">Add</a>
-                        <a href="products_edit.html" class="button">Edit</a>
-                        <a href="products_delete.html" class="button">Delete</a>
-                        <a href="products_best_seller.html" class="button">Best Seller</a>
                         <div class="search-container">
-                            <form>
-                                <input type="text" placeholder="Search Here.." name="products-search-bar">
-                                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></i></button>
-                            </form>
+                            <input type="text" id="myInput" onkeyup="mySearchFunction()" placeholder="Search Here.." name="products-search-bar" title="Type in a product">
                         </div>
+                        <a href="products_add.html" class="button">Add</a>
+                        <a href="products_best_seller.html" class="button">Best Seller</a>
                     </div>
                     <div class="products-table-content">
-                        <table>
+                        <table id="myTable">
                             <thead>
                                 <tr>
+                                    <th>Image</th>
                                     <th>Type</th>
                                     <th>Name</th>
                                     <th>Description</th>
                                     <th>Price (RM)</th>
                                     <th>Quantity</th>
                                     <th>Calorie (kcal)</th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
                             </thead>
+                            <?php
+                                $notice = "";
+                                //Product Deletion
+                                if($_SERVER["REQUEST_METHOD"] == "POST")
+                                {
+                                    if(isset($_POST['delete_id']) == true){
+                                        $deleteid = $_POST['delete_id'];
+                                        $sql3 = "DELETE FROM product WHERE product_id = '$deleteid'";
+                                        $result = mysqli_query($conn,$sql3);
+                                        if($result === true)
+                                            $notice = "A product is deleted!";
+                                    }
+                                }
+
+                                //Output delete successfully
+                                echo '<p align=center style="font-size:20px;font-family: Monaco;">';
+                                echo $notice;
+                                echo '</p>';
+
+                                //Tabulating Products
+                                $sql = mysqli_query($conn, "select * from product");
+                            ?>
                             <tbody>
-                                <tr>
-                                    <td>Pastries</td>
-                                    <td>Gu Mor Kak</td>
-                                    <td>
-                                        “Gu Mor Kak” or Demon Cow’s Horn Biscuit is a chinese homemade traditional biscuit that is packed with savory rosated chicken fillings, with a thin layered crust wrapped around it. It’s crunchy textute and salty with a hint a sweetness flavour is exactly why Gu Mor Kak is one of our cafe’s signature pastries and best seller.
-                                    </td>
-                                    <td>8.90</td>
-                                    <td>2</td>
-                                    <td>35</td>
-                                </tr>
-                                <tr>
-                                    <td>Pastries</td>
-                                    <td>Portuguese Tart</td>
-                                    <td>
-                                        Homemade Portuguese style egg tart baked with an outer layer of crust, fragant egg fillings and a layer of burnt cheese on top. It’s aromatic, sweet and satly fillings combined with the crusty outer layer is definately a must try.
-                                    </td>
-                                    <td>9.90</td>
-                                    <td>3</td>
-                                    <td>125</td>
-                                </tr>
-                                <tr>
-                                    <td>Desserts</td>
-                                    <td>Oreo Cheesecake</td>
-                                    <td>
-                                        Served fresh of the fridge with butter and oreo crumps as the base, special homemade cream cheese and milk recipe as the middle layer and top it off with oreo poweder sprinkles and a piece of oreo biscuit. Oreo lovers what are you waiting for? Try it now.
-                                    </td>
-                                    <td>13.00</td>
-                                    <td>1</td>
-                                    <td>562</td>
-                                </tr>
+                            <?php
+                                if (mysqli_num_rows($sql) > 0) {
+                                    while ($row = mysqli_fetch_assoc($sql)) {
+                                        $sql1 = mysqli_query($conn, "select * from product_type where id ='".$row['product_type']."';");
+                                        $row1 = mysqli_fetch_assoc($sql1)
+                            ?>
+                                        <tr>
+                                            <td><?php echo $row['product_img'] ?></td>
+                                            <td><?php echo $row1['type_name']?></td>
+                                            <td id = "product_name"><?php echo $row['name'] ?></td>
+                                            <td><?php echo $row['product_desc'] ?></td>
+                                            <td><?php echo $row['price'] ?></td>
+                                            <td><?php echo $row['product_quan'] ?></td>
+                                            <td><?php echo $row['product_cal'] ?></td>
+                                            <?php 
+                                                echo '<td><a href="edit_product.php?product='.$row['product_id'].'"><ion-icon name="create"></a></td>';
+                                                echo '<form name="delete" method="post" action="'.$_SERVER["PHP_SELF"].'">';
+                                                echo '<td><button type="submit" class="delete-button"><ion-icon name="trash-outline"></ion-icon></button></td>';
+                                                echo '<input type="hidden" id="delete_id" name="delete_id" value="'.$row['product_id'].'"></form>';
+                                            ?>
+                                        </tr>
+                                <?php      }
+                                } ?>
                             </tbody>
                         </table>
                     </div>
@@ -190,6 +203,28 @@ include "dbConnection.php"
         toggle.onclick = function () {
             navigation.classList.toggle('active');
             main.classList.toggle('active');
+        }
+
+        function mySearchFunction() {
+            // Declare variables
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[2];
+                if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+                }
+            }
         }
     </script>
 </body>
