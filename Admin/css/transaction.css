@@ -19,34 +19,36 @@
     grid-gap: 0px;
 }
 
-/*Search Invoice No*/
-.grid-container input[type=text] {
-    background-color: white;
-    padding: 8px 15px;
-    margin-top: 8px;
-    margin-bottom: 8px;
-    font-size: 14px;
-    border-color: #f2f2f2;
-    border-width: 1px;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
+/*** Search Bar ***/
+/* Search Bar Input Field*/
+.search-container {
+    position: relative;
+    width: 300px;
+    margin: 8px 10px;
+    padding-right: 50px;
 }
-.grid-container .search-container button {
-    position: absolute;
-    float: right;
-    padding: 8px 12px;
-    margin-top: 8px;
-    margin-right: 40px;
-    background: #f2f2f2;
+
+.search-container label {
+    position: relative;
+}
+
+.search-container label input {
+    height: 40px;
+    border-radius: 40px;
     font-size: 14px;
-    border-color: #f2f2f2;
-    border-width: 1px;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    cursor: pointer;
-  }
-.grid-container .search-container button:hover {
-    background: #d2d2d2;
+    padding: 5px 20px;
+    padding-left: 52px;
+    outline: none;
+    border: 1px solid var(--black2);
+}
+.search-container label i {
+    position: absolute;
+    top: 0;
+    left: 13px;
+    padding-right: 10px;
+    font-size: 1.2em;
+    border-right: 1.5px solid #a7a7a7;
+    border-radius: 1px;
 }
 
 /* Filter Dropdown Button */
