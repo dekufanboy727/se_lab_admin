@@ -14,10 +14,11 @@ include "dbConnection.php"
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transaction</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="stylesheet" type="text/css" href="transaction.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/transaction.css">
     <link rel="icon" type="image/jpg" href="images/profile.jpg">
     <script src="https://kit.fontawesome.com/4fdfa3530e.js" crossorigin="anonymous"></script>
+    <script src="js/transaction.js"></script>
 </head>
 
 <body>
@@ -115,10 +116,10 @@ include "dbConnection.php"
                     </div>
                     <div class="grid-container">
                         <div class="search-container">
-                            <form>
-                                <input type="text" placeholder="Invoice No.." name="search-invoice-no">
-                                <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></i></button>
-                            </form>
+                            <label>
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input type="text" id="searchBar" placeholder="Search Here..">
+                            </label>
                         </div>
                         <div class="grid-child filter">
                             <div class="filter-dropdown">
@@ -138,97 +139,41 @@ include "dbConnection.php"
                         </div>
                     </div>
                     <div class="transaction-table-content">
-                        <table>
+                        <table class="transaction-table-data" id="transactionTable">
                             <thead>
                                 <tr>
                                     <th>Date</th>
-                                    <th>Invoice No</th>
-                                    <th>Item</th>
-                                    <th>Quantity</th>
-                                    <th>Amount</th>
+                                    <th>Invoice No <i onclick="sortByInt(1)" class="fa-solid fa-sort"></i></th>
+                                    <th>Item <i onclick="sortByAlphabet(2)" class="fa-solid fa-sort"></i></th>
+                                    <th>Quantity <i onclick="sortByInt(3)" class="fa-solid fa-sort"></i></th>
+                                    <th>Amount (RM) <i onclick="sortByFloat(4)" class="fa-solid fa-sort"></i></th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
 
                             <tbody>
                                 <tr>
-                                    <td>20/11/2023</td>
-                                    <td>3</td>
+                                    <td>2022-12-13 17:31:47</td>
+                                    <td>2212130001</td>
                                     <td>Gu Mor Kak</td>
                                     <td>2</td>
-                                    <td>RM17.80</td>
+                                    <td>17.80</td>
                                     <td><button class="delete-button"><ion-icon name="trash-outline"></ion-icon></button></td>
                                 </tr>
                                 <tr>
-                                    <td>20/11/2023</td>
-                                    <td>1</td>
-                                    <td>Gu Mor Kak</td>
-                                    <td>2</td>
-                                    <td>RM17.80</td>
+                                    <td>2022-12-15 00:00:00	</td>
+                                    <td>2212150015</td>
+                                    <td>Geh Bo Kak Tat</td>
+                                    <td>10</td>
+                                    <td>40.80</td>
                                     <td><button class="delete-button"><ion-icon name="trash-outline"></ion-icon></button></td>
                                 </tr>
                                 <tr>
-                                    <td>20/11/2023</td>
-                                    <td>2</td>
-                                    <td>Gu Mor Kak</td>
-                                    <td>2</td>
-                                    <td>RM17.80</td>
-                                    <td><button class="delete-button"><ion-icon name="trash-outline"></ion-icon></button></td>
-                                </tr>
-                                <tr>
-                                    <td>20/11/2023</td>
-                                    <td>2</td>
-                                    <td>Gu Mor Kak</td>
-                                    <td>2</td>
-                                    <td>RM17.80</td>
-                                    <td><button class="delete-button"><ion-icon name="trash-outline"></ion-icon></button></td>
-                                </tr>
-                                <tr>
-                                    <td>20/11/2023</td>
-                                    <td>2</td>
-                                    <td>Gu Mor Kak</td>
-                                    <td>2</td>
-                                    <td>RM17.80</td>
-                                    <td><button class="delete-button"><ion-icon name="trash-outline"></ion-icon></button></td>
-                                </tr>
-                                <tr>
-                                    <td>20/11/2023</td>
-                                    <td>2</td>
-                                    <td>Gu Mor Kak</td>
-                                    <td>2</td>
-                                    <td>RM17.80</td>
-                                    <td><button class="delete-button"><ion-icon name="trash-outline"></ion-icon></button></td>
-                                </tr>
-                                <tr>
-                                    <td>20/11/2023</td>
-                                    <td>2</td>
-                                    <td>Gu Mor Kak</td>
-                                    <td>2</td>
-                                    <td>RM17.80</td>
-                                    <td><button class="delete-button"><ion-icon name="trash-outline"></ion-icon></button></td>
-                                </tr>
-                                <tr>
-                                    <td>20/11/2023</td>
-                                    <td>2</td>
-                                    <td>Gu Mor Kak</td>
-                                    <td>2</td>
-                                    <td>RM17.80</td>
-                                    <td><button class="delete-button"><ion-icon name="trash-outline"></ion-icon></button></td>
-                                </tr>
-                                <tr>
-                                    <td>20/11/2023</td>
-                                    <td>2</td>
-                                    <td>Gu Mor Kak</td>
-                                    <td>2</td>
-                                    <td>RM17.80</td>
-                                    <td><button class="delete-button"><ion-icon name="trash-outline"></ion-icon></button></td>
-                                </tr>
-                                <tr>
-                                    <td>20/11/2023</td>
-                                    <td>2</td>
-                                    <td>Gu Mor Kak</td>
-                                    <td>2</td>
-                                    <td>RM17.80</td>
+                                    <td>2023-01-07 12:30:26</td>
+                                    <td>2301070010</td>
+                                    <td>Geh Bo Kak Tat; Oreo Cheesecake</td>
+                                    <td>2; 6</td>
+                                    <td>60.50</td>
                                     <td><button class="delete-button"><ion-icon name="trash-outline"></ion-icon></button></td>
                                 </tr>
                             </tbody>
@@ -257,6 +202,9 @@ include "dbConnection.php"
     </script>
 
     <script>
+        //Add event listener to search box
+        searchBar.addEventListener('keyup', performSearch);
+
         function dropdownFunction() {
             document.getElementById("dropdownContent").classList.toggle("show");
         }
