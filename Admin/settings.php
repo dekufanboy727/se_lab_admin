@@ -15,6 +15,7 @@ include "dbConnection.php"
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings</title>
+    <link rel="icon" type="image/jpg" href="images/profile.jpg">
     <link rel="stylesheet" href="css/settings.css">
 </head>
 
@@ -136,7 +137,7 @@ include "dbConnection.php"
                                 <label for="password">Password</label>
                             </div>
                             <div class="col-75">
-                                <input type="text" name="password" id="password" placeholder="******">
+                                <input type="password" name="password" id="password" placeholder="******">
                             </div>
                         </div>
                         <div class="row">
