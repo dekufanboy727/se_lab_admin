@@ -14,7 +14,7 @@
             <a href="index.html"><img src="images/helf_coffee_logo.png" alt="Helf Coffee Logo" style="width: 130px" href="index.html"></a>
         </div>
 
-        <a href="#" class="login">Login</a>
+        <a href="user_login.php" class="login">Login</a>
 
         <nav class="pages">
             <ul>
