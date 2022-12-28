@@ -59,7 +59,10 @@ session_start();
             //echo "Login successful";
             //Redirecting admin to home menu
             $_SESSION['logged_in'] = true;
+            $record = mysqli_fetch_assoc($isFound);
+            $_SESSION['admin_id'] = $record['admin_id'];
             header("Location: index.php");
+            
         } else {
             //echo "Login unsuccessful";
             $error = "Incorrect email or password! Please try again.";
