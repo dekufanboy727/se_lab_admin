@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 27, 2022 at 10:28 PM
+-- Generation Time: Dec 28, 2022 at 10:54 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -31,15 +31,19 @@ CREATE TABLE `admin` (
   `admin_id` int(100) NOT NULL,
   `username` varchar(50) NOT NULL,
   `pass` varchar(50) NOT NULL,
-  `email` varchar(50) NOT NULL
+  `email` varchar(50) NOT NULL,
+  `phone_num` varchar(50) NOT NULL,
+  `address` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`admin_id`, `username`, `pass`, `email`) VALUES
-(1, 'admin01', 'admin123', 'admin01@somemail.com');
+INSERT INTO `admin` (`admin_id`, `username`, `pass`, `email`, `phone_num`, `address`) VALUES
+(1, 'admin01', 'admin123', 'admin01@somemail.com', '+60100000001', 'AAAA land'),
+(2, 'admin02', 'admin234', 'admin02@somemail.com', '+60100000002', 'BBBB land'),
+(3, 'admin03', 'admin345', 'admin03@somemail.com', '+60100000003', 'CCCC land');
 
 -- --------------------------------------------------------
 
@@ -104,6 +108,47 @@ CREATE TABLE `customer` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `event`
+--
+
+CREATE TABLE `event` (
+  `id` int(100) NOT NULL,
+  `name` text NOT NULL,
+  `start_date` datetime(6) NOT NULL,
+  `end_date` datetime(6) NOT NULL,
+  `description` text NOT NULL,
+  `discount` int(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `event`
+--
+
+INSERT INTO `event` (`id`, `name`, `start_date`, `end_date`, `description`, `discount`) VALUES
+(1, '11/11 Sales!', '2022-11-11 05:49:19.000000', '2022-12-12 05:49:19.000000', 'It is an event of splendor and wonder for adults and kids galore!', 80);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `event_prodtype`
+--
+
+CREATE TABLE `event_prodtype` (
+  `event_id` int(100) NOT NULL,
+  `product_type_id` int(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `event_prodtype`
+--
+
+INSERT INTO `event_prodtype` (`event_id`, `product_type_id`) VALUES
+(1, 1),
+(1, 2);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `orders`
 --
 
@@ -121,8 +166,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`order_id`, `order_amount`, `order_date`, `order_collection`, `pickup_time`, `Status`) VALUES
-(1, 50.5, '2022-12-13 17:31:47', 'takeaway', '2022-12-13 18:31:47', 'preparing'),
-(2, 5, '2022-12-15 00:00:00', 'Pick Up', '2022-12-15 00:00:00', 'cancel');
+(1, 50.5, '2022-12-13 17:31:47', 'takeaway', '2022-12-13 18:31:47', 'done'),
+(2, 5, '2022-12-15 00:00:00', 'Pick Up', '2022-12-15 00:00:00', 'done');
 
 -- --------------------------------------------------------
 
@@ -198,6 +243,25 @@ INSERT INTO `product_type` (`id`, `type_name`, `type_desc`) VALUES
 (2, 'dessert', 'A usually sweet course or dish (as of pastry or ice cream) usually served at the end of a meal.'),
 (3, 'drinks', 'A liquid intended for human consumption.');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transaction`
+--
+
+CREATE TABLE `transaction` (
+  `trans_id` int(100) NOT NULL,
+  `order_id` int(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `transaction`
+--
+
+INSERT INTO `transaction` (`trans_id`, `order_id`) VALUES
+(2000000001, 1),
+(2000000002, 2);
+
 --
 -- Indexes for dumped tables
 --
@@ -227,6 +291,19 @@ ALTER TABLE `customer`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `event`
+--
+ALTER TABLE `event`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `event_prodtype`
+--
+ALTER TABLE `event_prodtype`
+  ADD PRIMARY KEY (`event_id`,`product_type_id`),
+  ADD KEY `product_type_id` (`product_type_id`);
+
+--
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
@@ -236,19 +313,28 @@ ALTER TABLE `orders`
 -- Indexes for table `order_product`
 --
 ALTER TABLE `order_product`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_id` (`order_id`),
+  ADD KEY `product_id` (`product_id`);
 
 --
 -- Indexes for table `product`
 --
 ALTER TABLE `product`
-  ADD PRIMARY KEY (`product_id`);
+  ADD PRIMARY KEY (`product_id`),
+  ADD KEY `product_type` (`product_type`);
 
 --
 -- Indexes for table `product_type`
 --
 ALTER TABLE `product_type`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `transaction`
+--
+ALTER TABLE `transaction`
+  ADD PRIMARY KEY (`trans_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -283,6 +369,30 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `product`
   MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `event_prodtype`
+--
+ALTER TABLE `event_prodtype`
+  ADD CONSTRAINT `event_id` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `product_type_id` FOREIGN KEY (`product_type_id`) REFERENCES `product_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `order_product`
+--
+ALTER TABLE `order_product`
+  ADD CONSTRAINT `order_id` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `product`
+--
+ALTER TABLE `product`
+  ADD CONSTRAINT `product_type` FOREIGN KEY (`product_type`) REFERENCES `product_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
