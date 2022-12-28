@@ -81,7 +81,7 @@ include "dbConnection.php"
                 $validate = false;
                 
             }else{
-                $name = test($_POST['price']);
+                $price = test($_POST['price']);
             }
 
             if(empty($_POST["category"]))
@@ -91,7 +91,7 @@ include "dbConnection.php"
                 
                 
             }else{
-                $name = test($_POST['category']);
+                $category = test($_POST['category']);
             }
 
             if(empty($_POST["quantity"]))
@@ -100,7 +100,7 @@ include "dbConnection.php"
                 $validate = false;
                 
             }else{
-                $name = test($_POST['quantity']);
+                $quantity = test($_POST['quantity']);
             }
 
             if(empty($_POST["calorie"]))
@@ -110,7 +110,7 @@ include "dbConnection.php"
                 
                 
             }else{
-                $name = test($_POST['calorie']);
+                $calorie = test($_POST['calorie']);
             }
 
             if(empty($_POST["description"]))
@@ -120,7 +120,7 @@ include "dbConnection.php"
                 
 
             }else{
-                $name = test($_POST['description']);
+                $description = test($_POST['description']);
             }
 
             if($validate == true)
@@ -137,7 +137,6 @@ include "dbConnection.php"
 
                 if($nameerr == "" && $calorieerr == "" && $priceerr == "" && $categoryerr == "" && $descriptionerr == "" && $quantityerr == ""){
 
-                    $em = $nameerr.".".$calorieerr.".".$priceerr.".".$categoryerr.".".$quantityerr.".".$descriptionerr.".".$shownid;
                     // Insert into Database
                     $updatesql = "UPDATE product SET product_name = '$name', price= '$price', product_type = '$category', product_desc = '$description', product_quan = '$quantity',
                                  product_cal = '$calorie' WHERE product_id = $shownid";

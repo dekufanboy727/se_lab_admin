@@ -147,7 +147,6 @@ include "dbConnection.php"
                                     <th>Item <i onclick="sortByAlphabet(2)" class="fa-solid fa-sort"></i></th>
                                     <th>Quantity <i onclick="sortByInt(3)" class="fa-solid fa-sort"></i></th>
                                     <th>Amount (RM) <i onclick="sortByFloat(4)" class="fa-solid fa-sort"></i></th>
-                                    <th>Action</th>
                                 </tr>
                             </thead>
 
@@ -158,7 +157,6 @@ include "dbConnection.php"
                                     <td>Gu Mor Kak</td>
                                     <td>2</td>
                                     <td>17.80</td>
-                                    <td><button class="delete-button"><ion-icon name="trash-outline"></ion-icon></button></td>
                                 </tr>
                                 <tr>
                                     <td>2022-12-15 00:00:00	</td>
@@ -166,7 +164,6 @@ include "dbConnection.php"
                                     <td>Geh Bo Kak Tat</td>
                                     <td>10</td>
                                     <td>40.80</td>
-                                    <td><button class="delete-button"><ion-icon name="trash-outline"></ion-icon></button></td>
                                 </tr>
                                 <tr>
                                     <td>2023-01-07 12:30:26</td>
@@ -174,7 +171,6 @@ include "dbConnection.php"
                                     <td>Geh Bo Kak Tat; Oreo Cheesecake</td>
                                     <td>2; 6</td>
                                     <td>60.50</td>
-                                    <td><button class="delete-button"><ion-icon name="trash-outline"></ion-icon></button></td>
                                 </tr>
                             </tbody>
                         </table>
