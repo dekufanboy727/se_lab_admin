@@ -22,11 +22,41 @@ include "dbConnection.php"
 </head>
 
 <body>
-    <?php //Session Control
+    <?php 
+        date_default_timezone_set("Asia/Kuching");
+
+        //Session Control
         if (empty($_SESSION['logged_in']) == true)
         {
             echo "You are not Logged in";
             header("Location: adminlogout.php");
+        }
+
+
+        if ($_SERVER["REQUEST_METHOD"] == "GET"){
+            if(isset($_GET["latest"])){
+                $sql = mysqli_query($conn, "select * from transaction");
+            }else if(isset($_GET["today"])){
+                $date1 = date('d');
+                $date2 = date('m');
+                $date3 = date('Y');
+
+                $sql = mysqli_query($conn, "select * from transaction inner join orders on transaction.order_id = orders.order_id 
+                where DAY(order_date) = '$date1' AND MONTH(order_date) = '$date2' AND YEAR(order_Date) = '$date3'");
+
+            }else if(isset($_GET["this-week"])){
+                $date1 = date( 'W');
+                $date2 = date( 'Y');
+                $sql = mysqli_query($conn, "select * from transaction inner join orders on transaction.order_id = orders.order_id 
+                where WEEK(order_date) = '$date1' AND YEAR(order_date) = '$date2'");
+
+            }else if(isset($_GET["this-month"])){
+                $date2 = date('m');
+                $date3 = date('Y');
+
+                $sql = mysqli_query($conn, "select * from transaction inner join orders on transaction.order_id = orders.order_id 
+                where MONTH(order_date) = '$date2' AND YEAR(order_Date) = '$date3'");
+            }
         }
     ?>
     <div class="container">
@@ -118,19 +148,17 @@ include "dbConnection.php"
                         <div class="search-container">
                             <label>
                                 <i class="fa-solid fa-magnifying-glass"></i>
-                                <input type="text" id="searchBar" placeholder="Search Here..">
+                                <input type="text" id="myInput" onkeyup="mySearchFunction()" placeholder="Search Here..">
                             </label>
                         </div>
                         <div class="grid-child filter">
                             <div class="filter-dropdown">
                                 <button onclick="dropdownFunction()" class="dropbtn">Filter By <i class="fa-solid fa-filter"></i></button>
                                 <div id="dropdownContent" class="dropdown-content">
-                                    <a href="#latest">Latest</a>
-                                    <a href="#today">Today</a>
-                                    <a href="#this-week">This Week</a>
-                                    <a href="#last-week">Last Week</a>
-                                    <a href="#last-week">Last Two Weeks</a>
-                                    <a href="#this-month">This Month</a>
+                                    <a href="?latest=1">Latest</a>
+                                    <a href="?today=1">Today</a>
+                                    <a href="?this-week=1">This Week</a>
+                                    <a href="?this-month=1">This Month</a>
                                 </div>
                             </div>
                         </div>
@@ -151,33 +179,48 @@ include "dbConnection.php"
                             </thead>
 
                             <tbody>
-                                <tr>
-                                    <td>2022-12-13 17:31:47</td>
-                                    <td>2212130001</td>
-                                    <td>Gu Mor Kak</td>
-                                    <td>2</td>
-                                    <td>17.80</td>
-                                </tr>
-                                <tr>
-                                    <td>2022-12-15 00:00:00	</td>
-                                    <td>2212150015</td>
-                                    <td>Geh Bo Kak Tat</td>
-                                    <td>10</td>
-                                    <td>40.80</td>
-                                </tr>
-                                <tr>
-                                    <td>2023-01-07 12:30:26</td>
-                                    <td>2301070010</td>
-                                    <td>Geh Bo Kak Tat; Oreo Cheesecake</td>
-                                    <td>2; 6</td>
-                                    <td>60.50</td>
-                                </tr>
+                            <?php
+                                $i = 1;
+                                if(isset($sql))
+                                {
+                                    if (mysqli_num_rows($sql) > 0) {
+                                        while ($row = mysqli_fetch_assoc($sql)) {
+    
+                                            $sql1 = mysqli_query($conn, "select * from orders where order_id = '".$row['order_id']."';");
+                                            $row1 = mysqli_fetch_assoc($sql1);
+                                            $sql2 = mysqli_query($conn, "select * from order_product where order_id = '".$row['order_id']."';");
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $row1['order_date'] ?></td>
+                                            <td><?php echo $row['trans_id']?></td>
+                                            <td>
+                                                <?php
+                                                while ($row2 = mysqli_fetch_assoc($sql2)) {
+                                                    $sql3 = mysqli_query($conn, "select * from product where product_id ='" . $row2['product_id'] . "';");
+                                                    $row3 = mysqli_fetch_assoc($sql3);
+                                                    echo $row3['product_name'];
+                                                    echo ";";
+                                                } ?>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                $sql2 = mysqli_query($conn, "select * from order_product where order_id = '".$row['order_id']."';");
+                                                while ($row4 = mysqli_fetch_assoc($sql2)) {
+                                                    echo $row4['quantity'];
+                                                    echo ";";
+                                                } ?> 
+                                            </td>
+                                            <td><?php echo $row1['order_amount'] ?></td>
+                                        </tr>
+                                <?php      }
+                                    }else{
+                                        echo "<tr><h3> No Results Found </h3></tr>";
+                                    }
+                                }  ?>
                             </tbody>
                         </table>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
@@ -203,6 +246,28 @@ include "dbConnection.php"
 
         function dropdownFunction() {
             document.getElementById("dropdownContent").classList.toggle("show");
+        }
+
+        function mySearchFunction() {
+            // Declare variables
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("transactionTable");
+            tr = table.getElementsByTagName("tr");
+
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+                }
+            }
         }
     </script>
 </body>
