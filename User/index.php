@@ -1,3 +1,15 @@
+<?php
+    session_start();
+    include 'dbConnection.php';
+
+    if(!empty($_GET['status'])){
+        session_destroy();
+        unset($_SESSION['email']);
+        header('Location: index.php');
+    }
+    
+ ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,15 +23,22 @@
 <body>
     <div class="nav_bar">
         <div class="logo">
-            <a href="index.html"><img src="images/helf_coffee_logo.png" alt="Helf Coffee Logo" style="width: 130px" href="index.html"></a>
+            <a href="index.php"><img src="images/helf_coffee_logo.png" alt="Helf Coffee Logo" style="width: 130px" href="index.html"></a>
         </div>
 
+        <?php if(!isset($_SESSION['logged_in'])) : ?>
         <a href="user_login.php" class="login">Login</a>
+        <?php endif ?>
+
+        <?php if(isset($_SESSION['logged_in'])) : ?>
+        <a href="index.php?status=loggedout " class="login">Logout</a>
+        <a href="profile.php" class="login">Profile</a> 
+        <?php endif ?>
 
         <nav class="pages">
             <ul>
                 <li><a href="#">About Us</a></li>
-                <li><a href="menu_best_seller.html">Menu</a></li>
+                <li><a href="menu_best_seller.php">Menu</a></li>
                 <li><a href="#">Events</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
