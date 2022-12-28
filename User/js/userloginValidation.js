@@ -74,9 +74,9 @@ function isEmail(email){
 }
 
 function togglePassword(){
-    var password = document.querySelector('[name=password]')
-    if(password.getAttribute('type')==='password'){
-        password.setAttribute('type', 'text');
+    var password = document.getElementById("pass")
+    if(password.type ==='password'){
+        password.type = "text";
         document.getElementById("togglePassword").style.color='#8c8c8c';
     }
     else{

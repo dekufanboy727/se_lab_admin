@@ -1,14 +1,7 @@
 <?php
     session_start();
     include 'dbConnection.php';
-
-    if(!empty($_GET['status'])){
-        session_destroy();
-        unset($_SESSION['email']);
-        header('Location: index.php');
-    }
-    
- ?>
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +12,13 @@
     <link rel="stylesheet" href="css/home_style.css">
     <link href="https://fonts.googleapis.com/css2?family=Marhey:wght@300;400&display=swap" rel="stylesheet">
     <title>Helf Coffee Official Website</title>
+
+    <style>
+     
+
+    </style>   
+
+
 </head>
 <body>
     <div class="nav_bar">
@@ -44,6 +44,10 @@
             </ul>
         </nav>        
     </div>
+
+    </div>
+
+
     
 </body>
 </html>
