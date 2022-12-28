@@ -55,7 +55,7 @@
                     </a>
                 </li>
                 <li class="hovered active">
-                    <a href="events.html">
+                    <a href="events.php">
                         <span class="icon">
                             <ion-icon name="sparkles-outline"></ion-icon>
                         </span>
@@ -121,7 +121,7 @@
                                     <td>1</td>
                                     <td>80</td>
                                     <td>
-                                        <a href="event_update.html">Update</a>
+                                        <a href="event_update.php">Update</a>
                                     </td>
                                 </tr>
                             </tbody>
