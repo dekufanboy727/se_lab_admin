@@ -103,7 +103,7 @@ include "dbConnection.php"
                     </a>
                 </li>
                 <li>
-                    <a href="events.html">
+                    <a href="events.php">
                         <span class="icon">
                             <ion-icon name="sparkles-outline"></ion-icon>
                         </span>
@@ -162,9 +162,9 @@ include "dbConnection.php"
                                 </div>
                             </div>
                         </div>
-                        <div class="grid-child pdf">
+                        <!--<div class="grid-child pdf">
                             <button class="pdf-button">PDF <i class="fa-regular fa-file-pdf"></i></button>
-                        </div>
+                        </div>  Time constraint -->
                     </div>
                     <div class="transaction-table-content">
                         <table class="transaction-table-data" id="transactionTable">
