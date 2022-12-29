@@ -64,6 +64,7 @@
         
         if (mysqli_num_rows($result) == 1) {
 
+          
             $_SESSION['logged_in'] = true;
             $_SESSION['email'] = $email;
             header("Location: index.php");
