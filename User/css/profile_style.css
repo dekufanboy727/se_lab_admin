@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
+
+body{
+    height: 100%;
+}
+
+.container{
+    display:block;
+    background-color: burlywood;
+    margin:auto;
+    width: 40%;
+    height: 650px;
+    max-width: 100%;
+}
+
+
+h1{
+    text-align: center;
+    font-family: 'Marhey', cursive;
+    padding-top: 30px;
+}
+
+.profile_details{
+    margin-left: 40px;
+}
+.profile_details h2{
+    display: inline;
+}
+
+.profile_details p{
+    font-size: 20px;
+    font-family: 'Marhey', cursive;
+    display: inline-block;
+	margin-left: 10px;
+	text-align: left;
+	word-break: break-word;
+}
