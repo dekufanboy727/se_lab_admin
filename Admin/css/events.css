@@ -197,7 +197,7 @@ body {
     padding: 20px;
 }
 
-.table-box .orders-table {
+.table-box .events-table {
     position: relative;
     display: grid;
     min-height: 500px;
@@ -207,32 +207,47 @@ body {
     border-radius: 20px;
 }
 
-.orders-table-header {
+.events-table-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
 }
 
-.orders-table-header h2 {
+.events-table-header h2 {
     font-weight: 600;
     color: var(--green2);
 }
 
-.orders-table-content {
+.events-table-header .btn {
+    position: relative;
+    padding: 5px 10px;
+    background: var(--green2);
+    text-decoration: none;
+    color: var(--white);
+    border: 1px solid var(--black2);
+    border-radius: 6px;
+}
+
+.events-table-header .btn:hover{
+    background: var(--green1);
+    color: var(--black1);
+}
+
+.events-table-content {
     overflow: auto;
 }
 
-.orders-table-content table {
+.events-table-content table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
 }
 
-.orders-table-content table thead th {
+.events-table-content table thead th {
     font-weight: 600;
 }
 
-.orders-table-content table th,
+.events-table-content table th,
 td {
     padding: 10px;
     text-align: left;
@@ -241,16 +256,16 @@ td {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.orders-table-content table tr {
+.events-table-content table tr {
     color: var(--black1);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.orders-table-content tr {
+.events-table-content tr {
     transition: 0.4s;
 }
 
-.orders-table-content table tbody tr:hover {
+.events-table-content table tbody tr:hover {
     background: var(--green1);
 }
 
@@ -317,7 +332,7 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 
 tbody a:link,
 a:visited {
-    background-color: var(--green1);
+    background-color: var(--white);
     color: black;
     padding: 5px 10px;
     text-align: center;

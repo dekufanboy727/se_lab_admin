@@ -21,25 +21,23 @@ include "dbConnection.php"
 
 <body>
     <?php //Session Control
-        if (empty($_SESSION['logged_in']) == true)
-        {
-            echo "You are not Logged in";
-            header("Location: adminlogout.php");
-        }
+    if (empty($_SESSION['logged_in']) == true) {
+        echo "You are not Logged in";
+        header("Location: adminlogout.php");
+    }
 
-        $notice = "";
-        //Event Deletion
-        if($_SERVER["REQUEST_METHOD"] == "GET")
-        {
-            if(isset($_GET['event']) == true){
-                $deleteid = $_GET['event'];
-                $sql3 = "DELETE FROM event WHERE id = '$deleteid'";
-                $result = mysqli_query($conn,$sql3);
-                if($result === true)
-                    $notice = "The event is deleted!";
-                    header("Location: events.php");
-            }
+    $notice = "";
+    //Event Deletion
+    if ($_SERVER["REQUEST_METHOD"] == "GET") {
+        if (isset($_GET['event']) == true) {
+            $deleteid = $_GET['event'];
+            $sql3 = "DELETE FROM event WHERE id = '$deleteid'";
+            $result = mysqli_query($conn, $sql3);
+            if ($result === true)
+                $notice = "The event is deleted!";
+            header("Location: events.php");
         }
+    }
     ?>
     <div class="container">
         <div class="navigation">
@@ -123,24 +121,12 @@ include "dbConnection.php"
             </div>
 
             <div class="table-box">
-                <div class="orders-table">
-                    <div class="orders-table-header">
+                <div class="events-table">
+                    <div class="events-table-header">
                         <h2>Events</h2>
+                        <a href="event_add.php" class="btn">Add new event</a>
                     </div>
-                    <table>
-                        <tr>
-                            <th class="search-container">
-                                <label>
-                                    <i class="fa-solid fa-magnifying-glass"></i>
-                                    <input type="text" id="myInput" onkeyup="mySearchFunction()" placeholder="Search Here.." name="products-search-bar" title="Type in a event">
-                                </label>
-                            </th>
-                            <th class="manage-product-button">
-                                <a href="event_add.php" class="button">Add <i class="fa-solid fa-plus"></i></a>
-                            </th>
-                        </tr>
-                    </table>
-                    <div class="orders-table-content">
+                    <div class="ovents-table-content">
                         <table id="example" class="table table-striped">
                             <thead>
                                 <tr>
@@ -156,40 +142,40 @@ include "dbConnection.php"
                                 </tr>
                             </thead>
                             <?php
-                                //Output delete successfully
-                                echo '<p align=center style="font-size:20px;font-family: Monaco;">';
-                                echo $notice;
-                                echo '</p>';
+                            //Output delete successfully
+                            echo '<p align=center style="font-size:20px;font-family: Monaco;">';
+                            echo $notice;
+                            echo '</p>';
 
-                                //Tabulating Products
-                                $sql = mysqli_query($conn, "select * from event");
+                            //Tabulating Products
+                            $sql = mysqli_query($conn, "select * from event");
                             ?>
                             <tbody>
-                            <?php
+                                <?php
                                 if (mysqli_num_rows($sql) > 0) {
                                     while ($row = mysqli_fetch_assoc($sql)) {
-                                        $sql1 = mysqli_query($conn, "select * from event_prodtype where event_id ='".$row['id']."';");
+                                        $sql1 = mysqli_query($conn, "select * from event_prodtype where event_id ='" . $row['id'] . "';");
                                         $row1 = mysqli_fetch_assoc($sql1)
-                            ?>
-                                <tr>
-                                            <td><?php echo $row['id']?></td>
-                                            <td id = "event_name"><?php echo $row['name']?></td>
+                                ?>
+                                        <tr>
+                                            <td><?php echo $row['id'] ?></td>
+                                            <td id="event_name"><?php echo $row['name'] ?></td>
                                             <td><?php echo $row['start_date'] ?></td>
                                             <td><?php echo $row['end_date'] ?></td>
                                             <td><?php echo $row['description'] ?></td>
                                             <td>
-                                                <?php 
-                                                    $sql1 = mysqli_query($conn, "select * from event_prodtype where event_id ='".$row['id']."';");
-                                                    while ($row1 = mysqli_fetch_assoc($sql1)) {
-                                                        echo $row1['product_type_id'];
-                                                        echo ";";
-                                                    }
+                                                <?php
+                                                $sql1 = mysqli_query($conn, "select * from event_prodtype where event_id ='" . $row['id'] . "';");
+                                                while ($row1 = mysqli_fetch_assoc($sql1)) {
+                                                    echo $row1['product_type_id'];
+                                                    echo ";";
+                                                }
                                                 ?>
                                             </td>
-                                            <td><?php echo $row['discount']."%"; ?></td>
-                                            <?php 
-                                                echo '<td><a href="event_update.php?event='.$row['id'].'"><ion-icon name="create"></a></td>';
-                                                echo '<td><a href="javascript: myDeleteConfirmationFunction('.$row['id'].')"  alt = "delete" class="delete-button"><ion-icon name="trash-outline"></ion-icon></a></td>';
+                                            <td><?php echo $row['discount'] . "%"; ?></td>
+                                            <?php
+                                            echo '<td><a href="event_update.php?event=' . $row['id'] . '"><ion-icon name="create"></a></td>';
+                                            echo '<td><a href="javascript: myDeleteConfirmationFunction(' . $row['id'] . ')"  alt = "delete" class="delete-button"><ion-icon name="trash-outline"></ion-icon></a></td>';
                                             ?>
                                         </tr>
                                 <?php      }
@@ -222,18 +208,24 @@ include "dbConnection.php"
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
 
     <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
+        });
+    </script>
+    
+    <script>
         // MenuToggle
         let toggle = document.querySelector('.toggle');
         let navigation = document.querySelector('.navigation');
         let main = document.querySelector('.main');
 
-        toggle.onclick = function () {
+        toggle.onclick = function() {
             navigation.classList.toggle('active');
             main.classList.toggle('active');
         }
 
         // Close the dropdown if the user clicks outside of it
-        window.onclick = function (event) {
+        window.onclick = function(event) {
             if (!event.target.matches('.dropbtn')) {
                 var dropdowns = document.getElementsByClassName("dropdown-content");
                 var i;
@@ -258,19 +250,18 @@ include "dbConnection.php"
             for (i = 0; i < tr.length; i++) {
                 td = tr[i].getElementsByTagName("td")[1];
                 if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
                 }
             }
         }
 
         function myDeleteConfirmationFunction(uid) {
-            if (confirm('Are You Sure to Delete this Record?'))
-            {
+            if (confirm('Are You Sure to Delete this Record?')) {
                 window.location.href = 'events.php?event=' + uid;
             }
         }

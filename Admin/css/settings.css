@@ -246,7 +246,7 @@ textarea {
 }
 
 textarea {
-    height: 150px;
+    max-height: 100px;
 }
 
 label {
