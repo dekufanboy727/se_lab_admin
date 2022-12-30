@@ -31,7 +31,7 @@ include "dbConnection.php"
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
         if (isset($_GET['event']) == true) {
             $deleteid = $_GET['event'];
-            $sql3 = "DELETE FROM event WHERE id = '$deleteid'";
+            $sql3 = "DELETE FROM events WHERE id = '$deleteid'";
             $result = mysqli_query($conn, $sql3);
             if ($result === true)
                 $notice = "The event is deleted!";
@@ -135,8 +135,6 @@ include "dbConnection.php"
                                     <th>Start DateTime</th>
                                     <th>End DateTime</th>
                                     <th>Description</th>
-                                    <th>Affected Category ID</th>
-                                    <th>Discount</th>
                                     <th>Action</th>
                                     <th>Action</th>
                                 </tr>
@@ -148,14 +146,12 @@ include "dbConnection.php"
                             echo '</p>';
 
                             //Tabulating Products
-                            $sql = mysqli_query($conn, "select * from event");
+                            $sql = mysqli_query($conn, "select * from events");
                             ?>
                             <tbody>
                                 <?php
                                 if (mysqli_num_rows($sql) > 0) {
                                     while ($row = mysqli_fetch_assoc($sql)) {
-                                        $sql1 = mysqli_query($conn, "select * from event_prodtype where event_id ='" . $row['id'] . "';");
-                                        $row1 = mysqli_fetch_assoc($sql1)
                                 ?>
                                         <tr>
                                             <td><?php echo $row['id'] ?></td>
@@ -163,16 +159,6 @@ include "dbConnection.php"
                                             <td><?php echo $row['start_date'] ?></td>
                                             <td><?php echo $row['end_date'] ?></td>
                                             <td><?php echo $row['description'] ?></td>
-                                            <td>
-                                                <?php
-                                                $sql1 = mysqli_query($conn, "select * from event_prodtype where event_id ='" . $row['id'] . "';");
-                                                while ($row1 = mysqli_fetch_assoc($sql1)) {
-                                                    echo $row1['product_type_id'];
-                                                    echo ";";
-                                                }
-                                                ?>
-                                            </td>
-                                            <td><?php echo $row['discount'] . "%"; ?></td>
                                             <?php
                                             echo '<td><a href="event_update.php?event=' . $row['id'] . '"><ion-icon name="create"></a></td>';
                                             echo '<td><a href="javascript: myDeleteConfirmationFunction(' . $row['id'] . ')"  alt = "delete" class="delete-button"><ion-icon name="trash-outline"></ion-icon></a></td>';
@@ -188,8 +174,6 @@ include "dbConnection.php"
                                     <th>Start DateTime</th>
                                     <th>End DateTime</th>
                                     <th>Description</th>
-                                    <th>Affected Category ID</th>
-                                    <th>Discount</th>
                                     <th>Action</th>
                                     <th>Action</th>
                                 </tr>

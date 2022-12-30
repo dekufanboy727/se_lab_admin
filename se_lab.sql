@@ -370,13 +370,12 @@ ALTER TABLE `transaction`
 --
 -- Constraints for dumped tables
 --
+ALTER TABLE `transaction`
+  MODIFY `trans_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2000000003;
 
 --
--- Constraints for table `event_prodtype`
+-- Constraints for dumped tables
 --
-ALTER TABLE `event_prodtype`
-  ADD CONSTRAINT `event_id` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_type_id` FOREIGN KEY (`product_type_id`) REFERENCES `product_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `order_product`
