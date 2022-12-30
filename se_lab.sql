@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 28, 2022 at 10:54 PM
+-- Generation Time: Dec 30, 2022 at 09:57 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -108,43 +108,23 @@ CREATE TABLE `customer` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `event`
+-- Table structure for table `events`
 --
 
-CREATE TABLE `event` (
+CREATE TABLE `events` (
   `id` int(100) NOT NULL,
-  `name` text NOT NULL,
-  `start_date` datetime(6) NOT NULL,
-  `end_date` datetime(6) NOT NULL,
-  `description` text NOT NULL,
-  `discount` int(100) NOT NULL
+  `name` varchar(100) NOT NULL,
+  `start_date` datetime NOT NULL,
+  `end_date` datetime NOT NULL,
+  `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `event`
+-- Dumping data for table `events`
 --
 
-INSERT INTO `event` (`id`, `name`, `start_date`, `end_date`, `description`, `discount`) VALUES
-(1, '11/11 Sales!', '2022-11-11 05:49:19.000000', '2022-12-12 05:49:19.000000', 'It is an event of splendor and wonder for adults and kids galore!', 80);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `event_prodtype`
---
-
-CREATE TABLE `event_prodtype` (
-  `event_id` int(100) NOT NULL,
-  `product_type_id` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `event_prodtype`
---
-
-INSERT INTO `event_prodtype` (`event_id`, `product_type_id`) VALUES
-(1, 1),
-(1, 2);
+INSERT INTO `events` (`id`, `name`, `start_date`, `end_date`, `description`) VALUES
+(1, '11/111 Sales!', '2022-12-30 12:12:00', '2023-02-01 08:00:00', 'It is an event of splendor and wonder for adults and kids galore!\"\"');
 
 -- --------------------------------------------------------
 
@@ -291,17 +271,10 @@ ALTER TABLE `customer`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `event`
+-- Indexes for table `events`
 --
-ALTER TABLE `event`
+ALTER TABLE `events`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `event_prodtype`
---
-ALTER TABLE `event_prodtype`
-  ADD PRIMARY KEY (`event_id`,`product_type_id`),
-  ADD KEY `product_type_id` (`product_type_id`);
 
 --
 -- Indexes for table `orders`
@@ -341,6 +314,12 @@ ALTER TABLE `transaction`
 --
 
 --
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `admin_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
@@ -359,10 +338,22 @@ ALTER TABLE `customer`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `events`
+--
+ALTER TABLE `events`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
   MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `order_product`
+--
+ALTER TABLE `order_product`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -371,15 +362,14 @@ ALTER TABLE `product`
   MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- Constraints for dumped tables
+-- AUTO_INCREMENT for table `transaction`
 --
+ALTER TABLE `transaction`
+  MODIFY `trans_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2000000003;
 
 --
--- Constraints for table `event_prodtype`
+-- Constraints for dumped tables
 --
-ALTER TABLE `event_prodtype`
-  ADD CONSTRAINT `event_id` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_type_id` FOREIGN KEY (`product_type_id`) REFERENCES `product_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `order_product`

@@ -20,6 +20,103 @@ include "dbConnection.php"
 </head>
 
 <body>
+    <?php
+        if (empty($_SESSION['logged_in']) == true)
+        {
+            echo "You are not Logged in";
+            header("Location: adminlogout.php");
+        }
+        
+        date_default_timezone_set('Asia/Kuching');
+        //Adding Product Handler
+        $name = $start_date = $category_id = $end_date = $discount = $description = $shownid = $editid ="";
+        $nameerr = $start_dateerr = $category_iderr = $end_dateerr = $calorieerr = $descriptionerr = $productpicerr = $em = "";
+        $validate = true;
+
+        function test($data)
+        {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        }
+
+        // Edit Mode Initiate
+        if(isset($_GET["event"])){
+            $editid = $_GET["event"];
+            $editsql = "SELECT * FROM events WHERE id = '$editid'";
+            $editresult = mysqli_query($conn, $editsql) or die($mysqli_error($conn));
+            if (mysqli_num_rows($editresult) > 0){
+                $editrow = mysqli_fetch_assoc($editresult);
+                $shownid = $editid;
+                $name = $editrow["name"];
+                $start_date = $editrow["start_date"];
+                $end_date2 = $editrow["end_date"];
+                $description = $editrow["description"];
+            }else{
+                $em = "0 results";
+            }
+        }
+
+        //Upload Handler
+        if (isset($_POST['updateEvent'])) {
+            
+            if(empty($_POST["name"]))
+            {
+                $nameerr = "*Name is required!";
+                $validate = false;
+            }else{
+                $name = test($_POST['name']);
+            }
+
+            if(empty($_POST["start_date"]))
+            {
+                $start_dateerr = "*Start date is required!";
+                $validate = false;
+            }else{
+                $start_date = test($_POST['start_date']);
+            }
+
+            if(empty($_POST["end_date"]))
+            {
+                $end_dateerr = "*End date is required!";
+                $validate = false;
+            }else{
+                $end_date = test($_POST['end_date']);
+            }
+
+            if(empty($_POST["description"]))
+            {
+                $descriptionerr = "*Description is required!";
+                $validate = false;
+            }else{
+                $description = test($_POST['description']);
+            }
+
+            if($validate == true){
+                $shownid = $_POST['eventid'];
+                $name = $_POST['name'];
+                $start_date = $_POST['start_date'];
+                $end_date = $_POST['end_date'];
+                $description = $_POST['description'];
+
+                $sql = "UPDATE events SET name ='$name', start_date = '$start_date', end_date = '$end_date', description = '$description'
+                            WHERE id = '$shownid'";
+                if(mysqli_query($conn, $sql)){
+                    $em = "Record successfully updated";
+
+                    $name = $start_date = $category_id = $end_date = $discount = $description = $shownid = $editid ="";
+                    $nameerr = $start_dateerr = $category_iderr = $end_dateerr = $calorieerr = $descriptionerr = $productpicerr = "";
+                    
+                }else{
+                    $em = "Record failed to update";
+                    
+                }
+            }else{
+                $em = "record not added";
+            }
+        }
+    ?>
     <div class="container">
         <div class="navigation">
             <ul>
@@ -106,67 +203,56 @@ include "dbConnection.php"
                     <div class="event-details-header">
                         <h2>Update Event Info</h2>
                     </div>
+                    <div class = "row">
+                            <span><?php echo $em; ?></span>
+                    </div>
 
-                    <form action="">
+                    <form name="edit" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                        <input type="hidden" name="eventid" value="<?php echo $editid; ?>">
                         <div class="row" style="margin-top: 15px;">
                             <div class="col-25">
                                 <label for="name">Name</label>
+                                <span><?php echo $nameerr;?></span>
                             </div>
                             <div class="col-75">
-                                <input type="text" name="name" id="name" placeholder="Event name...">
+                                <input type="text" name="name" id="name" placeholder="Event name..." value = "<?php echo $name?>">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-25">
-                                <label for="date">Date</label>
+                                <label for="date">Start Date</label>
+                                <span><?php echo $start_dateerr;?></span>
                             </div>
                             <div class="col-75">
-                                <input type="datetime-local" name="date" id="date" placeholder="Event date...">
+                                <input type="datetime-local" name="start_date" id="start_date"  value = "<?php echo date("Y-m-d\TH:i:s", strtotime($start_date))?>">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-25">
-                                <label for="period">Period</label>
+                                <label for="period">End Date</label>
+                                <span><?php echo $end_dateerr;?></span>
                             </div>
                             <div class="col-75">
-                                <input type="time" name="period" id="period" placeholder="Event period...">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-25">
-                                <label for="category_id">Affected Category ID</label>
-                            </div>
-                            <div class="col-75">
-                                <select name="category_id" id="category_id">
-                                    <option value="0" selected disabled>Select Category ID</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-25">
-                                <label for="discount">Discount</label>
-                            </div>
-                            <div class="col-75">
-                                <input type="text" name="discount" id="discount" placeholder="RM">
+                                <input type="datetime-local" name="end_date" id="end_date"   value = "<?php echo date("Y-m-d\TH:i:s", strtotime($end_date))?>">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-25">
                                 <label for="description">Description</label>
+                                <span><?php echo $descriptionerr;?></span>
                             </div>
                             <div class="col-75">
-                                <textarea name="descripton" id="description" placeholder="Event description..."></textarea>
+                                <textarea name="description" id="description" placeholder="Event description..."><?php echo $description?>"</textarea>
                             </div>
                         </div>
                         <br>
                         <div class="row">
-                            <input type="submit" value="Update">
+                            <input type="submit" value="Update" name = "updateEvent">
                         </div>
                     </form>
-
+                    <div class = "row">
+                            <span><?php echo $em; ?></span>
+                    </div>
                 </div>
             </div>
         </div>
