@@ -133,7 +133,7 @@ include "dbConnection.php"
                 $calorie = $_POST['calorie'];
                 $description = $_POST['description'];
             
-                $targetDir = "product_images/";
+                $targetDir = "../product_images/";
 
                 if($nameerr == "" && $calorieerr == "" && $priceerr == "" && $categoryerr == "" && $descriptionerr == "" && $quantityerr == ""){
 

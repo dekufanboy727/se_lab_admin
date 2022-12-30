@@ -81,7 +81,7 @@ include "dbConnection.php"
                 $calorie = $_POST['calorie'];
                 $description = $_POST['description'];
             
-                $targetDir = "product_images/";
+                $targetDir = "../product_images/";
                 $filename = basename($_FILES["productpic"]["name"]);
                 $targetFilePath = $targetDir . $filename;
                 $imagefileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
