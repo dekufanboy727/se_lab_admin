@@ -51,7 +51,7 @@ include "dbConnection.php"
                 $shownid = $editid;
                 $name = $editrow["name"];
                 $start_date = $editrow["start_date"];
-                $end_date2 = $editrow["end_date"];
+                $end_date = $editrow["end_date"];
                 $description = $editrow["description"];
             }else{
                 $em = "0 results";
