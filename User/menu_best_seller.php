@@ -58,352 +58,237 @@
 
     <div class="item_container">
 
-        <div class="item">
-            <div class="item_pic">
-                <img src="images/Gu_Mor_Kak.jpg" style="bottom: 220px;">
-            </div>
-            <div class="description">
-                <div class="item_name"><center>Gu Mor Kak</center></div>
-                <div class="price">
-                    <center>RM8.90</center>
-                    <div class="sub_price"><center>for 2 pcs</center></div>
-                </div>
-                <div class="order_btn" onclick="togglePopup_1()"><center>Order Now</center></div>
-            </div>
-        </div>
+        <?php
+                $sql = $conn->query("SELECT * FROM product WHERE best_seller = 1 AND product_type != 3 ORDER BY product_id");
+                $sql2 = $conn->query("SELECT * FROM product WHERE best_seller = 1 AND product_type = 3 ORDER BY product_id");
+                ?>
+                
+                <?php
+                if($sql->num_rows > 0)
+                {
+                    while($data=$sql->fetch_assoc())
+                    {
 
-        <div class="item">
+                    
+                ?>
+            
+            <div class="item">
+                
             <div class="item_pic">
-                <img src="images/Geh_Bo_Gok_Tat.jpg" style="bottom: 150px;">
+            <?php
+                echo  '<img style="bottom: '.$data['pixel'].'px;" src="data:image/jpeg;base64,'.base64_encode( $data['product_img'] ).'"/>';
+            ?>
             </div>
             <div class="description">
-                <div class="item_name"><center>Geh Bo Gok Tat</center></div>
+                <div class="item_name"><center><?php echo $data['product_name']?></center></div>
                 <div class="price">
-                    <center>RM6.90</center>
+                    <center>RM<?php echo number_format($data['price'], 2);?></center>
                     <div class="sub_price"><center>per piece</center></div>
                 </div>
-                <div class="order_btn" onclick="togglePopup_2()"><center>Order Now</center></div>
+                <div class="order_btn" onclick="togglePopup_<?php echo $data['product_id']?>()"><center>Order Now</center></div>
             </div>
         </div>
 
-        <div class="item">
+        <?php
+           }
+
+           while($data=$sql2->fetch_assoc())
+                    {
+
+                    $cold = 0.40;        
+
+                ?>
+            
+            <div class="item">
+                
             <div class="item_pic">
-                <img src="images/portuguese_tart.jpg" style="bottom: 150px;">
+            <?php
+                echo  '<img style="bottom: '.$data['pixel'].'px;" src="data:image/jpeg;base64,'.base64_encode( $data['product_img'] ).'"/>';
+            ?>
             </div>
             <div class="description">
-                <div class="item_name"><center>Portuguese Tart</center></div>
+                <div class="item_name"><center><?php echo $data['product_name']?></center></div>
                 <div class="price">
-                    <center>RM9.90</center>
-                    <div class="sub_price"><center>for 3 pcs</center></div>
+                    <div class="price">
+                        <center>RM<?php echo number_format($data['price'], 2);?></center>
+                        <div class="sub_price"><center>Hot</center></div>
+                    </div>
+                    <div class="price">
+                        <center>RM<?php echo number_format($data['price'] +$cold , 2);?></center>
+                        <div class="sub_price"><center>Cold</center></div>
+                    </div>
                 </div>
-                <div class="order_btn" onclick="togglePopup_3()"><center>Order Now</center></div>
+                <div class="order_btn" onclick="togglePopup_<?php echo $data['product_id']?>()"><center>Order Now</center></div>
             </div>
         </div>
 
-        <div class="item">
-            <div class="item_pic">
-                <img src="images/Oreo_Cheesecake.jpg" style="bottom: 154px;">
-            </div>
-            <div class="description">
-                <div class="item_name"><center>Oreo Cheesecake</center></div>
-                <div class="price">
-                    <center>RM13.00</center>
-                    <div class="sub_price"><center>per piece</center></div>
-                </div>
-                <div class="order_btn" onclick="togglePopup_4()"><center>Order Now</center></div>
-            </div>
-        </div>
+        <?php
+           }
+        }    
+        ?>
 
-        <div class="item">
-            <div class="item_pic">
-                <img src="images/kopi_bancuh.jpg" style="bottom: 120px;">
-            </div>
-            <div class="description">
-                <div class="item_name"><center>Kopi Bancuh</center></div>
-                <div class="price">
-                    <center>RM5.50</center>
-                    <div class="sub_price"><center>Hot</center></div>
-                </div>
-                <div class="price">
-                    <center>RM5.90</center>
-                    <div class="sub_price"><center>Cold</center></div>
-                </div>
-                <div class="order_btn" onclick="togglePopup_5()"><center>Order Now</center></div>
-            </div>
-        </div>
-
-        <div class="item">
-            <div class="item_pic">
-                <img src="images/teh_bancuh.jpg" style="bottom: 175px;">
-            </div>
-            <div class="description">
-                <div class="item_name"><center>Teh Bancuh</center></div>
-                <div class="price">
-                    <center>RM5.50</center>
-                    <div class="sub_price"><center>Hot</center></div>
-                </div>
-                <div class="price">
-                    <center>RM5.90</center>
-                    <div class="sub_price"><center>Cold</center></div>
-                </div>
-                <div class="order_btn" onclick="togglePopup_6()"><center>Order Now</center></div>
-            </div>
-        </div>
-
-        <div class="item">
-            <div class="item_pic">
-                <img src="images/kopi_teh.jpg" style="bottom: 0px;">
-            </div>
-            <div class="description">
-                <div class="item_name"><center>Kopi & Teh</center></div>
-                <div class="price">
-                    <center>RM5.50</center>
-                    <div class="sub_price"><center>Hot</center></div>
-                </div>
-                <div class="price">
-                    <center>RM5.90</center>
-                    <div class="sub_price"><center>Cold</center></div>
-                </div>
-                <div class="order_btn" onclick="togglePopup_7()"><center>Order Now</center></div>
-            </div>
-        </div>
     </div>
-    
-    <div class="popup" id="popup-1">
+    <?php 
+        $sql = $conn->query("SELECT * FROM product WHERE product_type != 3 ORDER by product_id");
+        $sql2 = $conn->query("SELECT * FROM product WHERE product_type = 3 ORDER by product_id");
+        ?>
+
+    <?php
+        if($sql->num_rows > 0 ){
+
+            while($data=$sql->fetch_assoc()){
+    ?>
+
+    <div class="popup" id="popup-<?php echo $data['product_id']?>">
         <div class="overlay"></div>
         <div class="content">
-            <img src="images/Gu_Mor_Kak.jpg">
+            <?php
+                echo  '<img src="data:image/jpeg;base64,'.base64_encode( $data['product_img'] ).'"/>';
+            ?>
             <div class="description_container">
                 <div class="description2">
-                    <div class="item_name2">Gu Mor Kak</div>
-                    <P>“Gu Mor Kak” or Demon Cow’s Horn Biscuit is a chinese homemade traditional biscuit that is packed with savory rosated chicken fillings, with a thin layered crust wrapped around it. It’s crunchy textute and salty with a hint a sweetness flavour is exactly why Gu Mor Kak is one of our cafe’s signature pastries and best seller.
+                    <div class="item_name2"><?php echo $data['product_name']?></div>
+                    <P><?php echo $data['product_desc']?>
                     </P>
                     <div class="deco">
                         <div class="deco_dot"></div>
                         <div class="deco_dot"></div>
                         <div class="deco_bar"></div>
                     </div>
-                    <div class="price_quantity_container">
-                        <div class="price2">
-                            <center>RM8.90</center>
-                            <div class="sub_price2"><center>for 2 pcs</center></div>
-                        </div>
-                        <div class="quantity">
-                            <span class="minus" id="minus">-</span>
-                            <span class="num" id="num">01</span>
-                            <span class="plus" id="plus">+</span>
-                        </div>
-                    </div>
-                    <div class="add_to_cart_btn">Add To Cart</div>
-                </div>
-            </div>
-            <div class="close_btn" onclick="togglePopup_1()">Close</div>
-        </div>
-    </div>
-
-    <div class="popup" id="popup-2">
-        <div class="overlay"></div>
-        <div class="content">
-            <img src="images/Geh_Bo_Gok_Tat.jpg">
-            <div class="description_container">
-                <div class="description2">
-                    <div class="item_name2">Geh Bo Gok Tat</div>
-                    <P>“Gu Mor Kak” or Demon Cow’s Horn Biscuit is a chinese homemade traditional biscuit that is packed with savory rosated chicken fillings, with a thin layered crust wrapped around it. It’s crunchy textute and salty with a hint a sweetness flavour is exactly why Gu Mor Kak is one of our cafe’s signature pastries and best seller.
-                    </P>
-                    <div class="deco">
-                        <div class="deco_dot"></div>
-                        <div class="deco_dot"></div>
-                        <div class="deco_bar"></div>
-                    </div>
-                    <div class="price_quantity_container">
-                        <div class="price2">
-                            <center>RM6.90</center>
-                            <div class="sub_price2"><center>per piece</center></div>
-                        </div>
-                        <div class="quantity">
-                            <span class="minus"id="minus-2">-</span>
-                            <span class="num"id="num-2">01</span>
-                            <span class="plus" id="plus-2">+</span>
-                        </div>
-                    </div>
-                    <div class="add_to_cart_btn">Add To Cart</div>
-                </div>
-            </div>
-            <div class="close_btn" onclick="togglePopup_2()">Close</div>
-        </div>
-    </div>
-
-    <div class="popup" id="popup-3">
-        <div class="overlay"></div>
-        <div class="content">
-            <img src="images/portuguese_tart.jpg">
-            <div class="description_container">
-                <div class="description2">
-                    <div class="item_name2">Portuguese Tart</div>
-                    <P>Homemade Portuguese style egg tart baked with an outer layer of crust, fragant egg fillings and a layer of burnt cheese on top. It’s aromatic, sweet and satly fillings combined with the crusty outer layer is definately a must try.
-                    </P>
-                    <div class="deco">
-                        <div class="deco_dot"></div>
-                        <div class="deco_dot"></div>
-                        <div class="deco_bar"></div>
-                    </div>
-                    <div class="price_quantity_container">
-                        <div class="price2">
-                            <center>RM9.90</center>
-                            <div class="sub_price2"><center>for 3 pcs</center></div>
-                        </div>
-                        <div class="quantity">
-                            <span class="minus"id="minus-3">-</span>
-                            <span class="num"id="num-3">01</span>
-                            <span class="plus" id="plus-3">+</span>
-                        </div>
-                    </div>
-                    <div class="add_to_cart_btn">Add To Cart</div>
-                </div>
-            </div>
-            <div class="close_btn" onclick="togglePopup_3()">Close</div>
-        </div>
-    </div>
-
-    <div class="popup" id="popup-4">
-        <div class="overlay"></div>
-        <div class="content">
-            <img src="images/Oreo_Cheesecake.jpg">
-            <div class="description_container">
-                <div class="description2">
-                    <div class="item_name2">Oreo Cheesecake</div>
-                    <P>Served fresh of the fridge with butter and oreo crumps as the base, special homemade cream cheese and milk recipe as the middle layer and top it off with oreo poweder sprinkles and a piece of oreo biscuit. Oreo lovers what are you waiting for? Try it now.
-                    </P>
-                    <div class="deco">
-                        <div class="deco_dot"></div>
-                        <div class="deco_dot"></div>
-                        <div class="deco_bar"></div>
-                    </div>
-                    <div class="price_quantity_container">
-                        <div class="price2">
-                            <center>RM13.00</center>
-                            <div class="sub_price2"><center>per piece</center></div>
-                        </div>
-                        <div class="quantity">
-                            <span class="minus"id="minus-4">-</span>
-                            <span class="num"id="num-4">01</span>
-                            <span class="plus" id="plus-4">+</span>
-                        </div>
-                    </div>
-                    <div class="add_to_cart_btn">Add To Cart</div>
-                </div>
-            </div>
-            <div class="close_btn" onclick="togglePopup_4()">Close</div>
-        </div>
-    </div>
-
-    <div class="popup" id="popup-5">
-        <div class="overlay"></div>
-        <div class="content">
-            <img src="images/kopi_bancuh.jpg">
-            <div class="description_container">
-                <div class="description2">
-                    <div class="item_name2">Kopi Bancuh</div>
-                    <P>“Gu Mor Kak” or Demon Cow’s Horn Biscuit is a chinese homemade traditional biscuit that is packed with savory rosated chicken fillings, with a thin layered crust wrapped around it. It’s crunchy textute and salty with a hint a sweetness flavour is exactly why Gu Mor Kak is one of our cafe’s signature pastries and best seller.
-                    </P>
-                    <div class="deco">
-                        <div class="deco_dot"></div>
-                        <div class="deco_dot"></div>
-                        <div class="deco_bar"></div>
-                    </div>
-                    <div class="price_quantity_container">
-                        <div class="price2">
-                            <center>RM5.50</center>
-                            <div class="sub_price2"><center>Hot</center></div>
-                        </div>
-                        <div class="price2">
-                            <center>RM5.90</center>
-                            <div class="sub_price2"><center>Cold</center></div>
-                        </div>
-                        <div class="quantity">
-                            <span class="minus"id="minus-5">-</span>
-                            <span class="num"id="num-5">01</span>
-                            <span class="plus" id="plus-5">+</span>
-                        </div>
-                    </div>
-                    <div class="add_to_cart_btn">Add To Cart</div>
-                </div>
-            </div>
-            <div class="close_btn" onclick="togglePopup_5()">Close</div>
-        </div>
-    </div>
-
-    <div class="popup" id="popup-6">
-        <div class="overlay"></div>
-        <div class="content">
-            <img src="images/teh_bancuh.jpg">
-            <div class="description_container">
-                <div class="description2">
-                    <div class="item_name2">Teh Bancuh</div>
-                    <P>“Gu Mor Kak” or Demon Cow’s Horn Biscuit is a chinese homemade traditional biscuit that is packed with savory rosated chicken fillings, with a thin layered crust wrapped around it. It’s crunchy textute and salty with a hint a sweetness flavour is exactly why Gu Mor Kak is one of our cafe’s signature pastries and best seller.
-                    </P>
-                    <div class="deco">
-                        <div class="deco_dot"></div>
-                        <div class="deco_dot"></div>
-                        <div class="deco_bar"></div>
-                    </div>
-                    <div class="price_quantity_container">
-                        <div class="price2">
-                            <center>RM5.50</center>
-                            <div class="sub_price2"><center>Hot</center></div>
-                        </div>
-                        <div class="price2">
-                            <center>RM5.90</center>
-                            <div class="sub_price2"><center>Cold</center></div>
-                        </div>
-                        <div class="quantity">
-                            <span class="minus"id="minus-6">-</span>
-                            <span class="num"id="num-6">01</span>
-                            <span class="plus" id="plus-6">+</span>
-                        </div>
-                    </div>
-                    <div class="add_to_cart_btn">Add To Cart</div>
-                </div>
-            </div>
-            <div class="close_btn" onclick="togglePopup_6()">Close</div>
-        </div>
-    </div>
-
-        <div class="popup" id="popup-7">
-            <div class="overlay"></div>
-            <div class="content">
-                <img src="images/kopi_teh.jpg">
-                <div class="description_container">
-                    <div class="description2">
-                        <div class="item_name2">Kopi & Teh</div>
-                        <P>“Gu Mor Kak” or Demon Cow’s Horn Biscuit is a chinese homemade traditional biscuit that is packed with savory rosated chicken fillings, with a thin layered crust wrapped around it. It’s crunchy textute and salty with a hint a sweetness flavour is exactly why Gu Mor Kak is one of our cafe’s signature pastries and best seller.
-                        </P>
-                        <div class="deco">
-                            <div class="deco_dot"></div>
-                            <div class="deco_dot"></div>
-                            <div class="deco_bar"></div>
-                        </div>
+                    <form>
                         <div class="price_quantity_container">
+                            
                             <div class="price2">
-                                <center>RM5.50</center>
-                                <div class="sub_price2"><center>Hot</center></div>
-                            </div>
-                            <div class="price2">
-                                <center>RM5.90</center>
-                                <div class="sub_price2"><center>Cold</center></div>
+                                <center>RM<?php echo number_format($data['price'], 2);?></center>
+                                <div class="sub_price2"><center>per piece</center></div>
                             </div>
                             <div class="quantity">
-                                <span class="minus"id="minus-7">-</span>
-                                <span class="num"id="num-7">01</span>
-                                <span class="plus" id="plus-7">+</span>
+                                <span class="minus"id="minus<?php echo $data['product_id']?>">-</span>
+                                <span class="num"id="num<?php echo $data['product_id']?>">01</span>
+                                <span class="plus" id="plus<?php echo $data['product_id']?>">+</span>
                             </div>
                         </div>
                         <div class="add_to_cart_btn">Add To Cart</div>
-                    </div>
+                    </form>
                 </div>
-                <div class="close_btn" onclick="togglePopup_7()">Close</div>
             </div>
+            <div class="close_btn" onclick="togglePopup_<?php echo $data['product_id']?>()">Close</div>
         </div>
+    </div>
+
+
+    <script>
+        function togglePopup_<?php echo $data['product_id']?>(){
+        document.getElementById("scroll").scrollIntoView();
+        document.getElementById("popup-<?php echo $data['product_id']?>").classList.toggle("active");
+
+        let plus = document.getElementById("plus<?php echo $data['product_id']?>");
+        let num = document.getElementById("num<?php echo $data['product_id']?>");
+        let minus = document.getElementById("minus<?php echo $data['product_id']?>");
+
+        let a = 0;
+
+        plus.addEventListener("click", ()=>{
+            a++;
+            a = (a<10)?"0"+a:a;
+            num.innerText = a;
+        });
+
+        minus.addEventListener("click", ()=>{
+            if(a>1){
+                a--;
+                a = (a<10)?"0"+a:a;
+                num.innerText = a;
+            }
+    });
+}
+    
+    </script>
+
+    <?php 
+            }
+
+            while($data=$sql2->fetch_assoc()){
+    ?>
+
+    <div class="popup" id="popup-<?php echo $data['product_id']?>">
+        <div class="overlay"></div>
+        <div class="content">
+            <?php
+                echo  '<img src="data:image/jpeg;base64,'.base64_encode( $data['product_img'] ).'"/>';
+            ?>
+            <div class="description_container">
+                <div class="description2">
+                    <div class="item_name2"><?php echo $data['product_name']?></div>
+                    <P><?php echo $data['product_desc']?>
+                    </P>
+                    <div class="deco">
+                        <div class="deco_dot"></div>
+                        <div class="deco_dot"></div>
+                        <div class="deco_bar"></div>
+                    </div>
+                    <form>
+                        <div class="price_quantity_container">
+                            
+                           <div class="price">
+                                <div class="price2">
+                                    <center>RM<?php echo number_format($data['price'], 2);?></center>
+                                    <div class="sub_price2"><center>Hot</center></div>
+                                </div>
+                                <div class="price2">
+                                    <center>RM<?php echo number_format($data['price'] +$cold , 2);?></center>
+                                    <div class="sub_price2"><center>Cold</center></div>
+                                </div>
+                            </div>
+                            <div class="quantity">
+                                <span class="minus"id="minus">-</span>
+                                <span class="num"id="num">01</span>
+                                <span class="plus" id="plus">+</span>
+                            </div>
+                        </div>
+                        <div class="add_to_cart_btn">Add To Cart</div>
+                    </form>
+                </div>
+            </div>
+            <div class="close_btn" onclick="togglePopup_<?php echo $data['product_id']?>()">Close</div>
+        </div>
+    </div>
+
+
+    <script>
+        function togglePopup_<?php echo $data['product_id']?>(){
+        document.getElementById("scroll").scrollIntoView();
+        document.getElementById("popup-<?php echo $data['product_id']?>").classList.toggle("active");
+
+        let plus = document.getElementById("plus");
+        let num = document.getElementById("num");
+        let minus = document.getElementById("minus");
+
+        let a = 0;
+
+        plus.addEventListener("click", ()=>{
+            a++;
+            a = (a<10)?"0"+a:a;
+            num.innerText = a;
+        });
+
+        minus.addEventListener("click", ()=>{
+            if(a>1){
+                a--;
+                a = (a<10)?"0"+a:a;
+                num.innerText = a;
+            }
+    });
+}
+    
+    </script>
+
+    <?php 
+        }
+    }
+    ?>
+
+
 
 </body>
 </html>

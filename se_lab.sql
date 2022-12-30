@@ -370,6 +370,12 @@ ALTER TABLE `transaction`
 --
 -- Constraints for dumped tables
 --
+ALTER TABLE `transaction`
+  MODIFY `trans_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2000000003;
+
+--
+-- Constraints for dumped tables
+--
 
 --
 -- Constraints for table `order_product`
