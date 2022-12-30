@@ -1,8 +1,8 @@
 <?php
     session_start();
+    
  ?>
  
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -60,13 +60,14 @@
     if (!empty($_POST["email"]) && !empty($_POST["pass"])) {
         $sql = "SELECT * FROM customer WHERE email ='$email' AND password ='$pass'"; //Find the customer acc
         $result = mysqli_query($conn,$sql); //Check is it exists
-
         
         if (mysqli_num_rows($result) == 1) {
 
-          
+            while($result2 = mysqli_fetch_assoc($result)){
+                $_SESSION['id'] = $result2['id'];
+            }
+            
             $_SESSION['logged_in'] = true;
-            $_SESSION['email'] = $email;
             header("Location: index.php");
             
         } else {
