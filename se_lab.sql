@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 30, 2022 at 09:57 AM
+-- Generation Time: Dec 30, 2022 at 03:02 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -105,6 +105,13 @@ CREATE TABLE `customer` (
   `credit_score` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `customer`
+--
+
+INSERT INTO `customer` (`id`, `name`, `email`, `address`, `password`, `phone`, `payment_method`, `credit_score`) VALUES
+(1, 'Alex Yeng', 'aly@gmail.com', 'kuching,sarawak', 'aly001', 110010001, 'Credit Card', 100);
+
 -- --------------------------------------------------------
 
 --
@@ -138,16 +145,17 @@ CREATE TABLE `orders` (
   `order_date` datetime NOT NULL,
   `order_collection` text NOT NULL,
   `pickup_time` datetime DEFAULT NULL,
-  `Status` varchar(10) NOT NULL DEFAULT 'preparing'
+  `Status` varchar(10) NOT NULL DEFAULT 'preparing',
+  `customer_id` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`order_id`, `order_amount`, `order_date`, `order_collection`, `pickup_time`, `Status`) VALUES
-(1, 50.5, '2022-12-13 17:31:47', 'takeaway', '2022-12-13 18:31:47', 'done'),
-(2, 5, '2022-12-15 00:00:00', 'Pick Up', '2022-12-15 00:00:00', 'done');
+INSERT INTO `orders` (`order_id`, `order_amount`, `order_date`, `order_collection`, `pickup_time`, `Status`, `customer_id`) VALUES
+(1, 50.5, '2022-12-13 17:31:47', 'takeaway', '2022-12-13 18:31:47', 'done', 1),
+(2, 5, '2022-12-15 00:00:00', 'Pick Up', '2022-12-15 00:00:00', 'done', 1);
 
 -- --------------------------------------------------------
 
@@ -187,20 +195,22 @@ CREATE TABLE `product` (
   `product_desc` text NOT NULL,
   `product_quan` int(100) NOT NULL,
   `product_cal` int(100) NOT NULL,
-  `product_img` varchar(100) NOT NULL
+  `product_img` varchar(100) NOT NULL,
+  `best_seller` tinyint(1) NOT NULL,
+  `pixel` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`product_id`, `product_name`, `price`, `product_type`, `product_desc`, `product_quan`, `product_cal`, `product_img`) VALUES
-(1, 'Gu Mor Kak', 8.9, 1, '“Gu Mor Kak” or Demon Cow’s Horn Biscuit is a chinese homemade traditional biscuit that is packed with savory rosated chicken fillings, with a thin layered crust wrapped around it. It’s crunchy textute and salty with a hint a sweetness flavour is exactly why Gu Mor Kak is one of our cafe’s signature pastries and best seller. ', 90, 35, ''),
-(2, 'Geh Bo Gok Tat', 6.9, 1, 'Homemade Portuguese style egg tart baked with an outer layer of crust, fragant egg fillings and a layer of burnt cheese on top. It’s aromatic, sweet and satly fillings combined with the crusty outer layer is definately a must try. ', 46, 125, 'product_images/Geh_Bo_Gok_Tat.JPG'),
-(3, 'Kopi Bancuh', 5, 3, 'Black coffee with sugar and evaporated milk, which is similar to condensed milk, but unsweetened.', 100, 40, ''),
-(4, 'Teh Bancuh', 5, 3, 'A popular hot milk tea beverage most commonly found in restaurants, outdoor stalls, mamaks and kopitiams within the Southeast Asian countries of Malaysia, Indonesia, Singapore and Thailand', 100, 40, ''),
-(5, 'Oreo Cheesecake', 4.5, 2, 'Served fresh of the fridge with butter and oreo crumps as the base, special homemade cream cheese and milk recipe as the middle layer and top it off with oreo poweder sprinkles and a piece of oreo biscuit. Oreo lovers what are you waiting for? Try it now.', 60, 562, ''),
-(7, 'cup', 3, 3, '3', 3, 3, 'product_images/cappuccino.jpg');
+INSERT INTO `product` (`product_id`, `product_name`, `price`, `product_type`, `product_desc`, `product_quan`, `product_cal`, `product_img`, `best_seller`, `pixel`) VALUES
+(1, 'Gu Mor Kak', 8.9, 1, '“Gu Mor Kak” or Demon Cow’s Horn Biscuit is a chinese homemade traditional biscuit that is packed with savory rosated chicken fillings, with a thin layered crust wrapped around it. It’s crunchy textute and salty with a hint a sweetness flavour is exactly why Gu Mor Kak is one of our cafe’s signature pastries and best seller. ', 90, 35, '', 0, 0),
+(2, 'Geh Bo Gok Tat', 6.9, 1, 'Homemade Portuguese style egg tart baked with an outer layer of crust, fragant egg fillings and a layer of burnt cheese on top. It’s aromatic, sweet and satly fillings combined with the crusty outer layer is definately a must try. ', 46, 125, 'product_images/Geh_Bo_Gok_Tat.JPG', 0, 0),
+(3, 'Kopi Bancuh', 5, 3, 'Black coffee with sugar and evaporated milk, which is similar to condensed milk, but unsweetened.', 100, 40, '', 0, 0),
+(4, 'Teh Bancuh', 5, 3, 'A popular hot milk tea beverage most commonly found in restaurants, outdoor stalls, mamaks and kopitiams within the Southeast Asian countries of Malaysia, Indonesia, Singapore and Thailand', 100, 40, '', 0, 0),
+(5, 'Oreo Cheesecake', 4.5, 2, 'Served fresh of the fridge with butter and oreo crumps as the base, special homemade cream cheese and milk recipe as the middle layer and top it off with oreo poweder sprinkles and a piece of oreo biscuit. Oreo lovers what are you waiting for? Try it now.', 60, 562, '', 0, 0),
+(7, 'cup', 3, 3, '3', 3, 3, 'product_images/cappuccino.jpg', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -280,7 +290,8 @@ ALTER TABLE `events`
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
-  ADD PRIMARY KEY (`order_id`);
+  ADD PRIMARY KEY (`order_id`),
+  ADD KEY `customer_id` (`customer_id`);
 
 --
 -- Indexes for table `order_product`
@@ -335,7 +346,7 @@ ALTER TABLE `category_product`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `events`
@@ -370,12 +381,12 @@ ALTER TABLE `transaction`
 --
 -- Constraints for dumped tables
 --
-ALTER TABLE `transaction`
-  MODIFY `trans_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2000000003;
 
 --
--- Constraints for dumped tables
+-- Constraints for table `orders`
 --
+ALTER TABLE `orders`
+  ADD CONSTRAINT `customer_id` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `order_product`
