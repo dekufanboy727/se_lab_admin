@@ -136,7 +136,7 @@ include "dbConnection.php"
                                 </label>
                             </th>
                             <th class="manage-product-button">
-                                <a href="add_product.php" class="button">Add <i class="fa-solid fa-plus"></i></a>
+                                <a href="product_add.php" class="button">Add <i class="fa-solid fa-plus"></i></a>
                             </th>
                         </tr>
                     </table>
@@ -184,7 +184,7 @@ include "dbConnection.php"
                                             <td><?php echo $row['best_seller'] ?></td>
                                             <td><?php echo $row['pixel'] ?></td>
                                             <?php 
-                                                echo '<td><a href="edit_product.php?product='.$row['product_id'].'"><ion-icon name="create"></a></td>';
+                                                echo '<td><a href="product_edit.php?product='.$row['product_id'].'"><ion-icon name="create"></a></td>';
                                                 echo '<td><a href="javascript: myDeleteConfirmationFunction('.$row['product_id'].')"  alt = "delete" class="delete-button"><ion-icon name="trash-outline"></ion-icon></a></td>';
                                             ?>
                                         </tr>

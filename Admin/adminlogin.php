@@ -119,7 +119,7 @@ session_start();
         <!--End class container-->
     </div>
 
-    <script type="text/javascript" src="adminloginValidation.js"></script>
+    <script type="text/javascript" src="js/adminloginValidation.js"></script>
 
 </body>
 
