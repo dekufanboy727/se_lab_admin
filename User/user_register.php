@@ -183,7 +183,7 @@
                     <label>Confirm Password</label>
                     <input type="password" id="password2" name="password2" placeholder="Re-enter your password">
 
-                    <i class="fa fa-eye" id="togglePassword" onclick="togglePassword()"></i>
+                    <i class="fa fa-eye" id="togglePassword2" onclick="togglePassword2()"></i>
                     <i class="fa fa-check-circle" aria-hidden="true"></i>
                     <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
                     <small>Error Message</small>

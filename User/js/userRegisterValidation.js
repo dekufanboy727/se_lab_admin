@@ -126,3 +126,15 @@ function checkInputs(){
             document.getElementById("togglePassword").style.color='black';
         }
     }
+
+    function togglePassword2(){
+        var password2 = document.getElementById("password2")
+        if(password2.type ==='password'){
+            password2.type = "text";
+            document.getElementById("togglePassword2").style.color='#8c8c8c';
+        }
+        else{
+            password2.setAttribute('type', 'password');
+            document.getElementById("togglePassword2").style.color='black';
+        }
+    }

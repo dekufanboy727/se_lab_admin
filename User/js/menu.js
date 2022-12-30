@@ -1,6 +1,6 @@
-function togglePopup_1(){
+function togglePopup(){
     document.getElementById("scroll").scrollIntoView();
-    document.getElementById("popup-1").classList.toggle("active");
+    document.getElementById("popup").classList.toggle("active");
 
     let plus = document.getElementById("plus");
     let num = document.getElementById("num");
