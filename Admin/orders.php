@@ -136,6 +136,7 @@ include "dbConnection.php"
                                     <th>Collection</th>
                                     <th>Product List</th>
                                     <th>Status</th>
+                                    <th>Customer</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -175,6 +176,13 @@ include "dbConnection.php"
                                                 if ($row['Status'] == 'cancel') {
                                                     echo "Cancel";
                                                 }
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                    $sql3 = mysqli_query($conn, "select * from customer where id =".$row['customer_id'].";");
+                                                    $row3 = mysqli_fetch_assoc($sql3);
+                                                    echo $row3['name'];
                                                 ?>
                                             </td>
                                             <td>

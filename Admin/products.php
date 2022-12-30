@@ -152,6 +152,8 @@ include "dbConnection.php"
                                     <th>Price (RM)</th>
                                     <th>Quantity</th>
                                     <th>Calorie (kcal)</th>
+                                    <th>Best seller</th>
+                                    <th>Pixel</th>
                                     <th colspan="2">Action</th>
                                 </tr>
                             </thead>
@@ -179,6 +181,8 @@ include "dbConnection.php"
                                             <td><?php echo $row['price'] ?></td>
                                             <td><?php echo $row['product_quan'] ?></td>
                                             <td><?php echo $row['product_cal'] ?></td>
+                                            <td><?php echo $row['best_seller'] ?></td>
+                                            <td><?php echo $row['pixel'] ?></td>
                                             <?php 
                                                 echo '<td><a href="edit_product.php?product='.$row['product_id'].'"><ion-icon name="create"></a></td>';
                                                 echo '<td><a href="javascript: myDeleteConfirmationFunction('.$row['product_id'].')"  alt = "delete" class="delete-button"><ion-icon name="trash-outline"></ion-icon></a></td>';
