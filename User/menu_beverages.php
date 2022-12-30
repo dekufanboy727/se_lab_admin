@@ -81,11 +81,11 @@
                 <div class="item_name"><center><?php echo $data['product_name']?></center></div>
                 <div class="price">
                     <div class="price">
-                        <center>RM<?php echo $data['price']?>0</center>
+                        <center>RM<?php echo number_format($data['price'], 2);?></center>
                         <div class="sub_price"><center>Hot</center></div>
                     </div>
                     <div class="price">
-                        <center>RM<?php echo $data['price']+$cold?>0</center>
+                        <center>RM<?php echo number_format($data['price'] +$cold , 2);?></center>
                         <div class="sub_price"><center>Cold</center></div>
                     </div>
                 </div>
@@ -127,18 +127,18 @@
                             
                             <div class="price">
                                 <div class="price2">
-                                    <center>RM<?php echo $data['price']?>0</center>
+                                    <center>RM<?php echo number_format($data['price'], 2);?></center>
                                     <div class="sub_price2"><center>Hot</center></div>
                                 </div>
                                 <div class="price2">
-                                    <center>RM<?php echo $data['price']+$cold?>0</center>
+                                    <center>RM<?php echo number_format($data['price'] +$cold , 2);?></center>
                                     <div class="sub_price2"><center>Cold</center></div>
                                 </div>
                             </div>
                             <div class="quantity">
-                                <span class="minus"id="minus">-</span>
-                                <span class="num"id="num">01</span>
-                                <span class="plus" id="plus">+</span>
+                                <span class="minus"id="minus<?php echo $data['product_id']?>">-</span>
+                                <span class="num"id="num<?php echo $data['product_id']?>">01</span>
+                                <span class="plus" id="plus<?php echo $data['product_id']?>">+</span>
                             </div>
                         </div>
                         <div class="add_to_cart_btn">Add To Cart</div>
@@ -153,9 +153,9 @@
         document.getElementById("scroll").scrollIntoView();
         document.getElementById("popup-<?php echo $data['product_id']?>").classList.toggle("active");
 
-        let plus = document.getElementById("plus");
-        let num = document.getElementById("num");
-        let minus = document.getElementById("minus");
+        let plus = document.getElementById("plus<?php echo $data['product_id']?>");
+        let num = document.getElementById("num<?php echo $data['product_id']?>");
+        let minus = document.getElementById("minus<?php echo $data['product_id']?>");
 
         let a = 0;
 
@@ -181,191 +181,6 @@
             }
         }
     ?>
-    <div class="popup" id="popup-2">
-        <div class="overlay"></div>
-        <div class="content">
-            <img src="images/teh_bancuh.jpg">
-            <div class="description_container">
-                <div class="description2">
-                    <div class="item_name2">Teh Bancuh</div>
-                    <P>“Gu Mor Kak” or Demon Cow’s Horn Biscuit is a chinese homemade traditional biscuit that is packed with savory rosated chicken fillings, with a thin layered crust wrapped around it. It’s crunchy textute and salty with a hint a sweetness flavour is exactly why Gu Mor Kak is one of our cafe’s signature pastries and best seller.
-                    </P>
-                    <div class="deco">
-                        <div class="deco_dot"></div>
-                        <div class="deco_dot"></div>
-                        <div class="deco_bar"></div>
-                    </div>
-                    <div class="price_quantity_container">
-                        <div class="price">
-                            <div class="price2">
-                                <center>RM5.50</center>
-                                <div class="sub_price2"><center>Hot</center></div>
-                            </div>
-                            <div class="price2">
-                                <center>RM5.90</center>
-                                <div class="sub_price2"><center>Cold</center></div>
-                            </div>
-                        </div>
-                        <div class="quantity">
-                            <span class="minus"id="minus-2">-</span>
-                            <span class="num"id="num-2">01</span>
-                            <span class="plus" id="plus-2">+</span>
-                        </div>
-                    </div>
-                    <div class="add_to_cart_btn">Add To Cart</div>
-                </div>
-            </div>
-            <div class="close_btn" onclick="togglePopup_2()">Close</div>
-        </div>
-    </div>
-
-    <div class="popup" id="popup-3">
-        <div class="overlay"></div>
-        <div class="content">
-            <img src="images/kopi_teh.jpg">
-            <div class="description_container">
-                <div class="description2">
-                    <div class="item_name2">Kopi & Teh</div>
-                    <P>Homemade Portuguese style egg tart baked with an outer layer of crust, fragant egg fillings and a layer of burnt cheese on top. It’s aromatic, sweet and satly fillings combined with the crusty outer layer is definately a must try.
-                    </P>
-                    <div class="deco">
-                        <div class="deco_dot"></div>
-                        <div class="deco_dot"></div>
-                        <div class="deco_bar"></div>
-                    </div>
-                    <div class="price_quantity_container">
-                        <div class="price2">
-                            <div class="price2">
-                                <center>RM5.50</center>
-                                <div class="sub_price2"><center>Hot</center></div>
-                            </div>
-                            <div class="price2">
-                                <center>RM5.90</center>
-                                <div class="sub_price2"><center>Cold</center></div>
-                            </div>
-                        </div>
-                        <div class="quantity">
-                            <span class="minus"id="minus-3">-</span>
-                            <span class="num"id="num-3">01</span>
-                            <span class="plus" id="plus-3">+</span>
-                        </div>
-                    </div>
-                    <div class="add_to_cart_btn">Add To Cart</div>
-                </div>
-            </div>
-            <div class="close_btn" onclick="togglePopup_3()">Close</div>
-        </div>
-    </div>
-
-    <div class="popup" id="popup-4">
-        <div class="overlay"></div>
-        <div class="content">
-            <img src="images/cappuccino.jpg">
-            <div class="description_container">
-                <div class="description2">
-                    <div class="item_name2">Cappuccino</div>
-                    <P>Served fresh of the fridge with butter and oreo crumps as the base, special homemade cream cheese and milk recipe as the middle layer and top it off with oreo poweder sprinkles and a piece of oreo biscuit. Oreo lovers what are you waiting for? Try it now.
-                    </P>
-                    <div class="deco">
-                        <div class="deco_dot"></div>
-                        <div class="deco_dot"></div>
-                        <div class="deco_bar"></div>
-                    </div>
-                    <div class="price_quantity_container">
-                        <div class="price">
-                            <div class="price2">
-                                <center>RM6.90</center>
-                                <div class="sub_price2"><center>Hot</center></div>
-                            </div>
-                            <div class="price2">
-                                <center>RM7.90</center>
-                                <div class="sub_price2"><center>Cold</center></div>
-                            </div>
-                        </div>
-                        <div class="quantity">
-                            <span class="minus"id="minus-4">-</span>
-                            <span class="num"id="num-4">01</span>
-                            <span class="plus" id="plus-4">+</span>
-                        </div>
-                    </div>
-                    <div class="add_to_cart_btn">Add To Cart</div>
-                </div>
-            </div>
-            <div class="close_btn" onclick="togglePopup_4()">Close</div>
-        </div>
-    </div>
-
-    <div class="popup" id="popup-5">
-        <div class="overlay"></div>
-        <div class="content">
-            <img src="images/latte.jpg">
-            <div class="description_container">
-                <div class="description2">
-                    <div class="item_name2">Latte</div>
-                    <P>“Gu Mor Kak” or Demon Cow’s Horn Biscuit is a chinese homemade traditional biscuit that is packed with savory rosated chicken fillings, with a thin layered crust wrapped around it. It’s crunchy textute and salty with a hint a sweetness flavour is exactly why Gu Mor Kak is one of our cafe’s signature pastries and best seller.
-                    </P>
-                    <div class="deco">
-                        <div class="deco_dot"></div>
-                        <div class="deco_dot"></div>
-                        <div class="deco_bar"></div>
-                    </div>
-                    <div class="price_quantity_container">
-                        <div class="price2">
-                            <center>RM6.90</center>
-                            <div class="sub_price2"><center>Hot</center></div>
-                        </div>
-                        <div class="price2">
-                            <center>RM7.90</center>
-                            <div class="sub_price2"><center>Cold</center></div>
-                        </div>
-                        <div class="quantity">
-                            <span class="minus"id="minus-5">-</span>
-                            <span class="num"id="num-5">01</span>
-                            <span class="plus" id="plus-5">+</span>
-                        </div>
-                    </div>
-                    <div class="add_to_cart_btn">Add To Cart</div>
-                </div>
-            </div>
-            <div class="close_btn" onclick="togglePopup_5()">Close</div>
-        </div>
-    </div>
-
-    <div class="popup" id="popup-6">
-        <div class="overlay"></div>
-        <div class="content">
-            <img src="images/mocha.jpg">
-            <div class="description_container">
-                <div class="description2">
-                    <div class="item_name2">Mocha</div>
-                    <P>“Gu Mor Kak” or Demon Cow’s Horn Biscuit is a chinese homemade traditional biscuit that is packed with savory rosated chicken fillings, with a thin layered crust wrapped around it. It’s crunchy textute and salty with a hint a sweetness flavour is exactly why Gu Mor Kak is one of our cafe’s signature pastries and best seller.
-                    </P>
-                    <div class="deco">
-                        <div class="deco_dot"></div>
-                        <div class="deco_dot"></div>
-                        <div class="deco_bar"></div>
-                    </div>
-                    <div class="price_quantity_container">
-                        <div class="price2">
-                            <center>RM6.90</center>
-                            <div class="sub_price2"><center>Hot</center></div>
-                        </div>
-                        <div class="price2">
-                            <center>RM7.90</center>
-                            <div class="sub_price2"><center>Cold</center></div>
-                        </div>
-                        <div class="quantity">
-                            <span class="minus">-</span>
-                            <span class="num">01</span>
-                            <span class="plus">+</span>
-                        </div>
-                    </div>
-                    <div class="add_to_cart_btn">Add To Cart</div>
-                </div>
-            </div>
-            <div class="close_btn" onclick="togglePopup_6()">Close</div>
-        </div>
-    </div>
-
+    
 </body>
 </html>
