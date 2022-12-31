@@ -230,7 +230,7 @@ include "dbConnection.php"
                 <div class="recentOrders">
                     <div class="cardHeader">
                         <h2>Recent Orders</h2>
-                        <a href="#" class="btn">View All</a>
+                        <a href="orders.php" class="btn">View All</a>
                     </div>
                     <table>
                         <thead>
@@ -396,6 +396,17 @@ include "dbConnection.php"
         echo "0";
     }
 
+    $sql2 = "SELECT COUNT(`order_id`) AS num, MONTHNAME(`order_date`) AS mon FROM `orders` GROUP BY DATE_FORMAT(`order_date`, '%m-%Y') ORDER BY YEAR(`order_date`) ASC";
+    $result2 = $conn->query($sql2);
+
+    if($result2->num_rows > 0){
+        while($row2 = $result2->fetch_assoc()){
+            $num[] = $row2["num"];
+            $month[] = $row2["mon"];
+        }
+    } else{
+        echo "0";
+    }
     ?>
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
@@ -444,10 +455,10 @@ include "dbConnection.php"
         new Chart(orders, {
             type: 'bar',
             data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                labels: <?php echo json_encode($month) ?>,
                 datasets: [{
                     label: 'Orders',
-                    data: [1200, 1900, 3000, 5400, 1220, 3600, 4000, 5000, 3000, 1000, 5000, 3000],
+                    data: <?php echo json_encode($num) ?>,
                     backgroundColor: [
                         'rgba(255, 99, 132, 1)',
                         'rgba(54, 162, 235, 1)',

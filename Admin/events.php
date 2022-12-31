@@ -126,7 +126,7 @@ include "dbConnection.php"
                         <h2>Events</h2>
                         <a href="event_add.php" class="btn">Add new event</a>
                     </div>
-                    <div class="ovents-table-content">
+                    <div class="events-table-content">
                         <table id="example" class="table table-striped">
                             <thead>
                                 <tr>
