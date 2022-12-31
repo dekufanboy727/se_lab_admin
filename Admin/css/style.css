@@ -300,11 +300,11 @@ body {
 .details .recentOrders {
     position: relative;
     display: grid;
-    min-height: 500px;
     background: var(--white);
     padding: 20px;
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
     border-radius: 20px;
+    align-content: center;
 }
 
 .cardHeader {
@@ -367,7 +367,7 @@ body {
     text-align: center;
 }
 
-.status.delivered {
+.status.done {
     padding: 2px 4px;
     background: #8de02c;
     color: var(--white);
@@ -376,7 +376,7 @@ body {
     font-weight: 500;
 }
 
-.status.pending {
+.status.in-progress {
     padding: 2px 4px;
     background: #f9ca3f;
     color: var(--white);
@@ -385,7 +385,7 @@ body {
     font-weight: 500;
 }
 
-.status.return {
+.status.cancel {
     padding: 2px 4px;
     background: #f00;
     color: var(--white);
@@ -394,7 +394,7 @@ body {
     font-weight: 500;
 }
 
-.status.in-progress {
+.status.preparing {
     padding: 2px 4px;
     background: #1795ce;
     color: var(--white);
@@ -406,7 +406,6 @@ body {
 .recentCustomers {
     position: relative;
     display: grid;
-    min-height: 500px;
     padding: 20px;
     background: var(--white);
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);

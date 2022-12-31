@@ -21,11 +21,10 @@ include "dbConnection.php"
 
 <body>
     <?php //Session Control
-        if (empty($_SESSION['logged_in']) == true)
-        {
-            echo "You are not Logged in";
-            header("Location: adminlogout.php");
-        }
+    if (empty($_SESSION['logged_in']) == true) {
+        echo "You are not Logged in";
+        header("Location: adminlogout.php");
+    }
     ?>
     <div class="container">
         <div class="navigation">
@@ -235,73 +234,38 @@ include "dbConnection.php"
                     <table>
                         <thead>
                             <tr>
-                                <td>Name</td>
-                                <td>Price</td>
-                                <td>Payment</td>
+                                <td>Order products</td>
+                                <td>Quantity</td>
+                                <td>Order ID</td>
+                                <td>Date</td>
                                 <td>Status</td>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Star Refrigerator</td>
-                                <td>$1200</td>
-                                <td>Paid</td>
-                                <td><span class="status delivered">Delivered</span></td>
-                            </tr>
-                            <tr>
-                                <td>Window Cooloers</td>
-                                <td>$110</td>
-                                <td>Due</td>
-                                <td><span class="status pending">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>Speakers</td>
-                                <td>$620</td>
-                                <td>Paid</td>
-                                <td><span class="status return">Return</span></td>
-                            </tr>
-                            <tr>
-                                <td>HP Laptop</td>
-                                <td>$110</td>
-                                <td>Due</td>
-                                <td><span class="status in-progress">In Progress</span></td>
-                            </tr>
-                            <tr>
-                                <td>Wall Fan</td>
-                                <td>$110</td>
-                                <td>Paid</td>
-                                <td><span class="status pending">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>Adidas Shoes</td>
-                                <td>$620</td>
-                                <td>Paid</td>
-                                <td><span class="status return">Return</span></td>
-                            </tr>
-                            <tr>
-                                <td>Denim Shirts</td>
-                                <td>$110</td>
-                                <td>Paid</td>
-                                <td><span class="status in-progress">In Progress</span></td>
-                            </tr>
-                            <tr>
-                                <td>Casual Shoes</td>
-                                <td>$575</td>
-                                <td>Paid</td>
-                                <td><span class="status pending">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>Wall Fan</td>
-                                <td>$110</td>
-                                <td>Paid</td>
-                                <td><span class="status pending">Pending</span></td>
-                            </tr>
-                            <tr>
-                                <td>Denim Shirts</td>
-                                <td>$110</td>
-                                <td>Due</td>
-                                <td><span class="status in-progress">In Progress</span></td>
-                            </tr>
+                            <?php
+
+                            $sql3 = "SELECT orders.order_id, orders.Status, orders.order_date, order_product.quantity, product.product_name FROM orders JOIN order_product ON orders.order_id = order_product.order_id JOIN product ON order_product.product_id = product.product_id ORDER BY orders.order_date DESC LIMIT 5";
+                            $result3 = $conn->query($sql3);
+
+                            if ($result3->num_rows > 0) {
+                                while ($row3 = $result3->fetch_assoc()) {
+                                    echo "<tr>";
+                                    echo "<td>" . $row3['product_name'] . "</td>";
+                                    echo "<td>" . $row3['quantity'] . "</td>";
+                                    echo "<td>" . $row3['order_id'] . "</td>";
+                                    echo "<td>" . $row3['order_date'] . "</td>";
+                                    if ($row3['Status'] == "preparing") {
+                                        echo "<td><span class='status preparing'>Preparing</span></td>";
+                                    } else if ($row3['Status'] == "done") {
+                                        echo "<td><span class='status done'>Done</span></td>";
+                                    } else if ($row3['Status'] == "cancel") {
+                                        echo "<td><span class='status cancel'>Cancel</span></td>";
+                                    }
+
+                                    echo "<tr>";
+                                }
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -312,70 +276,24 @@ include "dbConnection.php"
                         <h2>Recent Customers</h2>
                     </div>
                     <table>
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="images/icon.png"></div>
-                            </td>
-                            <td>
-                                <h4>David<br><span>Italy</span></h4>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="images/icon.png"></div>
-                            </td>
-                            <td>
-                                <h4>David<br><span>Italy</span></h4>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="images/icon.png"></div>
-                            </td>
-                            <td>
-                                <h4>David<br><span>Italy</span></h4>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="images/icon.png"></div>
-                            </td>
-                            <td>
-                                <h4>David<br><span>Italy</span></h4>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="images/icon.png"></div>
-                            </td>
-                            <td>
-                                <h4>David<br><span>Italy</span></h4>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="images/icon.png"></div>
-                            </td>
-                            <td>
-                                <h4>David<br><span>Italy</span></h4>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="images/icon.png"></div>
-                            </td>
-                            <td>
-                                <h4>David<br><span>Italy</span></h4>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td width="60px">
-                                <div class="imgBx"><img src="images/icon.png"></div>
-                            </td>
-                            <td>
-                                <h4>David<br><span>Italy</span></h4>
-                            </td>
-                        </tr>
+                        <?php
+
+                        $sql4 = "SELECT * FROM `customer` LIMIT 4";
+                        $result4 = $conn->query($sql4);
+
+                        if ($result4->num_rows > 0) {
+                            while ($row4 = $result4->fetch_assoc()) {
+                                echo "<tr>";
+                                echo "<td width='60px'>";
+                                echo "<div class='imgBx'><img src='images/user.png'></div>";
+                                echo "</td>";
+                                echo "<td>";
+                                echo "<h4>" . $row4['name'] . "<br><span>" . $row4['address'] . "</span></h4>";
+
+                                echo "<tr>";
+                            }
+                        }
+                        ?>
                     </table>
                 </div>
             </div>
@@ -399,12 +317,12 @@ include "dbConnection.php"
     $sql2 = "SELECT COUNT(`order_id`) AS num, MONTHNAME(`order_date`) AS mon FROM `orders` GROUP BY DATE_FORMAT(`order_date`, '%m-%Y') ORDER BY YEAR(`order_date`) ASC";
     $result2 = $conn->query($sql2);
 
-    if($result2->num_rows > 0){
-        while($row2 = $result2->fetch_assoc()){
+    if ($result2->num_rows > 0) {
+        while ($row2 = $result2->fetch_assoc()) {
             $num[] = $row2["num"];
             $month[] = $row2["mon"];
         }
-    } else{
+    } else {
         echo "0";
     }
     ?>
