@@ -278,7 +278,7 @@ include "dbConnection.php"
                     <table>
                         <?php
 
-                        $sql4 = "SELECT * FROM `customer` LIMIT 4";
+                        $sql4 = "SELECT * FROM `customer` ORDER BY id DESC LIMIT 4";
                         $result4 = $conn->query($sql4);
 
                         if ($result4->num_rows > 0) {
@@ -288,7 +288,7 @@ include "dbConnection.php"
                                 echo "<div class='imgBx'><img src='images/user.png'></div>";
                                 echo "</td>";
                                 echo "<td>";
-                                echo "<h4>" . $row4['name'] . "<br><span>" . $row4['address'] . "</span></h4>";
+                                echo "<h4>" . $row4['name'] . "<br><span>" . $row4['credit_score'] . "</span></h4>";
 
                                 echo "<tr>";
                             }
