@@ -1,5 +1,5 @@
 body{
-	margin: 0;
+    margin: 0;
     background-color: #E8CBB1;
 }
 .nav_bar{
@@ -25,7 +25,7 @@ body{
 }
 .pages ul li a{
     position: relative;
-	text-decoration: none;
+    text-decoration: none;
     color: black;
     width: 0;
 }
@@ -110,7 +110,7 @@ body{
     left: 255px;
 }
 .menu_bar ul li a{
-	text-decoration: none;
+    text-decoration: none;
     color: #E8CBB1;
     font-family: 'Marhey', cursive;
     font-size: 20px;
@@ -296,18 +296,34 @@ body{
 .price2{
     display: inline-block;
     margin-right: 20px;
+}
+.hidden{
+    display: none;
+}
+.lb1-radio{
+    cursor: pointer;
     font-family: 'Marhey', cursive;
     font-size: 30px;
+    margin-right: 5px;
+    display: inline-block;
+    width: 150px;
+    height: 65px;
+    border-radius: 20px;
+    position: relative;
+    bottom: -5px;
+}
+input[type="radio"]:checked + .lb1-radio{
+    border: 2px solid #333A44;
 }
 .sub_price2{
-    position: relative;
-    bottom: 20px;
     font-size: 20px;
     color: #7C9CAB;
+    position: relative;
+    bottom: 20px;
 }
 .quantity{
     height: 50px;
-    min-width: 180px;
+    max-width: 180px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -316,23 +332,27 @@ body{
     position: relative;
     bottom: 30px;
 }
-.quantity span{
+.quantity input{
+    border: none;
     text-align: center;
-    font-size: 30px;
-    cursor: pointer;
+    font-size: 25px;
+    font-family: 'Marhey', cursive;
 }
 .quantity .num{
-    width: 47%;
+    width: 46%;
     padding-top: 5px;
 }
 .quantity .plus,
 .quantity .minus{
     width: 40px;
     height: 40px;
+    font-family: 'Marhey', cursive;
     font-size: 25px;
     border-radius: 50% 50%;
     background-color: #7C9CAB;
     color: white;
+    text-align: center;
+    cursor: pointer;
 }
 .price_quantity_container{
     position: absolute;
@@ -390,4 +410,10 @@ body{
 .add_to_cart_btn:hover::before,
 .add_to_cart_btn:focus::before{
     transform: scaleX(1);
+}
+
+.cart{
+    float: right;
+    font-size: 30px;
+    border: 2px solid;
 }

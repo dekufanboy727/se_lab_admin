@@ -1,0 +1,222 @@
+body{
+	margin: 0;
+    background-color: #E8CBB1;
+    font-family: 'Marhey', cursive;
+}
+.nav_bar{
+    background-color: #E8CBB1;
+    padding: 5px 5px;
+    font-family: 'Marhey', cursive;
+    height: 70px;
+}
+.logo,
+.pages{
+    display: inline-block;
+}
+.pages{
+    position: absolute;
+    float: right;
+}
+.pages ul li{
+    list-style: none;
+    display: inline-block;
+    text-align: center;
+    margin: 0 30px;
+    padding-top: 8px;
+}
+.pages ul li a{
+    position: relative;
+	text-decoration: none;
+    color: black;
+    width: 0;
+}
+.pages ul li a::after{
+    content: "";
+    display: block;
+    background-color: #4C5D70;
+    height: 3px;
+    width: 0%;
+    border-radius: 20px;
+    position: absolute;
+    left: 50%;
+}
+.pages ul li a:hover::after{
+    left: 0;
+    width: 100%;
+    transition: 0.3s ease-in-out;
+}
+.pages ul li .active::after{
+    content: "";
+    display: block;
+    background-color: #4C5D70;
+    height: 3px;
+    width: 100%;
+    border-radius: 20px;
+    position: absolute;
+    left: 0;
+}
+
+.login{
+    position: relative;
+    float: right;
+    background-color: #4C5D70;
+    color: #E8CBB1;
+    width: 120px;
+    height: 30px;
+    border-radius: 30px;
+    text-align: center;
+    text-decoration: none;
+    margin: 17px 15px;
+    padding: 5px 5px 0;
+    box-shadow: 5px 5px 8px grey;
+    z-index: 1;
+}
+.login::before{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #E8CBB1;
+    border-radius: 30px;
+    border: 2px solid #4C5D70;
+    z-index: -1;
+    transform: scaleX(0);
+    transition: transform 0.3s ease-in-out;
+}
+.login:hover{
+    color: #4C5D70;
+}
+.login:hover::before,
+.login:focus::before{
+    transform: scaleX(1);
+}
+.menu_bar img{
+    width: 100%;
+    height: 500px;
+    position: absolute;
+    top: -120px;
+    z-index: -1;
+    object-fit: cover;
+}
+.menu_bar ul li{
+    list-style: none;
+    display: inline-block;
+    text-align: center;
+    line-height: 0;
+    position: relative;
+    top: 255px;
+    left: 100px;
+}
+.menu_bar ul li a{
+	text-decoration: none;
+    color: #E8CBB1;
+    font-family: 'Marhey', cursive;
+    font-size: 20px;
+}
+.menu_bar ul li .active2{
+    font-size: 25px;
+    background-color: #E8CBB1;
+    color: #4C5D70;
+    padding: 10px 50px;
+    border-radius: 40px 40px 0 0;
+}
+.container{
+    width: 100%;
+    background-color: #E8CBB1;
+    padding-top: 50px;
+    position: absolute;
+    top: 380px;
+    text-align: center;
+}
+table{
+    border-collapse: separate;
+    border-spacing: 0 20px;
+    margin: 20px auto 50px;
+    font-size: 20px;
+}
+table tr{
+    background-color: white;
+    box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.2);
+    border-radius: 30px;
+}
+table tr:nth-last-child(1),
+table tr:nth-last-child(2),
+table tr:nth-last-child(3){
+    box-shadow: none;
+}
+table tr:nth-last-child(1) td,
+table tr:nth-last-child(2) td,
+table tr:nth-last-child(3) td{
+    box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.2);
+}
+table td{
+    overflow: hidden;
+    padding: 20px;
+}
+table td:first-of-type{
+    border-radius: 30px 0 0 30px;
+}
+table td:last-of-type{
+    border-radius: 0 30px 30px 0;
+    
+}
+table td img{
+    width: 150px;
+    position: relative;
+    top: 8px;
+}
+.remove{
+    font-size: 15px;
+    background-color: crimson;
+    border: 1px solid crimson;
+    border-radius: 10px;
+    color: white;
+    padding: 5px 8px; 
+    margin: 5px;
+    cursor: pointer;
+}
+.checkout{
+    font-size: 18px;
+    background-color: #4C5D70;
+    border: 1px solid #4C5D70;
+    border-radius: 10px;
+    width: 120px;
+    color: white;
+    padding: 10px;
+    margin: 0 0 50px;
+    cursor: pointer;
+}
+.quantity{
+    height: 50px;
+    max-width: 180px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    border: 2px solid #7C9CAB;
+}
+.quantity input{
+    border: none;
+    text-align: center;
+    font-size: 25px;
+    font-family: 'Marhey', cursive;
+}
+.quantity .num{
+    width: 46%;
+    padding-top: 5px;
+}
+.quantity .plus,
+.quantity .minus{
+    width: 40px;
+    height: 40px;
+    font-family: 'Marhey', cursive;
+    font-size: 25px;
+    border-radius: 50% 50%;
+    background-color: #7C9CAB;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+}

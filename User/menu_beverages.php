@@ -7,6 +7,51 @@
         unset($_SESSION['email']);
         header('Location: index.php');
     }
+
+    if($_SERVER['REQUEST_METHOD'] == "POST")
+    {
+        $temp = $_POST['price'];
+        $quantity = $_POST['num'];
+        $sql2 = $conn->query("SELECT * FROM product");
+
+        if($sql2->num_rows > 0)
+        {
+            while($data=$sql2->fetch_assoc())
+            {
+                $productid = $data['product_id'];
+
+                if(isset($_POST[$productid]))
+                {
+                    $sql3 = $conn->query("SELECT * FROM product WHERE product_id = $productid");
+                    $result = $sql3->fetch_assoc();
+
+                    
+                    $product_name = $result['product_name'];
+                    $price = $result['price'];
+                    if($temp = 'Cold'){
+                        $price+=0.40;
+                    }
+                    $total_price = $quantity * $price;
+
+                    $sql = "INSERT INTO cart_temp(product_id,product_name,price, quantity, total_price) VALUES('$productid','$product_name', '$price', '$quantity','$total_price')";
+                    if ($conn->query($sql) === FALSE){
+							echo ("ERROR IN PURCHASING MERCHANDISE!");
+					}else{
+                            echo '<script> alert ("Product successfully added to cart") </script>';
+						}
+					
+    
+                }
+                                
+            }
+
+
+        }
+
+
+	}	
+
+
  ?>
 
 <!DOCTYPE html>
@@ -74,7 +119,7 @@
                 
             <div class="item_pic">
             <?php
-                echo  '<img style="bottom: '.$data['pixel'].'px;" src="data:image/jpeg;base64,'.base64_encode( $data['product_img'] ).'"/>';
+                echo  '<img style="bottom: '.$data['pixel'].'px;" src="'.$data['product_img'].'"/>';
             ?>
             </div>
             <div class="description">
@@ -107,10 +152,13 @@
             while($data=$sql->fetch_assoc()){
     ?>
     <div class="popup" id="popup-<?php echo $data['product_id']?>">
-        <div class="overlay"></div>
+        <?php
+            $product_id = $data['product_id'];
+        ?>
+        <div class="overlay"></div>       
         <div class="content">
             <?php
-                echo  '<img src="data:image/jpeg;base64,'.base64_encode( $data['product_img'] ).'"/>';
+                echo  '<img src="'.$data['product_img'].'"/>';
             ?>
             <div class="description_container">
                 <div class="description2">
@@ -122,26 +170,32 @@
                         <div class="deco_dot"></div>
                         <div class="deco_bar"></div>
                     </div>
-                    <form>
+                    <form name=<?php echo $product_id;?> method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                         <div class="price_quantity_container">
                             
-                            <div class="price">
-                                <div class="price2">
-                                    <center>RM<?php echo number_format($data['price'], 2);?></center>
-                                    <div class="sub_price2"><center>Hot</center></div>
-                                </div>
-                                <div class="price2">
-                                    <center>RM<?php echo number_format($data['price'] +$cold , 2);?></center>
-                                    <div class="sub_price2"><center>Cold</center></div>
-                                </div>
+                            <div class="price2">
+                                <input type="radio" name="price" id="1<?php echo $data['product_id']?>" class="hidden" value="Hot" checked="checked">
+                                <label for="1<?php echo $data['product_id']?>" class="lb1-radio">
+                                <center>RM<?php echo number_format($data['price'], 2);?></center>
+                                <div class="sub_price2"><center>Hot</center></div>
+                                </label>
                             </div>
+
+                            <div class="price2">
+                                <input type="radio" name="price" id="2<?php echo $data['product_id']?>" class="hidden" value="Cold">
+                                <label for="2<?php echo $data['product_id']?>" class="lb1-radio">
+                                <center>RM<?php echo number_format($data['price'] +$cold , 2);?></center>
+                                <div class="sub_price2"><center>Cold</center></div>
+                                </label>
+                            </div>
+
                             <div class="quantity">
                                 <span class="minus"id="minus<?php echo $data['product_id']?>">-</span>
-                                <span class="num"id="num<?php echo $data['product_id']?>">01</span>
+                                <input type="text" name='num' class="num" id="num<?php echo $data['product_id']?>" value ="01"></input>
                                 <span class="plus" id="plus<?php echo $data['product_id']?>">+</span>
                             </div>
                         </div>
-                        <div class="add_to_cart_btn">Add To Cart</div>
+                        <button class="add_to_cart_btn" type="submit" name="<?php echo $product_id;?>">Add To Cart</button>                 
                     </form>
                 </div>
             </div>
@@ -157,19 +211,19 @@
         let num = document.getElementById("num<?php echo $data['product_id']?>");
         let minus = document.getElementById("minus<?php echo $data['product_id']?>");
 
-        let a = 0;
+        let a = 1;
 
         plus.addEventListener("click", ()=>{
             a++;
             a = (a<10)?"0"+a:a;
-            num.innerText = a;
+            num.value = a;
         });
 
         minus.addEventListener("click", ()=>{
             if(a>1){
                 a--;
                 a = (a<10)?"0"+a:a;
-                num.innerText = a;
+                num.value = a;
             }
     });
 }
