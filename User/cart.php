@@ -1,3 +1,8 @@
+<?php
+    session_start();
+    include 'dbConnection.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,21 +11,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/cart_style.css">
     <link href="https://fonts.googleapis.com/css2?family=Marhey:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="js/menu.js"></script>
     <title>Helf Coffee Official Website</title>
 </head>
 <body>
     <div class="nav_bar">
         <div class="logo">
-            <a href="index.html"><img src="images/helf_coffee_logo.png" alt="Helf Coffee Logo" style="width: 130px" href="index.html"></a>
+            <a href="index.php"><img src="images/helf_coffee_logo.png" alt="Helf Coffee Logo" style="width: 130px" href="index.php"></a>
         </div>
 
-        <a href="#" class="login">Login</a>
+        <?php if(!isset($_SESSION['logged_in'])) : ?>
+        <a href="user_login.php" class="login">Login</a>
+        <?php endif ?>
 
+        <?php if(isset($_SESSION['logged_in'])) : ?>
+        <a href="index.php?status=loggedout " class="login">Logout</a>
+        <a href="profile.php" class="login">Profile</a> 
+        <?php endif ?>
+        
         <nav class="pages">
             <ul>
                 <li><a href="#">About Us</a></li>
-                <li><a class="active" href="menu_best_seller.html">Menu</a></li>
+                <li><a href="menu_best_seller.php">Menu</a></li>
                 <li><a href="#">Events</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
@@ -29,47 +42,62 @@
     <div class="menu_bar">
         <img src="images/cart_bg.jpg" alt="Best Seller Bg">
         <ul>
-            <li><a class="active2" href="cart.html">My Cart</a></li>
+            <li><a class="active2" href="cart.php">My Cart</a></li>
         </ul>
     </div>
 
     <div class="container">
         <table>
+        <thead>
             <tr>
-                <td><img src="images/Gu_Mor_Kak.jpg"></td>
-                <td>Gu Mor Kak</td>
-                <td>RM10</td>
-                <td><div class="quantity">
-                    <span class="minus"id="minus<?php echo $data['product_id']?>">-</span>
-                    <input type="text" name='num' class="num" id="num<?php echo $data['product_id']?>" value ="01"></input>
-                    <span class="plus" id="plus<?php echo $data['product_id']?>">+</span>
-                </div></td>
+                <th>Product</th>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+                <th></th>
+            </tr>
+		</thead>
+            <?php
+
+            $sql= "SELECT * FROM cart_temp";
+            $result = $conn->query($sql);
+            $total_order = 0;
+
+            while($data = mysqli_fetch_array($result)) 
+            {
+                $product_id = $data['product_id'];
+                $sql2= "SELECT product_img FROM product WHERE product_id = '$product_id'";
+                $result2 = $conn->query($sql2);
+
+                $total_order = $total_order + $data['total_price'];
+
+                ?>
+                <tr>
+                <?php while($data2 = mysqli_fetch_array($result2))
+                    {
+                    ?>	
+                        <td><?php echo '<img src="'.$data2['product_img'].'"/>';?></td>
+                    <?php	
+                    } 
+                    ?>                
+                <td><?php echo $data['product_name']; ?></td>
+                <td>RM<?php echo number_format($data['price'], 2);?></td>
+                <td><?php echo $data['quantity']; ?></td>
+                <td>RM<?php echo number_format($data['total_price'], 2);?></td>
                 <td><button class="remove">X</button></td>
-            </tr>
-            
+                </tr>
+            <?php
+            }
+            ?>				
             <tr>
-                <td><img src="images/Gu_Mor_Kak.jpg"></td>
-                <td>Gu Mor Kak</td>
-                <td>RM10</td>
-                <td><div class="quantity">
-                    <span class="minus"id="minus<?php echo $data['product_id']?>">-</span>
-                    <input type="text" name='num' class="num" id="num<?php echo $data['product_id']?>" value ="01"></input>
-                    <span class="plus" id="plus<?php echo $data['product_id']?>">+</span>
-                </div></td>
-                <td><button class="remove">X</button></td>
-            </tr>
-            <tr>
-                <td colspan="2" style="text-align: right;">Sub Total</td>
-                <td>RM100</td>
-            </tr>
-            <tr>
-                <td colspan="2" style="text-align: right;">Delivery Fee</td>
-                <td>RM8</td>
-            </tr>
-            <tr>
-                <td colspan="2" style="text-align: right;">Total</td>
-                <td>RM108</td>
-            </tr>
+                <td colspan="7" style="text-align: right;">Sub Total</td>
+                <td>
+                RM<?php
+                echo number_format($total_order, 2);
+                ?>
+                </td>
+		    </tr> 
         </table>
         <button class="checkout">Checkout</button>
     </div>
