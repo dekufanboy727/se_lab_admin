@@ -126,9 +126,7 @@ include "dbConnection.php"
                 <div class="products-table">
                     <div class="products-table-header">
                         <h2>Products</h2>
-                        <a href="product_add.php" class="add-button" style="text-decoration: none; background-color: #776bff; color: white; border-radius: 20px; padding: 8px 20px;">
-                            <i class="fa-solid fa-plus"></i> Add New Product
-                        </a>
+                        <a href="product_add.php" class="btn"><i class="fa-solid fa-plus"></i> Add New Product</a>
                     </div>
                     <div class="products-table-content">
                         <table id="example" class="table table-striped">
