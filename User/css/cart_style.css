@@ -123,19 +123,28 @@ body{
     padding: 10px 50px;
     border-radius: 40px 40px 0 0;
 }
-.container{
+.content_container{
     width: 100%;
     background-color: #E8CBB1;
-    padding-top: 50px;
+    padding-top: 30px;
     position: absolute;
     top: 380px;
-    text-align: center;
+}
+.cart_container{
+    width: 55%;
+    display: inline-block;
 }
 table{
     border-collapse: separate;
     border-spacing: 0 20px;
-    margin: 20px auto 50px;
+    margin: 10px auto 50px;
     font-size: 20px;
+}
+table th{
+    background-color: #4C5D70;
+    color: white;
+    font-weight: 500;
+    padding: 10px;
 }
 table tr{
     background-color: white;
@@ -154,19 +163,22 @@ table tr:nth-last-child(3) td{
 }
 table td{
     overflow: hidden;
-    padding: 20px;
+    padding: 10px 15px;
 }
+table th:first-of-type,
 table td:first-of-type{
     border-radius: 30px 0 0 30px;
 }
+table th:last-of-type,
 table td:last-of-type{
     border-radius: 0 30px 30px 0;
     
 }
 table td img{
-    width: 150px;
+    width: 120px;
     position: relative;
     top: 8px;
+    border-radius: 10px;
 }
 .remove{
     font-size: 15px;
@@ -176,17 +188,6 @@ table td img{
     color: white;
     padding: 5px 8px; 
     margin: 5px;
-    cursor: pointer;
-}
-.checkout{
-    font-size: 18px;
-    background-color: #4C5D70;
-    border: 1px solid #4C5D70;
-    border-radius: 10px;
-    width: 120px;
-    color: white;
-    padding: 10px;
-    margin: 0 0 50px;
     cursor: pointer;
 }
 .quantity{
@@ -219,4 +220,115 @@ table td img{
     color: white;
     text-align: center;
     cursor: pointer;
+}
+.payment_container{
+    width: 40%;
+    height: 500px;
+    display: inline-block;
+    padding: 10px 0 30px;
+    position: absolute;
+    top: 20px;
+    padding-bottom: 20px;
+}
+.payment_info{
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    margin-top: 30px;
+}
+.header{
+    background-color: #4C5D70;
+    color: white;
+    padding: 6px 0px;
+    text-align: center;
+}
+.header h2{
+	margin: 0;
+}
+form{
+    width: 400px;
+    margin: auto;
+    text-align: center;
+}
+.user_input{
+	margin: 20px 0;
+}
+.user_input label{
+	padding: 1px;
+	background-color: white;
+}
+.c_type{
+    display: inline-block;
+    margin: 10px 20px;
+}
+.input_field{
+    position: relative;
+    top: 15px;
+    float: left;
+    left: 30px;
+}
+.hidden{
+    display: none;
+}
+.lb1-radio{
+    cursor: pointer;
+    font-family: 'Marhey', cursive;
+    font-size: 15px;
+    margin-right: 5px;
+    border-radius: 20px;
+    position: relative;
+    bottom: -5px;
+}
+.user_input input{
+	background-color: white;
+	border: 2px solid #f0f0f0;
+	border-radius: 5px;
+	font-size: 15px;
+	padding: 13px 10px;
+	width: 330px;
+    margin: auto;
+}
+input[type="radio"]:checked + .lb1-radio img{
+    border: 2px solid #4C5D70;
+    padding: 3px;
+}
+.checkout{
+    font-family: 'Marhey', cursive;
+    font-size: 18px;
+    position: relative;
+    background-color: #4C5D70;
+    color: white;
+    width: 150px;
+    height: 40px;
+    border-radius: 30px;
+    text-align: center;
+    padding: 5px 5px 0;
+    box-shadow: 4px 4px 3px grey;
+    z-index: 1;
+    border: none;
+    margin: 40px 0 30px;
+    cursor: pointer;
+}
+.checkout::before{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: white;
+    border-radius: 30px;
+    border: 2px solid #4C5D70;
+    z-index: -1;
+    transform: scaleX(0);
+    transition: transform 0.3s ease-in-out;
+}
+.checkout:hover{
+    color: #4C5D70;
+}
+.checkout:hover::before,
+.checkout:focus::before{
+    transform: scaleX(1);
 }
