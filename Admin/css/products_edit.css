@@ -64,7 +64,7 @@ body {
 
 .navigation ul li:nth-child(1) {
     margin-bottom: 40px;
-    pointer-products: none;
+    pointer-events: none;
 }
 
 .navigation ul li a {
@@ -118,7 +118,7 @@ body {
     background: transparent;
     border-radius: 50%;
     box-shadow: 35px 35px 0 10px var(--grey);
-    pointer-products: none;
+    pointer-events: none;
 }
 
 .navigation ul li.active a::after,
@@ -133,7 +133,7 @@ body {
     background: transparent;
     border-radius: 50%;
     box-shadow: 35px -35px 0 10px var(--grey);
-    pointer-products: none;
+    pointer-events: none;
 }
 
 /* end navigation */
