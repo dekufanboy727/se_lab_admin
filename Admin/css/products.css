@@ -196,13 +196,16 @@ body {
     width: 100%;
     padding: 20px;
 }
+
 .table-box .products-table {
     position: relative;
-    min-height: 500px;
+    display: grid;
+    min-height: 350px;
     background: var(--white);
     padding: 20px;
     box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
     border-radius: 20px;
+    align-content: center;
 }
 
 .products-table-header {
@@ -210,9 +213,25 @@ body {
     justify-content: space-between;
     align-items: flex-start;
 }
+
 .products-table-header h2 {
     font-weight: 600;
     color: var(--green2);
+}
+
+.products-table-header .btn {
+    position: relative;
+    padding: 5px 10px;
+    background: var(--green2);
+    text-decoration: none;
+    color: var(--white);
+    border: 1px solid var(--black2);
+    border-radius: 6px;
+}
+
+.products-table-header .btn:hover{
+    background: var(--green1);
+    color: var(--black1);
 }
 
 .products-table-content {
@@ -229,7 +248,7 @@ body {
     font-weight: 600;
 }
 
-.products-table-content table th, 
+.products-table-content table th,
 td {
     padding: 10px;
     text-align: left;
@@ -241,6 +260,14 @@ td {
 .products-table-content table tr {
     color: var(--black1);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.products-table-content tr {
+    transition: 0.4s;
+}
+
+.products-table-content table tbody tr:hover {
+    background: var(--green1);
 }
 
 .dataTables_length label {
