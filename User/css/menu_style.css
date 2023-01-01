@@ -412,8 +412,41 @@ input[type="radio"]:checked + .lb1-radio{
     transform: scaleX(1);
 }
 
-.cart{
-    float: right;
-    font-size: 30px;
-    border: 2px solid;
+.cart-btn {
+
+    position: fixed;
+    right: 0px; bottom: 0px;
+    width: 530px;
+    height: 60px;
+    background-color:rgb(255, 255, 255);
+    padding: 15px;
+    border-bottom-left-radius: 50px;
+    border-top-left-radius: 50px;
+    right: -463px;
+    
+  }
+
+  .cart-btn.active{
+    animation: in_out 3s ease-in-out;
+  }
+@keyframes in_out{
+    0%{
+        right: -463px;
+    }
+
+    50%{
+        right: 0px;
+    }
+
+    100%{
+        right: -463px;
+    }
 }
+
+span{
+    
+    font-family: 'Marhey', cursive;
+    font-size: 40px;
+}
+
+
