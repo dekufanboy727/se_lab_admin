@@ -8,15 +8,15 @@ include "dbConnection.php"
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/products.css">
     <link rel="icon" type="image/jpg" href="images/profile.jpg">
+    <link rel="stylesheet" type="text/css" href="css/products.css">
     <script src="https://kit.fontawesome.com/4fdfa3530e.js" crossorigin="anonymous"></script>
 </head>
 
@@ -122,27 +122,14 @@ include "dbConnection.php"
                 </div>
             </div>
 
-            <div class="table">
+            <div class="table-box">
                 <div class="products-table">
                     <div class="products-table-header">
                         <h2>Products</h2>
+                        <a href="product_add.php" class="btn"><i class="fa-solid fa-plus"></i> Add New Product</a>
                     </div>
-                    <table>
-                        <tr>
-                            <th class="search-container">
-                                <label>
-                                    <i class="fa-solid fa-magnifying-glass"></i>
-                                    <input type="text" id="myInput" onkeyup="mySearchFunction()" placeholder="Search Here.." name="products-search-bar" title="Type in a product">
-                                </label>
-                            </th>
-                            <th class="manage-product-button">
-                                <a href="product_add.php" class="button">Add <i class="fa-solid fa-plus"></i></a>
-                            </th>
-                        </tr>
-                    </table>
-
                     <div class="products-table-content">
-                        <table id="myTable">
+                        <table id="example" class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>Image</th>
@@ -154,7 +141,8 @@ include "dbConnection.php"
                                     <th>Calorie (kcal)</th>
                                     <th>Best seller</th>
                                     <th>Pixel</th>
-                                    <th colspan="2">Action</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
                                 </tr>
                             </thead>
                             <?php
@@ -184,24 +172,46 @@ include "dbConnection.php"
                                             <td><?php echo $row['best_seller'] ?></td>
                                             <td><?php echo $row['pixel'] ?></td>
                                             <?php 
-                                                echo '<td><a href="product_edit.php?product='.$row['product_id'].'"><ion-icon name="create"></a></td>';
-                                                echo '<td><a href="javascript: myDeleteConfirmationFunction('.$row['product_id'].')"  alt = "delete" class="delete-button"><ion-icon name="trash-outline"></ion-icon></a></td>';
+                                                echo '<td><a href="product_edit.php?product='.$row['product_id'].'"><i class="fa-solid fa-pen-to-square"></i></a></td>';
+                                                echo '<td><a href="javascript: myDeleteConfirmationFunction('.$row['product_id'].')"  alt = "delete" class="delete-button"><i class="fa-regular fa-trash-can"></i></a></td>';
                                             ?>
                                         </tr>
                                 <?php      }
                                 } ?>
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Type</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Price (RM)</th>
+                                    <th>Quantity</th>
+                                    <th>Calorie (kcal)</th>
+                                    <th>Best seller</th>
+                                    <th>Pixel</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
+        });
+    </script>
     
     <script>
         // MenuToggle
@@ -212,28 +222,6 @@ include "dbConnection.php"
         toggle.onclick = function () {
             navigation.classList.toggle('active');
             main.classList.toggle('active');
-        }
-
-        function mySearchFunction() {
-            // Declare variables
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("myInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("myTable");
-            tr = table.getElementsByTagName("tr");
-
-            // Loop through all table rows, and hide those who don't match the search query
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[2];
-                if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-                }
-            }
         }
 
         function myDeleteConfirmationFunction(uid) {

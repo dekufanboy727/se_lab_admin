@@ -14,9 +14,9 @@ include "dbConnection.php"
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Events Update</title>
+    <title>Add Product</title>
     <link rel="icon" type="image/jpg" href="images/profile.jpg">
-    <link rel="stylesheet" href="css/events_update.css">
+    <link rel="stylesheet" href="css/products_edit.css">
 </head>
 
 <body>
@@ -203,10 +203,10 @@ include "dbConnection.php"
                 </div>
             </div>
 
-            <div class="event">
-                <div class="event-details">
-                    <div class="event-details-header">
-                        <h2>Add a Product</h2>
+            <div class="product">
+                <div class="product-details">
+                    <div class="product-details-header">
+                        <h2>Add New Product</h2>
                     </div>
 
                     <form name="add" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">
@@ -288,6 +288,7 @@ include "dbConnection.php"
                         <br>
                         <div class="row">
                             <input type="submit" value="Add Product" name = "create">
+                            <a href="products.php"><input type="button" value="Cancel" class="cancel-btn" ></a>
                         </div>
                     </form>
                 </div>
@@ -319,8 +320,8 @@ include "dbConnection.php"
         }
 
         // Close the dropdown if the user clicks outside of it
-        window.onclick = function (event) {
-            if (!event.target.matches('.dropbtn')) {
+        window.onclick = function (product) {
+            if (!product.target.matches('.dropbtn')) {
                 var dropdowns = document.getElementsByClassName("dropdown-content");
                 var i;
                 for (i = 0; i < dropdowns.length; i++) {

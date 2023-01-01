@@ -64,7 +64,7 @@
 <body>
     <div class="nav_bar">
         <div class="logo">
-            <a href="index.php"><img src="images/helf_coffee_logo.png" alt="Helf Coffee Logo" style="width: 130px" href="index.html"></a>
+            <a href="index.php"><img src="images/helf_coffee_logo.png" alt="Helf Coffee Logo" style="width: 130px" href="index.php"></a>
         </div>
 
         <?php if(!isset($_SESSION['logged_in'])) : ?>

@@ -17,6 +17,7 @@ include "dbConnection.php"
     <title>Events</title>
     <link rel="icon" type="image/jpg" href="images/profile.jpg">
     <link rel="stylesheet" href="css/events.css">
+    <script src="https://kit.fontawesome.com/4fdfa3530e.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -124,7 +125,7 @@ include "dbConnection.php"
                 <div class="events-table">
                     <div class="events-table-header">
                         <h2>Events</h2>
-                        <a href="event_add.php" class="btn">Add new event</a>
+                        <a href="event_add.php" class="btn"><i class="fa-solid fa-plus"></i> Add new event</a>
                     </div>
                     <div class="events-table-content">
                         <table id="example" class="table table-striped">
@@ -135,8 +136,8 @@ include "dbConnection.php"
                                     <th>Start DateTime</th>
                                     <th>End DateTime</th>
                                     <th>Description</th>
-                                    <th>Action</th>
-                                    <th>Action</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
                                 </tr>
                             </thead>
                             <?php
@@ -160,8 +161,8 @@ include "dbConnection.php"
                                             <td><?php echo $row['end_date'] ?></td>
                                             <td><?php echo $row['description'] ?></td>
                                             <?php
-                                            echo '<td><a href="event_update.php?event=' . $row['id'] . '"><ion-icon name="create"></a></td>';
-                                            echo '<td><a href="javascript: myDeleteConfirmationFunction(' . $row['id'] . ')"  alt = "delete" class="delete-button"><ion-icon name="trash-outline"></ion-icon></a></td>';
+                                            echo '<td><a href="event_update.php?event=' . $row['id'] . '"><i class="fa-solid fa-pen-to-square"></i></td>';
+                                            echo '<td><a href="javascript: myDeleteConfirmationFunction(' . $row['id'] . ')"  alt = "delete" class="delete-button"><i class="fa-regular fa-trash-can"></i></a></td>';
                                             ?>
                                         </tr>
                                 <?php      }
@@ -217,28 +218,6 @@ include "dbConnection.php"
                     var openDropdown = dropdowns[i];
                     if (openDropdown.classList.contains('show')) {
                         openDropdown.classList.remove('show');
-                    }
-                }
-            }
-        }
-
-        function mySearchFunction() {
-            // Declare variables
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("myInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("example");
-            tr = table.getElementsByTagName("tr");
-
-            // Loop through all table rows, and hide those who don't match the search query
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[1];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
                     }
                 }
             }
