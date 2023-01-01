@@ -40,67 +40,101 @@
         </nav>        
     </div>
     <div class="menu_bar">
-        <img src="images/cart_bg.jpg" alt="Best Seller Bg">
+        <img src="../product_images/cart_bg.jpg" alt="Best Seller Bg">
         <ul>
             <li><a class="active2" href="cart.php">My Cart</a></li>
         </ul>
     </div>
 
-    <div class="container">
-        <table>
-        <thead>
-            <tr>
-                <th>Product</th>
-                <th>Product Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total Price</th>
-                <th></th>
-            </tr>
-		</thead>
-            <?php
+    <form method="post" onsubmit="calculate()" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
+        <input onclick = "addFee()" type="radio" name="method" value="Delivery">Delivery
+        <input onclick = "removeFee()" type="radio" name="method" value="Self Pickup">Self Pickup
+        <input type="submit" class="checkout" value='Calculate' name='submit'>
+    </form>
+   
+    <script>
+        function addFee(){
+            
+            document.getElementById('delivery_fee').innerText = 'RM8.00';
+        }
 
-            $sql= "SELECT * FROM cart_temp";
-            $result = $conn->query($sql);
-            $total_order = 0;
+        function removeFee(){
+            
+            document.getElementById('delivery_fee').innerText = 'RM0.00';
+        }
 
-            while($data = mysqli_fetch_array($result)) 
-            {
-                $product_id = $data['product_id'];
-                $sql2= "SELECT product_img FROM product WHERE product_id = '$product_id'";
-                $result2 = $conn->query($sql2);
+    </script>
 
-                $total_order = $total_order + $data['total_price'];
+    <div class="content_container">
+        <div class="cart_container">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="2">Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <?php
 
-                ?>
+                $sql= "SELECT * FROM cart_temp";
+                $result = $conn->query($sql);
+                $sub_order = 0;
+                $fee = 8;
+                $total_order = 0;
+
+                while($data = mysqli_fetch_array($result)) 
+                {
+                    $product_id = $data['product_id'];
+                    $sql2= "SELECT product_img FROM product WHERE product_id = '$product_id'";
+                    $result2 = $conn->query($sql2);
+
+                    $sub_order = $sub_order + $data['total_price'];
+
+                    ?>
+                    <tr>
+                    <?php while($data2 = mysqli_fetch_array($result2))
+                        {
+                        ?>	
+                            <td><?php echo '<img src="'.$data2['product_img'].'"/>';?></td>
+                        <?php	
+                        } 
+                        ?>                
+                    <td><?php echo $data['product_name']; ?></td>
+                    <td>RM<?php echo number_format($data['price'], 2);?></td>
+                    <td><?php echo $data['quantity']; ?></td>
+                    <td>RM<?php echo number_format($data['total_price'], 2);?></td>
+                    <td><a class="remove" href = "delete.php?id=<?php echo $data['cart_id']; ?>" onclick="return  confirm('Do you want to remove this product?')"    >X</a>
+                    </tr>
+
+                    <?php
+                    
+                    $total_order = $sub_order + $fee;
+                }
+            
+                ?>				
                 <tr>
-                <?php while($data2 = mysqli_fetch_array($result2))
-                    {
-                    ?>	
-                        <td><?php echo '<img src="'.$data2['product_img'].'"/>';?></td>
-                    <?php	
-                    } 
-                    ?>                
-                <td><?php echo $data['product_name']; ?></td>
-                <td>RM<?php echo number_format($data['price'], 2);?></td>
-                <td><?php echo $data['quantity']; ?></td>
-                <td>RM<?php echo number_format($data['total_price'], 2);?></td>
-                <td><button class="remove">X</button></td>
-                </tr>
-            <?php
-            }
-            ?>				
-            <tr>
-                <td colspan="7" style="text-align: right;">Sub Total</td>
-                <td>
-                RM<?php
-                echo number_format($total_order, 2);
-                ?>
-                </td>
-		    </tr> 
-        </table>
-        <button class="checkout">Checkout</button>
-    </div>
+                    <td colspan="4" style="text-align: right;">Sub Total</td>
+                    <td>
+                        RM<?php echo number_format($sub_order, 2);?>
+                    </td>
+                </tr> 
+                <tr>
+                    <td colspan="4" style="text-align: right;">Delivery Fee</td>
+                    <td id= "delivery_fee">
+                        RM0.00
+                    </td>
+                </tr> 
+                    <tr>
+                    <td colspan="4" style="text-align: right;">Total</td>
+                    <td>
+                        RM<?php echo number_format($total_order, 2);?>
+                    </td>
+                </tr> 
+            </table>
+        </div>
 
     <script>
         let plus = document.getElementById("plus<?php echo $data['product_id']?>");
@@ -122,7 +156,56 @@
                 num.value = a;
             }
         });
+
     </script>
 
-</body>
+        <div class="payment_container">
+            <div class="payment_info">
+                <div class="header">
+                    <h2>Payment Info</h2>
+                </div>
+
+                <form>
+                    <div class="user_input">
+                        <label class="input_field">&nbsp; Payment Method &nbsp;</label>
+                        <br><br>
+                        <div>
+                            <div class="c_type">
+                                <input type="radio" name="price" id="1" class="hidden" value="Visa">
+                                <label for="1" class="lb1-radio"><img src="images/visa.png" alt="visa" width="60" height="40"></label>
+                            </div>
+                            <div class="c_type">
+                                <input type="radio" name="price" id="2" class="hidden" value="MasterCard">
+                                <label for="2" class="lb1-radio"><img src="images/mastercard.png" alt="mastercard" width="60" height="40"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="user_input">
+                        <label class="input_field">&nbsp; Card Holder Name &nbsp;</label>
+                        <input type="text" name="name" placeholder="John Doe">
+                    </div>
+
+                    <div class="user_input">
+                        <label class="input_field">&nbsp; Card Number &nbsp;</label>
+                        <input type="text" name="cardnumber" placeholder="XXXX-XXXX-XXXX-XXXX">
+                    </div>
+
+                    <div class="user_input">
+                        <label class="input_field">&nbsp; Expiration Date &nbsp;</label>
+                        <input type="text" name="expiration" placeholder="MM-YY">
+                    </div>
+
+                    <div class="user_input">
+                        <label class="input_field">&nbsp; CVC &nbsp;</label>
+                        <input type="text" name="cvc" placeholder="XXX">
+                    </div>
+
+                    <button class="checkout" type="submit">Checkout</button>
+			    </form>
+            </div>
+            <br><br>
+        </div>
+        </div>
+    </body>
 </html>
