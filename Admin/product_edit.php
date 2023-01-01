@@ -14,9 +14,9 @@ include "dbConnection.php"
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Events Update</title>
+    <title>Edit Product</title>
     <link rel="icon" type="image/jpg" href="images/profile.jpg">
-    <link rel="stylesheet" href="css/events_update.css">
+    <link rel="stylesheet" href="css/products_edit.css">
 </head>
 
 <body>
@@ -293,10 +293,10 @@ include "dbConnection.php"
                 </div>
             </div>
 
-            <div class="event">
-                <div class="event-details">
-                    <div class="event-details-header">
-                        <h2>Edit a Product</h2>
+            <div class="product">
+                <div class="product-details">
+                    <div class="product-details-header">
+                        <h2>Edit An Existing Product</h2>
                     </div>
 
                     <form name="add" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">
@@ -369,32 +369,34 @@ include "dbConnection.php"
                             </div>
                             <span><?php echo $descriptionerr ?> </span>
                         </div>
-                        <br>
-                        <div class="row">
-                            <img src="<?php echo $productpic ?>" alt="picture of the product" height = "300" width = "300">
-                        </div>
-                        <br>
                         <div class="row">
                             <div class="col-25">
                                 <label for="period">Product Image</label>
                             </div>
                             <div class="col-75">
+                                <img src="<?php echo $productpic ?>" alt="picture of the product" height = "300" width = "300">
                                 <input type="file" id="productpic" name="productpic">
                             </div>
                         </div>
                         <div class = "row">
-                            <p> Make Changes to the Photo? </p>
-                            <label for="noupload">No
-                                <input type="radio" id= "noupload" name = "uploadphoto" value ="no">
-                            </label>
-                            <label for="yesupload">Yes
-                                <input type="radio" id= "yesupload" name = "uploadphoto" value ="yes">
-                            </label>
+                            <div class="col-25">
+                                <p> Make Changes to the Photo? </p>
+                            </div>
+                            <div class="col-75">
+                                <label for="noupload" class="radio-container">No
+                                    <input type="radio" id= "noupload" name = "uploadphoto" value ="no">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label for="yesupload" class="radio-container">Yes
+                                    <input type="radio" id= "yesupload" name = "uploadphoto" value ="yes">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
                         </div>
                         <br>
                         <div class="row">
                             <input type="submit" value="Edit Product" name = "edit">
-                            <a href="products.php"><input type="button" value="Cancel" ></a>
+                            <a href="products.php"><input type="button" value="Cancel" class="cancel-btn" ></a>
                             <span><?php echo $em ?> </span>
                         </div>
                     </form>
@@ -427,8 +429,8 @@ include "dbConnection.php"
         }
 
         // Close the dropdown if the user clicks outside of it
-        window.onclick = function (event) {
-            if (!event.target.matches('.dropbtn')) {
+        window.onclick = function (product) {
+            if (!product.target.matches('.dropbtn')) {
                 var dropdowns = document.getElementsByClassName("dropdown-content");
                 var i;
                 for (i = 0; i < dropdowns.length; i++) {
