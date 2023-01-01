@@ -16,7 +16,7 @@ include "dbConnection.php"
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Product</title>
     <link rel="icon" type="image/jpg" href="images/profile.jpg">
-    <link rel="stylesheet" href="css/products_add.css">
+    <link rel="stylesheet" href="css/products_edit.css">
 </head>
 
 <body>
