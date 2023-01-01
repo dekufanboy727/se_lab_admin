@@ -37,8 +37,8 @@
                     if ($conn->query($sql) === FALSE){
 							echo ("ERROR IN PURCHASING MERCHANDISE!");
 					}else{
-                            echo '<script> alert ("Product successfully added to cart") </script>';
-						}
+                        
+                    }
 					
     
                 }
@@ -61,13 +61,13 @@
     <link rel="stylesheet" href="css/menu_style.css">
     <link href="https://fonts.googleapis.com/css2?family=Marhey:wght@300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="js/menu.js"></script>
+    
     <title>Helf Coffee Official Website</title>
 </head>
 <body>
     <div class="nav_bar">
         <div class="logo">
-            <a href="index.php"><img src="images/helf_coffee_logo.png" alt="Helf Coffee Logo" style="width: 130px" href="index.php"></a>
+            <a href="index.php"><img src="images/helf_coffee_logo.png" alt="Helf Coffee Logo" style="width: 130px" href="index.html"></a>
         </div>
 
         <?php if(!isset($_SESSION['logged_in'])) : ?>
@@ -203,11 +203,12 @@
                         <div class="deco_dot"></div>
                         <div class="deco_bar"></div>
                     </div>
-                    <form name=<?php echo $product_id;?> method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                    
+                    <form name=<?php echo $product_id;?> method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" onsubmit="toggleAddCart()">
                         <div class="price_quantity_container">
                             
                             <div class="price2">
-                                <input type="radio" name="price" id="1<?php echo $data['product_id']?>" class="hidden" value="Hot">
+                                <input type="radio" name="price" id="1<?php echo $data['product_id']?>" class="hidden" value="Hot" checked="checked">
                                 <label for="1<?php echo $data['product_id']?>" class="lb1-radio">
                                 <center>RM<?php echo number_format($data['price'], 2);?></center>
                                 <div class="sub_price2"><center>per piece</center></div>
@@ -219,7 +220,7 @@
                                 <span class="plus" id="plus<?php echo $data['product_id']?>">+</span>
                             </div>
                         </div>
-                        <button class="add_to_cart_btn" type="submit" name="<?php echo $product_id;?>">Add To Cart</button>
+                        <button class="add_to_cart_btn" type="submit" id="submit" name="<?php echo $product_id;?>" >Add To Cart</button>
                     </form>
                 </div>
             </div>
@@ -316,6 +317,8 @@
         </div>
     </div>
 
+           
+
 
     <script>
         function togglePopup_<?php echo $data['product_id']?>(){
@@ -350,5 +353,25 @@
     }
     ?>
 
+    <div class="cart-btn" id="cart">
+        <?php
+            $result = $conn->query("SELECT COUNT(*) FROM `cart_temp`");
+            $row = $result->fetch_row();
+        ?>
+        <span class ="cart-quantity"><?php echo $row[0];?></span>
+        <a href ="cart.php"class="fa fa-shopping-cart fa-3x" aria-hidden="true"></a>
+        
+        
+        <span id="cart-success" style = "font-size: 25px">Product successfully added to cart</span>
+    </div>
+
+    <script>
+        function toggleAddCart(){
+                 
+            document.getElementById("cart").classList.toggle('active');
+            
+        }
+    
+    </script>
 </body>
 </html>
