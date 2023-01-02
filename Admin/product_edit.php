@@ -143,14 +143,6 @@ include "dbConnection.php"
             if($validate == true)
             {   
                 $shownid = $_POST['productid'];
-                $name = $_POST['name'];
-                $price = $_POST['price'];
-                $category = $_POST['category'];
-                $quantity = $_POST['quantity'];
-                $calorie = $_POST['calorie'];
-                $description = $_POST['description'];
-                $pixel = $_POST['pixel'];
-                $bestseller = $_POST['bestseller'];
             
                 $targetDir = "../product_images/";
 
@@ -221,7 +213,7 @@ include "dbConnection.php"
                             }else{
                                 //delete old photo
                                 $deleteid = $shownid;
-                                $deletesql = "SELECT product_img FROM product WHERE id = '$deleteid'";
+                                $deletesql = "SELECT product_img FROM product WHERE product_id = '$deleteid'";
                                 $deletephoto = mysqli_query($conn,$deletesql);
                                 if (!empty($deletephoto)){
                                     $deletephotoresult = mysqli_fetch_assoc($deletephoto);

@@ -131,8 +131,10 @@ include "dbConnection.php"
                         <table id="example" class="table table-striped">
                             <thead>
                                 <tr>
+                                    <th>Image</th>
                                     <th>ID</th>
                                     <th>Name</th>
+                                    <th>Location</th>
                                     <th>Start DateTime</th>
                                     <th>End DateTime</th>
                                     <th>Description</th>
@@ -147,7 +149,7 @@ include "dbConnection.php"
                             echo '</p>';
 
                             //Tabulating Products
-                            $sql = mysqli_query($conn, "select * from events");
+                            $sql = mysqli_query($conn, "select * from event");
                             ?>
                             <tbody>
                                 <?php
@@ -155,8 +157,10 @@ include "dbConnection.php"
                                     while ($row = mysqli_fetch_assoc($sql)) {
                                 ?>
                                         <tr>
+                                            <td><?php echo '<img src="'.$row["eventpic"].'" height ="100" width = "100">' ?></td>
                                             <td><?php echo $row['id'] ?></td>
                                             <td id="event_name"><?php echo $row['name'] ?></td>
+                                            <td><?php echo $row['location'] ?></td>
                                             <td><?php echo $row['start_date'] ?></td>
                                             <td><?php echo $row['end_date'] ?></td>
                                             <td><?php echo $row['description'] ?></td>
@@ -170,8 +174,10 @@ include "dbConnection.php"
                             </tbody>
                             <tfoot>
                                 <tr>
+                                    <th>Image</th>
                                     <th>ID</th>
                                     <th>Name</th>
+                                    <th>Location</th>
                                     <th>Start DateTime</th>
                                     <th>End DateTime</th>
                                     <th>Description</th>

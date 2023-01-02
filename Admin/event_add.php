@@ -30,8 +30,8 @@ include "dbConnection.php"
         }
         
         //Adding Product Handler
-        $name = $start_date = $category_id = $end_date = $discount = $description = "";
-        $nameerr = $start_dateerr = $category_iderr = $end_dateerr = $calorieerr = $descriptionerr = $productpicerr = $em = "";
+        $name = $start_date = $category_id = $end_date = $discount = $description = $location = "";
+        $nameerr = $start_dateerr = $category_iderr = $end_dateerr = $calorieerr = $descriptionerr = $productpicerr = $locationerr = $em = "";
         $validate = true;
 
         function test($data)
@@ -77,13 +77,53 @@ include "dbConnection.php"
                 $description = test($_POST['description']);
             }
 
+            if(empty($_POST["location"]))
+            {
+                $locationerr = "*Location is required!";
+                $validate = false;
+            }else{
+                $location = test($_POST['location']);
+            }
+
+
             if($validate == true){
-                $sql = "INSERT INTO events (name, start_date, end_date, description) 
-                            VALUES('$name', '$start_date', '$end_date', '$description')";
-                if(mysqli_query($conn, $sql)){
-                    $em = "Record successfully uploaded";
+
+
+                $targetDir = "../event_pic/";
+                $filename = basename($_FILES["eventpic"]["name"]);
+                $targetFilePath = $targetDir . $filename;
+                $imagefileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+                $uploadOk = 1;
+                $allowTypes = array('jpg', 'png', 'jpeg', 'gif', 'JPG', 'PNG', 'JPEG', 'GIF');
+
+                // Insert into Database
+                if(empty($_FILES["eventpic"])){
+                    $uploadOk = 0;
+                    $em = "Please Select A Picture to Upload";
+                    
+                }else if(file_exists($targetFilePath)){
+                    $uploadOk = 0;
+                    $em = "Your filename already exists";
+    
+                }else if(!in_array($imagefileType, $allowTypes)){
+                    $uploadOk = 0;
+                    $em = "Your file is not an image, only JPG, JPEG, PNG and GIF allowed";
+    
+                }else if($_FILES["eventpic"]["size"] > 500000000){
+                    $uploadOk = 0;
+                    $em = "Your file is too large";
+    
+                }else if(!move_uploaded_file($_FILES["eventpic"]["tmp_name"], $targetFilePath)){
+                    $uploadOk = 0;
+                    $em ="There was an error in uploading your file";
                 }else{
-                    $em = "Record failed to upload";
+                    $sql = "INSERT INTO event (name, start_date, end_date, description, location, eventpic) 
+                                VALUES('$name', '$start_date', '$end_date', '$description', '$location', '$targetFilePath')";
+                    if(mysqli_query($conn, $sql)){
+                        $em = "Record successfully uploaded";
+                    }else{
+                        $em = "Record failed to upload";
+                    }
                 }
             }else{
                 $em = "record not added";
@@ -215,6 +255,26 @@ include "dbConnection.php"
                             <div class="col-75">
                                 <textarea name="description" id="description" placeholder="Event description..."></textarea>
                             </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="name">Location</label>
+                                <span><?php echo $locationerr;?></span>
+                            </div>
+                            <div class="col-75">
+                                <input type="text" name="location" id="location" placeholder="Location name...">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="period">Event Image</label>
+                            </div>
+                            <div class="col-75">
+                                <input type="file" id="eventpic" name="eventpic">
+                            </div>
+                            <span><?php echo $em ?> </span>
                         </div>
                         <br>
                         <div class="row">
