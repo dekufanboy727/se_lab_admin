@@ -28,9 +28,8 @@ include "dbConnection.php"
         }
 
         //Adding Product Handler
-        $name = $price = $category = $quantity = $calorie = $description = "";
-        $tempname = $tempprice = $tempcategory = $tempquantity = $tempcalorie = $tempdescription =  "";
-        $nameerr = $priceerr = $categoryerr = $quantityerr = $calorieerr = $descriptionerr = $productpicerr = $em = "";
+        $name = $price = $category = $quantity = $calorie = $description = $bestseller = $pixel ="";
+        $nameerr = $priceerr = $categoryerr = $quantityerr = $calorieerr = $descriptionerr = $productpicerr = $bestsellererr = $pixelerr =$em = "";
         $validate = true;
 
         //Upload Handler
@@ -72,6 +71,18 @@ include "dbConnection.php"
                 $validate = false;
             }
 
+            if(empty($_POST["pixel"]))
+            {
+                $pixelerr = "*Pixels are required!";
+                $validate = false;
+            }
+
+            if(empty($_POST["bestseller"]))
+            {
+                $bestsellererr = "*Best seller state are required!";
+                $validate = false;
+            }
+
             if($validate == true)
             {   
                 $name = $_POST['name'];
@@ -80,6 +91,8 @@ include "dbConnection.php"
                 $quantity = $_POST['quantity'];
                 $calorie = $_POST['calorie'];
                 $description = $_POST['description'];
+                $bestseller = $_POST['bestseller'];
+                $pixel = $_POST['pixel'];
             
                 $targetDir = "../product_images/";
                 $filename = basename($_FILES["productpic"]["name"]);
@@ -110,13 +123,25 @@ include "dbConnection.php"
                     $uploadOk = 0;
                     $em ="There was an error in uploading your file";
                 }else{
-                    $sql = "INSERT INTO product (product_name, price, product_type, product_desc, product_quan, product_cal, product_img) 
-                            VALUES('$name', '$price', '$category', '$description', '$quantity', '$calorie','$targetFilePath')";
-                    if(mysqli_query($conn, $sql)){
-                        echo "File successfully uploaded";
-                    }else{
-                        echo "File failed to upload";
+
+                    if($bestseller == "true"){
+                        $sql = "INSERT INTO product (product_name, price, product_type, product_desc, product_quan, product_cal, product_img, best_seller, pixel) 
+                            VALUES('$name', '$price', '$category', '$description', '$quantity', '$calorie','$targetFilePath', '1', '$pixel')";
+                        if(mysqli_query($conn, $sql)){
+                            echo "File successfully uploaded";
+                        }else{
+                            echo "File failed to upload";
+                        }
+                    }else if($bestseller == "false"){
+                        $sql = "INSERT INTO product (product_name, price, product_type, product_desc, product_quan, product_cal, product_img, best_seller, pixel) 
+                            VALUES('$name', '$price', '$category', '$description', '$quantity', '$calorie','$targetFilePath', '0', '$pixel')";
+                        if(mysqli_query($conn, $sql)){
+                            echo "File successfully uploaded";
+                        }else{
+                            echo "File failed to upload";
+                        }
                     }
+                    
                 }
             }
         }
@@ -276,6 +301,27 @@ include "dbConnection.php"
                         </div>
                         <br>
                         <div class="row">
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="category">Best Seller?</label>
+                            </div>
+                            <div class="col-75">
+                                <select name="bestseller" id="bestseller">
+                                    <option value="false" >false</option>
+                                    <option value="true" >true</option>
+                                </select>
+                            </div>
+                            <span><?php echo $bestsellererr ?> </span>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="pixel">Image Pixels</label>
+                            </div>
+                            <div class="col-75">
+                                <input type="text" name="pixel" id="pixel" placeholder="Image Pixel...">
+                            </div>
+                            <span><?php echo $pixelerr ?> </span>
+                        </div>
                         <div class="row">
                             <div class="col-25">
                                 <label for="period">Product Image</label>

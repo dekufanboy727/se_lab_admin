@@ -28,9 +28,8 @@ include "dbConnection.php"
         }
 
         //Adding Product Handler
-        $name = $price = $category = $quantity = $calorie = $description = $shownid = $editid = "";
-        $tempname = $tempprice = $tempcategory = $tempquantity = $tempcalorie = $tempdescription =  "";
-        $nameerr = $priceerr = $categoryerr = $quantityerr = $calorieerr = $descriptionerr = $productpicerr = $em = "";
+        $name = $price = $category = $quantity = $calorie = $description = $bestseller = $pixel ="";
+        $nameerr = $priceerr = $categoryerr = $quantityerr = $calorieerr = $descriptionerr = $productpicerr = $bestsellererr = $pixelerr =$em = "";
         $validate = true;
 
         function test($data)
@@ -56,6 +55,8 @@ include "dbConnection.php"
                 $quantity = $editrow["product_quan"];
                 $calorie = $editrow["product_cal"];
                 $productpic = $editrow["product_img"];
+                $bestseller = $editrow["best_seller"];
+                $pixel =  $editrow["pixel"];
 
             }else{
                 $em = "0 results";
@@ -123,6 +124,22 @@ include "dbConnection.php"
                 $description = test($_POST['description']);
             }
 
+            if(empty($_POST["pixel"]))
+            {
+                $pixelerr = "*Pixels are required!";
+                $validate = false;
+            }else{
+                $pixel = test($_POST["pixel"]);
+            }
+
+            if(empty($_POST["bestseller"]))
+            {
+                $bestsellererr = "*Best seller state are required!";
+                $validate = false;
+            }else{
+                $bestseller = test($_POST["bestseller"]);
+            }
+
             if($validate == true)
             {   
                 $shownid = $_POST['productid'];
@@ -132,25 +149,47 @@ include "dbConnection.php"
                 $quantity = $_POST['quantity'];
                 $calorie = $_POST['calorie'];
                 $description = $_POST['description'];
+                $pixel = $_POST['pixel'];
+                $bestseller = $_POST['bestseller'];
             
                 $targetDir = "../product_images/";
 
-                if($nameerr == "" && $calorieerr == "" && $priceerr == "" && $categoryerr == "" && $descriptionerr == "" && $quantityerr == ""){
+                if($nameerr == "" && $calorieerr == "" && $priceerr == "" && $categoryerr == "" && $descriptionerr == "" && $quantityerr == "" && $bestsellererr =="" && $pixelerr ==""){
 
-                    // Insert into Database
-                    $updatesql = "UPDATE product SET product_name = '$name', price= '$price', product_type = '$category', product_desc = '$description', product_quan = '$quantity',
-                                 product_cal = '$calorie' WHERE product_id = $shownid";
+                    if($bestseller == "true"){
+                        // Insert into Database
+                        $updatesql = "UPDATE product SET product_name = '$name', price= '$price', product_type = '$category', product_desc = '$description', product_quan = '$quantity',
+                        product_cal = '$calorie', pixel = '$pixel', bestseller = '1' WHERE product_id = $shownid";
 
-                    if(mysqli_query($conn, $updatesql)){
-                        $em = "Record ".$shownid." Updated";
+                        if(mysqli_query($conn, $updatesql)){
+                            $em = "Record ".$shownid." Updated";
 
-                        $name = $price = $description = $category = $productpic = $productpicERR = $description = $quantity = $calorie = "";
+                            $name = $price = $description = $category = $productpic = $productpicERR = $description = $quantity = $calorie = $pixel = "";
+                            $bestseller = "0";
 
-                        $nameerr = $priceerr = $descriptionerr = $quantityerr = $calorieerr = $descriptionerr = $targetFilePath = "";
+                            $nameerr = $priceerr = $descriptionerr = $quantityerr = $calorieerr = $descriptionerr = $targetFilePath = "";
 
-                    }else{
-                        $em = mysqli_error($conn);
+                        }else{
+                            $em = mysqli_error($conn);
+                        }
+                    }else if ($bestseller == "false"){
+                        // Insert into Database
+                        $updatesql = "UPDATE product SET product_name = '$name', price= '$price', product_type = '$category', product_desc = '$description', product_quan = '$quantity',
+                        product_cal = '$calorie', pixel = '$pixel', best_seller = '0' WHERE product_id = $shownid";
+
+                        if(mysqli_query($conn, $updatesql)){
+                            $em = "Record ".$shownid." Updated";
+
+                            $name = $price = $description = $category = $productpic = $productpicERR = $description = $quantity = $calorie = $pixel = "";
+                            $bestseller = "0";
+
+                            $nameerr = $priceerr = $descriptionerr = $quantityerr = $calorieerr = $descriptionerr = $targetFilePath = "";
+
+                        }else{
+                            $em = mysqli_error($conn);
+                        }
                     }
+                    
 
                     if(!empty($_POST["uploadphoto"] )){
                         if ($_POST["uploadphoto"] === "yes"){
@@ -368,6 +407,27 @@ include "dbConnection.php"
                                 <textarea name="description" id="description" placeholder="Product description..."><?php echo $description ?></textarea>
                             </div>
                             <span><?php echo $descriptionerr ?> </span>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="bestseller">Best Seller?</label>
+                            </div>
+                            <div class="col-75">
+                                <select name="bestseller" id="bestseller">
+                                    <option value="false" <?php if($bestseller == "0"){echo "selected";} ?>>false</option>
+                                    <option value="true" <?php if($bestseller == "1"){echo "selected";} ?>>true</option>
+                                </select>
+                            </div>
+                            <span><?php echo $bestsellererr ?> </span>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="pixel">Image Pixels</label>
+                            </div>
+                            <div class="col-75">
+                                <input type="text" name="pixel" id="pixel" placeholder="Image Pixel..." value = "<?php echo $pixel ?>">
+                            </div>
+                            <span><?php echo $pixelerr ?> </span>
                         </div>
                         <div class="row">
                             <div class="col-25">
