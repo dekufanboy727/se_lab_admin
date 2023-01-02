@@ -176,7 +176,7 @@ include "dbConnection.php"
             <div class="event">
                 <div class="event-details" id = "event-details">
                     <div class="event-details-header">
-                        <h2>Add Event</h2>
+                        <h2>Add New Event</h2>
                     </div>
 
                     <form name="add" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
@@ -219,6 +219,7 @@ include "dbConnection.php"
                         <br>
                         <div class="row">
                             <input type="submit" value="Add this Event" name = "createEvent">
+                            <a href="events.php"><input type="button" value="Cancel"></a>
                         </div>
                         <br>
                     </form>
