@@ -1,5 +1,6 @@
 body{
 	margin: 0;
+    padding: auto;
     background-color: #E8CBB1;
     font-family: 'Marhey', cursive;
 }
@@ -133,17 +134,19 @@ body{
 .cart_container{
     width: 55%;
     display: inline-block;
+    margin-left: 5px;
 }
 table{
     border-collapse: separate;
     border-spacing: 0 20px;
     margin: 10px auto 50px;
     font-size: 20px;
+    text-align: center;
 }
 table th{
     background-color: #4C5D70;
     color: white;
-    font-weight: 500;
+    font-weight: 700;
     padding: 10px;
 }
 table tr{
@@ -181,6 +184,7 @@ table td img{
     border-radius: 10px;
 }
 .remove{
+    text-decoration: none;
     font-size: 15px;
     background-color: crimson;
     border: 1px solid crimson;
@@ -221,16 +225,17 @@ table td img{
     text-align: center;
     cursor: pointer;
 }
-.payment_container{
+.order_container{
     width: 40%;
     height: 500px;
     display: inline-block;
-    padding: 10px 0 30px;
+    padding: 10px 10px 0 30px;
     position: absolute;
     top: 20px;
     padding-bottom: 20px;
 }
-.payment_info{
+.order_details,
+.payment_details{
     background-color: white;
     border-radius: 30px;
     box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.2);
@@ -245,6 +250,7 @@ table td img{
 }
 .header h2{
 	margin: 0;
+    font-weight: 700;
 }
 form{
     width: 400px;
@@ -253,6 +259,7 @@ form{
 }
 .user_input{
 	margin: 20px 0;
+    position: relative;
 }
 .user_input label{
 	padding: 1px;
@@ -263,35 +270,55 @@ form{
     margin: 10px 20px;
 }
 .input_field{
+    display: inline-block;
     position: relative;
     top: 15px;
     float: left;
     left: 30px;
 }
+.input_field2{
+    position: relative;
+    top: 42px;
+    float: left;
+    left: 34px;
+}
 .hidden{
     display: none;
 }
+.lb2-radio,
 .lb1-radio{
     cursor: pointer;
     font-family: 'Marhey', cursive;
     font-size: 15px;
     margin-right: 5px;
-    border-radius: 20px;
+    border-radius: 10px;
     position: relative;
     bottom: -5px;
 }
+.container,
 .user_input input{
 	background-color: white;
 	border: 2px solid #f0f0f0;
 	border-radius: 5px;
 	font-size: 15px;
-	padding: 13px 10px;
 	width: 330px;
     margin: auto;
 }
-input[type="radio"]:checked + .lb1-radio img{
+.user_input input{
+    padding: 13px 10px;
+}
+.container{
+    padding: 13px 9px;
+}
+input[name="d_method"]:checked + .lb1-radio{
+    background-color: #7C9CAB;
+    color: white;
+    padding: 3px 7px;
+    transition: 0.3s;
+}
+input[name="p_method"]:checked + .lb2-radio img{
     border: 2px solid #4C5D70;
-    padding: 3px;
+    padding: 1px;
 }
 .checkout{
     font-family: 'Marhey', cursive;
@@ -331,4 +358,43 @@ input[type="radio"]:checked + .lb1-radio img{
 .checkout:hover::before,
 .checkout:focus::before{
     transform: scaleX(1);
+}
+
+.user_input.success input{
+    border-color: #2ecc71;
+}
+.user_input.error input{
+    border-color: #e74c3c;
+}
+.user_input i{
+    visibility: hidden;
+    margin-top: 2px;
+    position: absolute;
+    bottom: 45px;
+    right: 35px;
+}
+.user_input i.fa-eye{
+    visibility: visible;
+    color: #000000;
+}
+.user_input.success i.fa-eye{
+    right: 30px;
+}
+.user_input.error i.fa-eye{
+    right: 30px;
+}
+.user_input.success i.fa-check-circle{
+    color: #2ecc71;
+    visibility: visible;
+}
+.user_input.error i.fa-exclamation-circle{
+    color: #e74c3c;
+    visibility: visible;
+}
+.user_input small{
+    visibility: hidden;
+}
+.user_input.error small{
+    color: #e74c3c;
+    visibility: visible;
 }
