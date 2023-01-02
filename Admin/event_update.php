@@ -248,6 +248,7 @@ include "dbConnection.php"
                         <br>
                         <div class="row">
                             <input type="submit" value="Update" name = "updateEvent">
+                            <a href="events.php"><input type="button" value="Cancel"></a>
                         </div>
                     </form>
                     <div class = "row">
