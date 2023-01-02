@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 02, 2023 at 03:48 PM
+-- Generation Time: Jan 02, 2023 at 04:35 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -70,49 +70,6 @@ INSERT INTO `cart_temp` (`cart_id`, `product_id`, `product_name`, `price`, `quan
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category`
---
-
-CREATE TABLE `category` (
-  `category_id` int(11) NOT NULL,
-  `name` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `category`
---
-
-INSERT INTO `category` (`category_id`, `name`) VALUES
-(1, 'Pastries'),
-(2, 'Beverages'),
-(3, 'Desserts');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `category_product`
---
-
-CREATE TABLE `category_product` (
-  `id` int(11) NOT NULL,
-  `category_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `category_product`
---
-
-INSERT INTO `category_product` (`id`, `category_id`, `product_id`) VALUES
-(1, 1, 1),
-(2, 1, 2),
-(3, 2, 3),
-(4, 2, 4),
-(5, 3, 5);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `customer`
 --
 
@@ -146,15 +103,16 @@ CREATE TABLE `event` (
   `start_date` datetime(6) NOT NULL,
   `end_date` datetime(6) NOT NULL,
   `description` text NOT NULL,
-  `discount` int(100) NOT NULL
+  `location` varchar(100) NOT NULL,
+  `eventpic` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `event`
 --
 
-INSERT INTO `event` (`id`, `name`, `start_date`, `end_date`, `description`, `discount`) VALUES
-(1, '11/11 Sales!', '2022-11-11 05:49:19.000000', '2022-12-12 05:49:19.000000', 'It is an event of splendor and wonder for adults and kids galore!', 80);
+INSERT INTO `event` (`id`, `name`, `start_date`, `end_date`, `description`, `location`, `eventpic`) VALUES
+(1, '11/11 Sales!', '2022-11-11 05:49:19.000000', '2022-12-12 05:49:19.000000', 'It is an event of splendor and wonder for adults and kids galore!', 'Penang', '');
 
 -- --------------------------------------------------------
 
@@ -229,7 +187,7 @@ CREATE TABLE `product` (
 
 INSERT INTO `product` (`product_id`, `product_name`, `price`, `product_type`, `product_desc`, `product_quan`, `product_cal`, `best_seller`, `product_img`, `pixel`) VALUES
 (1, 'Gu Mor Kak', 4.5, 1, '“Gu Mor Kak” or Demon Cow’s Horn Biscuit is a chinese homemade traditional biscuit that is packed with savory rosated chicken fillings, with a thin layered crust wrapped around it. It’s crunchy textute and salty with a hint a sweetness flavour is exactly why Gu Mor Kak is one of our cafe’s signature pastries and best seller. ', 90, 35, 1, '../product_images/Gu_Mor_Kak.JPG\r\n', 220),
-(2, 'Geh Bo Gok Tat', 6.9, 1, 'A brand new and exciting combination of tart meets curry chicken, finished with a topping of cheese.', 46, 125, 1, '../product_images/Geh_Bo_Gok_Tat.JPG', 150),
+(2, 'Geh Bo Gok Tat', 6.9, 1, 'A brand new and exciting combination of tart meets curry chicken, finished with a topping of cheese.', 46, 125, 0, '../product_images/Geh_Bo_Gok_Tat.JPG', 150),
 (3, 'Kopi Bancuh', 5.5, 3, 'Black coffee with sugar and evaporated milk, which is similar to condensed milk, but unsweetened.', 100, 40, 1, '../product_images/kopi_bancuh.JPG', 120),
 (4, 'Teh Bancuh', 5.5, 3, 'A popular hot milk tea beverage most commonly found in restaurants, outdoor stalls, mamaks and kopitiams within the Southeast Asian countries of Malaysia, Indonesia, Singapore and Thailand', 100, 40, 0, '../product_images/teh_bancuh.JPG', 175),
 (5, 'Oreo Cheesecake', 13, 2, 'Served fresh of the fridge with butter and oreo crumps as the base, special homemade cream cheese and milk recipe as the middle layer and top it off with oreo poweder sprinkles and a piece of oreo biscuit. Oreo lovers what are you waiting for? Try it now.', 60, 562, 1, '../product_images/Oreo_Cheesecake.JPG', 154),
@@ -303,18 +261,6 @@ ALTER TABLE `cart_temp`
   ADD PRIMARY KEY (`cart_id`);
 
 --
--- Indexes for table `category`
---
-ALTER TABLE `category`
-  ADD PRIMARY KEY (`category_id`);
-
---
--- Indexes for table `category_product`
---
-ALTER TABLE `category_product`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `customer`
 --
 ALTER TABLE `customer`
@@ -378,18 +324,6 @@ ALTER TABLE `cart_temp`
   MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `category`
---
-ALTER TABLE `category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `category_product`
---
-ALTER TABLE `category_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
@@ -405,7 +339,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Constraints for dumped tables
