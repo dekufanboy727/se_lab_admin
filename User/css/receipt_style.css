@@ -1,0 +1,131 @@
+body{
+    margin: 0;
+    background-color: #E8CBB1;
+    font-family: 'Marhey', cursive;
+}
+.logo{
+    margin: 30px 0 20px;
+    text-align: center;
+}
+.logo::after{
+    content: "a";
+    display: block;
+    background-color: rgba(0, 0, 0, 0.35);
+    width: 220px;
+    position: absolute;
+    left: 655px;
+    top: 155px;
+    border-radius: 50%;
+    filter: blur(10px);
+}
+.container{
+    text-align: center;
+    color: #4C5D70;
+    margin-top: 50px;
+}
+table{
+    border-collapse: collapse;
+    margin: 20px auto 20px;
+    min-width: 1200x;
+    border-radius: 20px;	
+    overflow: hidden;
+    margin-top: 20px;
+    background-color: white;
+}
+table thead tr{
+    background-color: #4C5D70;
+    color: white;
+    font-weight: 300px;
+}
+table th, 
+table td{
+    padding: 12px 15px;
+}
+table tbody tr td img{
+    width: 120px;
+    border-radius: 10px;
+}
+table tbody tr:nth-last-child(3){
+    border-top: 2px solid #4C5D70;
+}
+table tbody tr:nth-of-type(even){
+    background-color: rgba(125, 156, 171, 0.35);
+}
+table tbody tr:nth-last-child(1),
+table tbody tr:nth-last-child(2),
+table tbody tr:nth-last-child(3){
+    background-color: white;
+    font-weight: bold;
+    font-size: 18px;
+}
+table tbody tr:last-of-type{
+    border-bottom: 10px solid #4C5D70;
+}
+table ul li{
+    list-style: none;
+    display: block;
+    width: 180px;
+    margin: 5px 0px;
+}
+.confirm{
+    font-family: 'Marhey', cursive;
+    font-size: 18px;
+    position: relative;
+    background-color: #4C5D70;
+    color: white;
+    width: 150px;
+    height: 40px;
+    border-radius: 30px;
+    text-align: center;
+    padding: 5px 5px 0;
+    box-shadow: 4px 4px 3px grey;
+    z-index: 1;
+    border: none;
+    margin: 0 auto 30px;
+    cursor: pointer;
+}
+.confirm::before{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: white;
+    border-radius: 30px;
+    border: 2px solid #4C5D70;
+    z-index: -1;
+    transform: scaleX(0);
+    transition: transform 0.3s ease-in-out;
+}
+.confirm:hover{
+    color: #4C5D70;
+}
+.confirm:hover::before,
+.confirm:focus::before{
+    transform: scaleX(1);
+}
+
+.details{ 
+    width: 33%;
+    margin: 0 auto;
+    text-align: center;
+   
+}
+
+.delivery{
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+    padding-right: 180px;
+    
+    
+}
+
+.order_num{
+    display: inline-block;
+    text-align: right;
+    vertical-align: middle;
+    padding-right: 30px;
+}
