@@ -1,6 +1,77 @@
 <?php
     session_start();
     include 'dbConnection.php';
+
+    //Declarations
+    $paymenttype = $name = $cardnumber= $expiration = $cvc = "";
+    $paymenttypeErr = $nameErr = $cardnumberErr = $expirationErr = $cvcErr = "";
+    $error = "";
+
+    if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST["checkoutForm"]))
+	{
+
+        if (empty($_POST["paymenttype"])) {
+            $paymenttypeErr = "*Please select a payment method!";
+        } else {
+            $paymenttype = $_POST["paymenttype"];
+        }
+
+        if (empty($_POST["name"])) {
+            $nameErr = "*Name is required!";
+        } else {
+            $name = $_POST["name"];
+        }
+
+        if (empty($_POST["cardnumber"])) {
+            $cardnumberErr = "*Card Number is required!";
+        } else {
+            $cardnumber = $_POST["cardnumber"];
+        }
+
+        if (empty($_POST["expiration"])) {
+            $expirationErr = "*Expiration Date is required!";
+        } else {
+            $expiration = $_POST["expiration"];
+        }
+
+        if (empty($_POST["cvc"])) {
+            $cvcErr = "*CVC is required!";
+        } else {
+            $cvc = $_POST["cvc"];
+        }
+		
+
+        /*
+		$sql = "SELECT * FROM cart_temp";
+		$result = $conn->query($sql);
+        $customer_name = $_SESSION['customer_name'];
+		$customer_email = $_SESSION['customer_email'];
+
+		while($data = mysqli_fetch_array($result))
+		{
+			$product_name =  $data['product_name'];
+			$price =  $data['price'];
+			$quantity = $data['quantity'];
+			$total_price = $data['total_price'];
+			$sql = "INSERT INTO cart(customer_name,customer_email,product_name,price,quantity,total_price,order_time) VALUES('$customer_name','$customer_email','$product_name','$price',$quantity,'$total_price',CURRENT_TIMESTAMP)";
+
+            if ($conn->query($sql) === FALSE){
+                echo "Error: " . $sql . "<br>" . $conn->error;
+                return false;
+             }else{
+                 header('location:cart.php');
+             }
+             }
+             */
+    }
+
+    function test_input ($data){
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+      }
+      
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +83,6 @@
     <link rel="stylesheet" href="css/cart_style.css">
     <link href="https://fonts.googleapis.com/css2?family=Marhey:wght@300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="js/menu.js"></script>
     <title>Helf Coffee Official Website</title>
 </head>
 <body>
@@ -46,25 +116,6 @@
         </ul>
     </div>
 
-    <form method="post" onsubmit="calculate()" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
-        <input onclick = "addFee()" type="radio" name="method" value="Delivery">Delivery
-        <input onclick = "removeFee()" type="radio" name="method" value="Self Pickup">Self Pickup
-        <input type="submit" class="checkout" value='Calculate' name='submit'>
-    </form>
-   
-    <script>
-        function addFee(){
-            
-            document.getElementById('delivery_fee').innerText = 'RM8.00';
-        }
-
-        function removeFee(){
-            
-            document.getElementById('delivery_fee').innerText = 'RM0.00';
-        }
-
-    </script>
-
     <div class="content_container">
         <div class="cart_container">
             <table>
@@ -78,6 +129,8 @@
                     </tr>
                 </thead>
                 <?php
+
+                
 
                 $sql= "SELECT * FROM cart_temp";
                 $result = $conn->query($sql);
@@ -110,8 +163,22 @@
                     </tr>
 
                     <?php
-                    
                     $total_order = $sub_order + $fee;
+                if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST["deliveryForm"])){    
+
+                    $dmethod = $_POST['d_method'];
+
+                    if($dmethod == "Self-Pickup"){                       
+                        $total_order = $sub_order;
+                        $fee = 0;
+                    }else{
+                        $total_order = $sub_order + $fee;
+                    }    
+                    
+                    $datetime = $_POST['datetime'];
+                    $_SESSION['datetime'] = $datetime;
+                        
+                    }
                 }
             
                 ?>				
@@ -124,7 +191,7 @@
                 <tr>
                     <td colspan="4" style="text-align: right;">Delivery Fee</td>
                     <td id= "delivery_fee">
-                        RM0.00
+                    RM<?php echo number_format($fee, 2);?>
                     </td>
                 </tr> 
                     <tr>
@@ -136,76 +203,109 @@
             </table>
         </div>
 
-    <script>
-        let plus = document.getElementById("plus<?php echo $data['product_id']?>");
-        let num = document.getElementById("num<?php echo $data['product_id']?>");
-        let minus = document.getElementById("minus<?php echo $data['product_id']?>");
-
-        let a = 1;
-
-        plus.addEventListener("click", ()=>{
-            a++;
-            a = (a<10)?"0"+a:a;
-            num.value = a;
-        });
-
-        minus.addEventListener("click", ()=>{
-            if(a>1){
-                a--;
-                a = (a<10)?"0"+a:a;
-                num.value = a;
-            }
-        });
-
     </script>
 
-        <div class="payment_container">
-            <div class="payment_info">
+        <div class="order_container">
+            <div class="order_details">
                 <div class="header">
-                    <h2>Payment Info</h2>
+                    <h2>Order Details</h2>
                 </div>
 
-                <form>
+                <form name= "deliveryForm" id="deliveryForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <div class="user_input">
-                        <label class="input_field">&nbsp; Payment Method &nbsp;</label>
+                        <label class="input_field2">&nbsp; Delivery Method &nbsp;</label>
                         <br><br>
-                        <div>
+                        <div class="container">
                             <div class="c_type">
-                                <input type="radio" name="price" id="1" class="hidden" value="Visa">
-                                <label for="1" class="lb1-radio"><img src="images/visa.png" alt="visa" width="60" height="40"></label>
+                                <input type="radio" name="d_method" class="hidden" id="1d" value="Delivery" checked="checked">
+                                <label for="1d" class="lb1-radio">Delivery</label>
                             </div>
                             <div class="c_type">
-                                <input type="radio" name="price" id="2" class="hidden" value="MasterCard">
-                                <label for="2" class="lb1-radio"><img src="images/mastercard.png" alt="mastercard" width="60" height="40"></label>
+                                <input type="radio" name="d_method" class="hidden" id="2d" value="Self-Pickup">
+                                <label for="2d" class="lb1-radio">Self-Pickup</label>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div class="user_input">
+                        <label class="input_field">&nbsp; Receival Date &nbsp;</label>
+                        <input type="datetime-local" id="date" name="datetime" value="<?php echo $_SESSION['datetime'];?>" >
+                        <br>
+                        <small>Error Message</small>
+                    </div>
+
+                    <button class="checkout" type="submit" type="deliveryForm" name="deliveryForm">Confirm</button>
+                </form>
+            </div>
+
+            <div class="payment_details">
+                <div class="header">
+                    <h2>Payment Details</h2>
+                </div>
+
+                <form name= "checkoutForm" id="checkoutForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                    <div class="user_input">
+                        <label class="input_field2">&nbsp; Payment Method &nbsp;</label>
+                        <br><br>
+                        <div class="container" >
+                            <div class="c_type">
+                                <input type="radio" name="p_method" id="1p" class="hidden" value="Visa" checked="checked">
+                                <label for="1p" class="lb2-radio"><img src="images/visa.png" alt="visa" width="60" height="40"></label>
+                            </div>
+                            <div class="c_type">
+                                <input type="radio" name="p_method" id="2p" class="hidden" value="MasterCard">
+                                <label for="2p" class="lb2-radio"><img src="images/mastercard.png" alt="mastercard" width="60" height="40"></label>
                             </div>
                         </div>
                     </div>
 
                     <div class="user_input">
                         <label class="input_field">&nbsp; Card Holder Name &nbsp;</label>
-                        <input type="text" name="name" placeholder="John Doe">
+                        <input type="text" name="name" id="name" placeholder="John Doe">
+                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                        <br>
+                        <small>Error Message</small>
+                        <span style="color:#e74c3c;font-size: smaller;"><?php echo $nameErr; ?></span>
                     </div>
 
                     <div class="user_input">
                         <label class="input_field">&nbsp; Card Number &nbsp;</label>
-                        <input type="text" name="cardnumber" placeholder="XXXX-XXXX-XXXX-XXXX">
+                        <input type="text" name="cardnumber" id="cardnumber" placeholder="XXXX-XXXX-XXXX-XXXX">
+                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                        <br>
+                        <small>Error Message</small>
+                        <span style="color:#e74c3c;font-size: smaller;"><?php echo $cardnumberErr; ?></span>
                     </div>
 
                     <div class="user_input">
                         <label class="input_field">&nbsp; Expiration Date &nbsp;</label>
-                        <input type="text" name="expiration" placeholder="MM-YY">
+                        <input type="text" name="expiration" id="expiration" placeholder="MM-YY">
+                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                        <br>
+                        <small>Error Message</small>
+                        <span style="color:#e74c3c;font-size: smaller;"><?php echo $expirationErr; ?></span>
                     </div>
 
                     <div class="user_input">
                         <label class="input_field">&nbsp; CVC &nbsp;</label>
-                        <input type="text" name="cvc" placeholder="XXX">
+                        <input type="text" name="cvc" id="cvc" placeholder="XXX">
+                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                        <br>
+                        <small>Error Message</small>
+                        <span style="color:#e74c3c;font-size: smaller;"><?php echo $cvcErr; ?></span>
                     </div>
 
-                    <button class="checkout" type="submit">Checkout</button>
+                    <button class="checkout" type="checkoutForm" name="checkoutForm">Checkout</button>
 			    </form>
             </div>
             <br><br>
         </div>
         </div>
+        <script type="text/javascript" src="js/checkout.js"></script>
     </body>
 </html>
