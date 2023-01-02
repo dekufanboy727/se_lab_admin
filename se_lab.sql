@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 30, 2022 at 03:36 PM
+-- Generation Time: Jan 02, 2023 at 03:48 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -44,6 +44,28 @@ INSERT INTO `admin` (`admin_id`, `username`, `pass`, `email`, `phone_num`, `addr
 (1, 'admin01', 'admin123', 'admin01@somemail.com', '+60100000001', 'AAAA land'),
 (2, 'admin02', 'admin234', 'admin02@somemail.com', '+60100000002', 'BBBB land'),
 (3, 'admin03', 'admin345', 'admin03@somemail.com', '+60100000003', 'CCCC land');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart_temp`
+--
+
+CREATE TABLE `cart_temp` (
+  `cart_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `product_name` text NOT NULL,
+  `price` float NOT NULL,
+  `quantity` int(100) NOT NULL,
+  `total_price` int(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `cart_temp`
+--
+
+INSERT INTO `cart_temp` (`cart_id`, `product_id`, `product_name`, `price`, `quantity`, `total_price`) VALUES
+(1, 1, 'Gu Mor Kak', 4.9, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -110,28 +132,48 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`id`, `name`, `email`, `address`, `password`, `phone`, `payment_method`, `credit_score`) VALUES
-(1, 'Alex Yeng', 'aly@gmail.com', 'kuching,sarawak', 'aly001', 110010001, 'Credit Card', 100);
+(1, 'Derrick Koay Jia Yung', 'koayjyderrick@gmail.com', '31 Lakeside', 'blackwinds', 1133030519, '', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `events`
+-- Table structure for table `event`
 --
 
-CREATE TABLE `events` (
+CREATE TABLE `event` (
   `id` int(100) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `start_date` datetime NOT NULL,
-  `end_date` datetime NOT NULL,
-  `description` text NOT NULL
+  `name` text NOT NULL,
+  `start_date` datetime(6) NOT NULL,
+  `end_date` datetime(6) NOT NULL,
+  `description` text NOT NULL,
+  `discount` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `events`
+-- Dumping data for table `event`
 --
 
-INSERT INTO `events` (`id`, `name`, `start_date`, `end_date`, `description`) VALUES
-(1, '11/111 Sales!', '2022-12-30 12:12:00', '2023-02-01 08:00:00', 'It is an event of splendor and wonder for adults and kids galore!\"\"');
+INSERT INTO `event` (`id`, `name`, `start_date`, `end_date`, `description`, `discount`) VALUES
+(1, '11/11 Sales!', '2022-11-11 05:49:19.000000', '2022-12-12 05:49:19.000000', 'It is an event of splendor and wonder for adults and kids galore!', 80);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `event_prodtype`
+--
+
+CREATE TABLE `event_prodtype` (
+  `event_id` int(100) NOT NULL,
+  `product_type_id` int(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `event_prodtype`
+--
+
+INSERT INTO `event_prodtype` (`event_id`, `product_type_id`) VALUES
+(1, 1),
+(1, 2);
 
 -- --------------------------------------------------------
 
@@ -141,21 +183,13 @@ INSERT INTO `events` (`id`, `name`, `start_date`, `end_date`, `description`) VAL
 
 CREATE TABLE `orders` (
   `order_id` int(11) NOT NULL,
+  `customer_id` int(10) NOT NULL,
   `order_amount` double NOT NULL,
   `order_date` datetime NOT NULL,
   `order_collection` text NOT NULL,
   `pickup_time` datetime DEFAULT NULL,
-  `Status` varchar(10) NOT NULL DEFAULT 'preparing',
-  `customer_id` int(100) NOT NULL
+  `Status` varchar(10) NOT NULL DEFAULT 'preparing'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`order_id`, `order_amount`, `order_date`, `order_collection`, `pickup_time`, `Status`, `customer_id`) VALUES
-(1, 50.5, '2022-12-13 17:31:47', 'takeaway', '2022-12-13 18:31:47', 'done', 1),
-(2, 5, '2022-12-15 00:00:00', 'Pick Up', '2022-12-15 00:00:00', 'done', 1);
 
 -- --------------------------------------------------------
 
@@ -169,17 +203,6 @@ CREATE TABLE `order_product` (
   `product_id` int(100) NOT NULL,
   `quantity` int(100) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `order_product`
---
-
-INSERT INTO `order_product` (`id`, `order_id`, `product_id`, `quantity`) VALUES
-(1, 1, 1, 1),
-(2, 1, 2, 2),
-(3, 1, 3, 2),
-(4, 2, 4, 3),
-(5, 2, 5, 2);
 
 -- --------------------------------------------------------
 
@@ -195,8 +218,8 @@ CREATE TABLE `product` (
   `product_desc` text NOT NULL,
   `product_quan` int(100) NOT NULL,
   `product_cal` int(100) NOT NULL,
-  `product_img` varchar(100) NOT NULL,
   `best_seller` tinyint(1) NOT NULL,
+  `product_img` varchar(100) NOT NULL,
   `pixel` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -204,13 +227,24 @@ CREATE TABLE `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`product_id`, `product_name`, `price`, `product_type`, `product_desc`, `product_quan`, `product_cal`, `product_img`, `best_seller`, `pixel`) VALUES
-(1, 'Gu Mor Kak', 8.9, 1, '“Gu Mor Kak” or Demon Cow’s Horn Biscuit is a chinese homemade traditional biscuit that is packed with savory rosated chicken fillings, with a thin layered crust wrapped around it. It’s crunchy textute and salty with a hint a sweetness flavour is exactly why Gu Mor Kak is one of our cafe’s signature pastries and best seller. ', 90, 35, '', 0, 0),
-(2, 'Geh Bo Gok Tat', 6.9, 1, 'Homemade Portuguese style egg tart baked with an outer layer of crust, fragant egg fillings and a layer of burnt cheese on top. It’s aromatic, sweet and satly fillings combined with the crusty outer layer is definately a must try. ', 46, 125, '../product_images/Geh_Bo_Gok_Tat.JPG', 0, 0),
-(3, 'Kopi Bancuh', 5, 3, 'Black coffee with sugar and evaporated milk, which is similar to condensed milk, but unsweetened.', 100, 40, '', 0, 0),
-(4, 'Teh Bancuh', 5, 3, 'A popular hot milk tea beverage most commonly found in restaurants, outdoor stalls, mamaks and kopitiams within the Southeast Asian countries of Malaysia, Indonesia, Singapore and Thailand', 100, 40, '', 0, 0),
-(5, 'Oreo Cheesecake', 4.5, 2, 'Served fresh of the fridge with butter and oreo crumps as the base, special homemade cream cheese and milk recipe as the middle layer and top it off with oreo poweder sprinkles and a piece of oreo biscuit. Oreo lovers what are you waiting for? Try it now.', 60, 562, '', 0, 0),
-(7, 'cup', 3, 3, '3', 3, 3, '../product_images/cappuccino.jpg', 0, 0);
+INSERT INTO `product` (`product_id`, `product_name`, `price`, `product_type`, `product_desc`, `product_quan`, `product_cal`, `best_seller`, `product_img`, `pixel`) VALUES
+(1, 'Gu Mor Kak', 4.5, 1, '“Gu Mor Kak” or Demon Cow’s Horn Biscuit is a chinese homemade traditional biscuit that is packed with savory rosated chicken fillings, with a thin layered crust wrapped around it. It’s crunchy textute and salty with a hint a sweetness flavour is exactly why Gu Mor Kak is one of our cafe’s signature pastries and best seller. ', 90, 35, 1, '../product_images/Gu_Mor_Kak.JPG\r\n', 220),
+(2, 'Geh Bo Gok Tat', 6.9, 1, 'A brand new and exciting combination of tart meets curry chicken, finished with a topping of cheese.', 46, 125, 1, '../product_images/Geh_Bo_Gok_Tat.JPG', 150),
+(3, 'Kopi Bancuh', 5.5, 3, 'Black coffee with sugar and evaporated milk, which is similar to condensed milk, but unsweetened.', 100, 40, 1, '../product_images/kopi_bancuh.JPG', 120),
+(4, 'Teh Bancuh', 5.5, 3, 'A popular hot milk tea beverage most commonly found in restaurants, outdoor stalls, mamaks and kopitiams within the Southeast Asian countries of Malaysia, Indonesia, Singapore and Thailand', 100, 40, 0, '../product_images/teh_bancuh.JPG', 175),
+(5, 'Oreo Cheesecake', 13, 2, 'Served fresh of the fridge with butter and oreo crumps as the base, special homemade cream cheese and milk recipe as the middle layer and top it off with oreo poweder sprinkles and a piece of oreo biscuit. Oreo lovers what are you waiting for? Try it now.', 60, 562, 1, '../product_images/Oreo_Cheesecake.JPG', 154),
+(6, 'Portugese Tart', 3.3, 1, 'Homemade Portuguese style egg tart baked with an outer layer of crust, fragant egg fillings and a layer of burnt cheese on top. It’s aromatic, sweet and satly fillings combined with the crusty outer layer is definately a must try.', 100, 500, 0, '../product_images/portuguese_tart.JPG', 150),
+(7, 'Peanut Ice Cream', 4.3, 2, 'Wondrously smooth Peanut Ice Cream and with a distinctly sweet, nutty flavour,', 65, 265, 1, '../product_images/peanut_ice_cream.JPG', 160),
+(8, 'Pandan Portuguese Tart', 3.3, 1, 'These pandan-flavored Portuguese egg tart are extremely crispy and has a lovely pandan fragrance, guaranteed to be enjoyed by everyone.', 75, 110, 0, '../product_images/Pandan_Portuguese_Tart.JPG', 154),
+(9, 'Longan Soya Pudding', 4.5, 2, 'This nutritious dessert is made from plant milk (soya milk), fruit (longan) and natural flavouring (pandan). It is not too sweet, while being smooth like tau foo far.\r\n\r\n', 30, 240, 0, '../product_images/longan_soya_pudding.JPG', 150),
+(10, 'Oreo Ice Cream', 4.3, 2, 'This ice cream may look like plain chocolate, but it\'s not—it\'s a super concentrated version of cookies \'n\' cream. Its rich flavor and color come from crushed Oreo wafers, with a handful of crushed sandwich cookies folded in at the end. ', 35, 361, 0, '../product_images/oreo_ice_cream.JPG', 160),
+(11, 'Matcha Ice Cream', 5.3, 2, 'Earthy and sweet Matcha Ice Cream is the perfect refreshing treat on a hot day. With a deep intensity and rich texture, this green tea ice cream brings to you a taste of Japan.', 40, 530, 1, '../product_images/matcha_ice_cream.JPG', 160),
+(12, 'Cappuccino', 6.9, 3, 'A freshly pulled shot of espresso layered with steamed whole milk and thick rich foam to offer a luxurious velvety texture and complex aroma.\r\n', 50, 80, 0, '../product_images/cappuccino.JPG', 10),
+(13, 'Coco', 6.9, 3, 'Steamed milk with vanilla- and chocolate-flavored syrups. Topped with sweetened whipped cream and chocolate-flavored drizzle. A timeless classic made to sweeten your spirits.', 50, 77, 1, '../product_images/coco.JPG', 195),
+(14, 'Hazelnut', 6.9, 3, 'Our Hazelnut Coffee is an earthy, full-bodied blend that lets the intense aroma shine through.\r\n\r\n', 50, 87, 0, '../product_images/hazelnut.JPG', 85),
+(15, 'Latte', 6.9, 3, 'Milk coffee that is a made up of one or two shots of espresso, steamed milk and a final, thin layer of frothed milk on top.', 50, 189, 0, '../product_images/latte.JPG', 105),
+(16, 'Mocha', 6.9, 3, 'Our rich, full-bodied espresso combined with bittersweet mocha sauce and steamed milk, then topped with sweetened whipped cream.', 50, 371, 0, '../product_images/mocha.JPG', 200),
+(17, 'Tiramisu', 6.9, 3, 'Tiramisù is a velvety mélange of savoiardi cookies dipped in an espresso, layered with delicately sweetened whipped eggs and mascarpone cheese, and topped with a dusting of cocoa powder.', 50, 345, 0, '../product_images/tiramisu.JPG', 60);
 
 -- --------------------------------------------------------
 
@@ -263,6 +297,12 @@ ALTER TABLE `admin`
   ADD PRIMARY KEY (`admin_id`);
 
 --
+-- Indexes for table `cart_temp`
+--
+ALTER TABLE `cart_temp`
+  ADD PRIMARY KEY (`cart_id`);
+
+--
 -- Indexes for table `category`
 --
 ALTER TABLE `category`
@@ -281,17 +321,24 @@ ALTER TABLE `customer`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `events`
+-- Indexes for table `event`
 --
-ALTER TABLE `events`
+ALTER TABLE `event`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `event_prodtype`
+--
+ALTER TABLE `event_prodtype`
+  ADD PRIMARY KEY (`event_id`,`product_type_id`),
+  ADD KEY `product_type_id` (`product_type_id`);
 
 --
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`order_id`),
-  ADD KEY `customer_id` (`customer_id`);
+  ADD KEY `fk` (`customer_id`);
 
 --
 -- Indexes for table `order_product`
@@ -325,10 +372,10 @@ ALTER TABLE `transaction`
 --
 
 --
--- AUTO_INCREMENT for table `admin`
+-- AUTO_INCREMENT for table `cart_temp`
 --
-ALTER TABLE `admin`
-  MODIFY `admin_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `cart_temp`
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -349,44 +396,33 @@ ALTER TABLE `customer`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `events`
---
-ALTER TABLE `events`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
   MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `order_product`
---
-ALTER TABLE `order_product`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `transaction`
---
-ALTER TABLE `transaction`
-  MODIFY `trans_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2000000003;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables
 --
 
 --
+-- Constraints for table `event_prodtype`
+--
+ALTER TABLE `event_prodtype`
+  ADD CONSTRAINT `event_id` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `product_type_id` FOREIGN KEY (`product_type_id`) REFERENCES `product_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `customer_id` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`);
 
 --
 -- Constraints for table `order_product`
