@@ -28,7 +28,7 @@
                     
                     $product_name = $result['product_name'];
                     $price = $result['price'];
-                    if($temp = 'Cold'){
+                    if($temp == 'Cold'){
                         $price+=0.40;
                     }
                     $total_price = $quantity * $price;
