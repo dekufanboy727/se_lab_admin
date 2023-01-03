@@ -7,6 +7,50 @@
         unset($_SESSION['email']);
         header('Location: index.php');
     }
+
+    if($_SERVER['REQUEST_METHOD'] == "POST")
+    {
+        $temp = $_POST['price'];
+        $quantity = $_POST['num'];
+        $sql2 = $conn->query("SELECT * FROM product");
+
+        if($sql2->num_rows > 0)
+        {
+            while($data=$sql2->fetch_assoc())
+            {
+                $productid = $data['product_id'];
+
+                if(isset($_POST[$productid]))
+                {
+                    $sql3 = $conn->query("SELECT * FROM product WHERE product_id = $productid");
+                    $result = $sql3->fetch_assoc();
+
+                    
+                    $product_name = $result['product_name'];
+                    $price = $result['price'];
+                    if($temp = 'Cold'){
+                        $price+=0.40;
+                    }
+                    $total_price = $quantity * $price;
+
+                    $sql = "INSERT INTO cart_temp(product_id,product_name,price, quantity, total_price) VALUES('$productid','$product_name', '$price', '$quantity','$total_price')";
+                    if ($conn->query($sql) === FALSE){
+							echo ("ERROR IN PURCHASING MERCHANDISE!");
+					}else{
+                            echo '<script> alert ("Product successfully added to cart") </script>';
+						}
+					
+    
+                }
+                                
+            }
+
+
+        }
+
+
+	}	
+
  ?>
 
 <!DOCTYPE html>
@@ -17,6 +61,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/menu_style.css">
     <link href="https://fonts.googleapis.com/css2?family=Marhey:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <script src="js/menu.js"></script>
     <title>Helf Coffee Official Website</title>
 </head>
@@ -58,117 +104,158 @@
 
     <div class="item_container">
 
+    <?php
+        $sql = $conn->query("SELECT * FROM product WHERE product_type = 4 AND product_quan > 0 ORDER by product_id");
+
+        if($sql->num_rows > 0 ){
+
+            while($data=$sql->fetch_assoc()){
+
+        $three = 20.00;        
+
+    ?>    
+
         <div class="item">
+                
             <div class="item_pic">
-                <img src="images/mix_match_set.png" style="bottom: 80px;">
+            <?php
+                echo  '<img style="bottom: '.$data['pixel'].'px;" src="'.$data['product_img'].'"/>';
+            ?>
             </div>
             <div class="description">
-                <div class="item_name"><center>Mix & Match Set</center></div>
-                <div class="price">
-                    <center>RM34.00</center>
-                    <div class="sub_price"><center>3 of Any Kind</center></div>
-                </div>
-                <div class="price">
-                    <center>RM42.00</center>
-                    <div class="sub_price"><center>4 of Any Kind</center></div>
-                </div>
-                <div class="order_btn" onclick="togglePopup_1()"><center>Order Now</center></div>
+                <div class="item_name"><center><?php echo $data['product_name']?></center></div>
+                    <div class="price">
+                        <center>RM<?php echo number_format($data['price'], 2);?></center>
+                        <div class="sub_price"><center>2 pax</center></div>
+                    </div>
+                    <div class="price">
+                        <center>RM<?php echo number_format($data['price'] +$three , 2);?></center>
+                        <div class="sub_price"><center>3 pax</center></div>
+                    </div>
+                <div class="order_btn" onclick="togglePopup_<?php echo $data['product_id']?>()"><center>Order Now</center></div>
             </div>
         </div>
 
-        <div class="item">
-            <div class="item_pic">
-                <img src="images/tea_time_set.png" style="bottom: 95px;">
-            </div>
-            <div class="description">
-                <div class="item_name"><center>Tea Time Set</center></div>
-                <div class="price">
-                    <center>RM38.80</center>
-                    <div class="sub_price"><center>for 2 pax</center></div>
-                </div>
-                <div class="price">
-                    <center>RM58.80</center>
-                    <div class="sub_price"><center>for 3 pax</center></div>
-                </div>
-                <div class="order_btn" onclick="togglePopup_2()"><center>Order Now</center></div>
-            </div>
-        </div>
-        
+        <?php
+           }
+        }    
+        ?>
+
     </div>
+
+    <?php 
+        $three = 20.00; 
+        $sql = $conn->query("SELECT * FROM product WHERE product_type = 4 ORDER by product_id");
+        if($sql->num_rows > 0 ){
+
+            while($data=$sql->fetch_assoc()){
+    ?>
+ 
+    <div class="popup" id="popup-<?php echo $data['product_id']?>">
+        <?php
+            $product_id = $data['product_id'];
+        ?>
+        <div class="overlay"></div>       
+        <div class="content">
+            <?php
+                echo  '<img src="'.$data['product_img'].'"/>';
+            ?>
+            <div class="description_container">
+                <div class="description2">
+                    <div class="item_name2"><?php echo $data['product_name']?></div>
+                    <P><?php echo $data['product_desc']?>
+                    </P>
+                    <div class="deco">
+                        <div class="deco_dot"></div>
+                        <div class="deco_dot"></div>
+                        <div class="deco_bar"></div>
+                    </div>
+                    <form name=<?php echo $product_id;?> method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                        <div class="price_quantity_container">
+                            
+                            <div class="price2">
+                                <input type="radio" name="price" id="1<?php echo $data['product_id']?>" class="hidden" value="two" checked="checked">
+                                <label for="1<?php echo $data['product_id']?>" class="lb1-radio">
+                                <center>RM<?php echo number_format($data['price'], 2);?></center>
+                                <div class="sub_price2"><center>2 pax</center></div>
+                                </label>
+                            </div>
+
+                            <div class="price2">
+                                <input type="radio" name="price" id="2<?php echo $data['product_id']?>" class="hidden" value="three">
+                                <label for="2<?php echo $data['product_id']?>" class="lb1-radio">
+                                <center>RM<?php echo number_format($data['price'] +$three , 2);?></center>
+                                <div class="sub_price2"><center>3 pax</center></div>
+                                </label>
+                            </div>
+
+                            <div class="quantity">
+                                <span class="minus"id="minus<?php echo $data['product_id']?>">-</span>
+                                <input type="text" name='num' class="num" id="num<?php echo $data['product_id']?>" value ="01"></input>
+                                <span class="plus" id="plus<?php echo $data['product_id']?>">+</span>
+                            </div>
+                        </div>
+                        <button class="add_to_cart_btn" type="submit" name="<?php echo $product_id;?>">Add To Cart</button>                 
+                    </form>
+                </div>
+            </div>
+            <div class="close_btn" onclick="togglePopup_<?php echo $data['product_id']?>()">Close</div>
+        </div>
+    </div>
+    <script>
+        function togglePopup_<?php echo $data['product_id']?>(){
+        document.getElementById("scroll").scrollIntoView();
+        document.getElementById("popup-<?php echo $data['product_id']?>").classList.toggle("active");
+
+        let plus = document.getElementById("plus<?php echo $data['product_id']?>");
+        let num = document.getElementById("num<?php echo $data['product_id']?>");
+        let minus = document.getElementById("minus<?php echo $data['product_id']?>");
+
+        let a = 1;
+
+        plus.addEventListener("click", ()=>{
+            a++;
+            a = (a<10)?"0"+a:a;
+            num.value = a;
+        });
+
+        minus.addEventListener("click", ()=>{
+            if(a>1){
+                a--;
+                a = (a<10)?"0"+a:a;
+                num.value = a;
+            }
+    });
+}
     
-    <div class="popup" id="popup-1">
-        <div class="overlay"></div>
-        <div class="content">
-            <img src="images/mix_match_set.png">
-            <div class="description_container">
-                <div class="description2">
-                    <div class="item_name2">Mix & Match Set</div>
-                    <P>“Gu Mor Kak” or Demon Cow’s Horn Biscuit is a chinese homemade traditional biscuit that is packed with savory rosated chicken fillings, with a thin layered crust wrapped around it. It’s crunchy textute and salty with a hint a sweetness flavour is exactly why Gu Mor Kak is one of our cafe’s signature pastries and best seller.
-                    </P>
-                    <div class="deco">
-                        <div class="deco_dot"></div>
-                        <div class="deco_dot"></div>
-                        <div class="deco_bar"></div>
-                    </div>
-                    <div class="price_quantity_container">
-                        <div class="price2">
-                            <center>RM34.00</center>
-                            <div class="sub_price2"><center>3 of Any Kind</center></div>
-                        </div>
-                        <div class="price2">
-                            <center>RM42.00</center>
-                            <div class="sub_price2"><center>4 of Any Kind</center></div>
-                        </div>
-                        <div class="quantity">
-                            <span class="minus" id="minus">-</span>
-                            <span class="num" id="num">01</span>
-                            <span class="plus" id="plus">+</span>
-                        </div>
-                    </div>
-                    <div class="add_to_cart_btn">Add To Cart</div>
-                </div>
-            </div>
-            <div class="close_btn" onclick="togglePopup_1()">Close</div>
-        </div>
-    </div>
+    </script>
 
-    <div class="popup" id="popup-2">
-        <div class="overlay"></div>
-        <div class="content">
-            <img src="images/tea_time_set.png">
-            <div class="description_container">
-                <div class="description2">
-                    <div class="item_name2">Tea Time Set</div>
-                    <P>“Gu Mor Kak” or Demon Cow’s Horn Biscuit is a chinese homemade traditional biscuit that is packed with savory rosated chicken fillings, with a thin layered crust wrapped around it. It’s crunchy textute and salty with a hint a sweetness flavour is exactly why Gu Mor Kak is one of our cafe’s signature pastries and best seller.
-                    </P>
-                    <div class="deco">
-                        <div class="deco_dot"></div>
-                        <div class="deco_dot"></div>
-                        <div class="deco_bar"></div>
-                    </div>
-                    <div class="price_quantity_container">
-                        <div class="price2">
-                            <div class="price2">
-                                <center>RM38.80</center>
-                                <div class="sub_price2"><center>for 2 pax</center></div>
-                            </div>
-                            <div class="price2">
-                                <center>RM58.80</center>
-                                <div class="sub_price2"><center>for 3 pax</center></div>
-                            </div>
-                        </div>
-                        <div class="quantity">
-                            <span class="minus"id="minus-2">-</span>
-                            <span class="num"id="num-2">01</span>
-                            <span class="plus" id="plus-2">+</span>
-                        </div>
-                    </div>
-                    <div class="add_to_cart_btn">Add To Cart</div>
-                </div>
-            </div>
-            <div class="close_btn" onclick="togglePopup_2()">Close</div>
-        </div>
-    </div>
 
+    <?php 
+            }
+        }
+    ?>
+
+    <div class="cart-btn" id="cart">
+            <?php
+                $result = $conn->query("SELECT COUNT(*) FROM `cart_temp`");
+                $row = $result->fetch_row();
+            ?>
+            <span class ="cart-quantity"><?php echo $row[0];?></span>
+            <a href ="cart.php"class="fa fa-shopping-cart fa-3x" aria-hidden="true"></a>
+            
+            
+            <span id="cart-success" style = "font-size: 25px">Product successfully added to cart</span>
+        </div>
+
+        <script>
+            function toggleAddCart(){
+                    
+                document.getElementById("cart").classList.toggle('active');
+                
+            }
+    
+    </script>
+    
 </body>
 </html>
