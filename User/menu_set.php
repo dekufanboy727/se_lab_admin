@@ -28,7 +28,7 @@
                     
                     $product_name = $result['product_name'];
                     $price = $result['price'];
-                    if($temp = 'three'){
+                    if($temp == 'three'){
                         $price+=20.00;
                     }
                     $total_price = $quantity * $price;
