@@ -23,15 +23,15 @@ include "dbConnection.php"
 
 <body>
     <?php //Session Control
-        if (empty($_SESSION['logged_in']) == true)
-        {
-            echo "You are not Logged in";
-            header("Location: adminlogout.php");
-        }
+       // if (empty($_SESSION['logged_in']) == true)
+      //  {
+      //      echo "You are not Logged in";
+      //      header("Location: adminlogout.php");
+      //  }
         
         //Adding Product Handler
-        $name = $start_date = $category_id = $end_date = $discount = $description = $location = "";
-        $nameerr = $start_dateerr = $category_iderr = $end_dateerr = $calorieerr = $descriptionerr = $productpicerr = $locationerr = $em = "";
+        $name = $date = $category_id = $time = $discount = $description = $location = $link = "";
+        $nameerr = $dateerr = $category_iderr = $timeerr = $descriptionerr = $productpicerr = $locationerr = $em =  $linkerr ="";
         $validate = true;
 
         function test($data)
@@ -43,7 +43,7 @@ include "dbConnection.php"
         }
 
         //Upload Handler
-        if (isset($_POST['createEvent'])) {
+        if (isset($_POST['createEvent']) && isset($_FILES["eventpic"])) {
             
             if(empty($_POST["name"]))
             {
@@ -53,20 +53,20 @@ include "dbConnection.php"
                 $name = test($_POST['name']);
             }
 
-            if(empty($_POST["start_date"]))
+            if(empty($_POST["date"]))
             {
-                $start_dateerr = "*Start date is required!";
+                $dateerr = "*Date is required!";
                 $validate = false;
             }else{
-                $start_date = test($_POST['start_date']);
+                $date = test($_POST['date']);
             }
 
-            if(empty($_POST["end_date"]))
+            if(empty($_POST["time"]))
             {
-                $end_dateerr = "*End date is required!";
+                $timeerr = "*End date is required!";
                 $validate = false;
             }else{
-                $end_date = test($_POST['end_date']);
+                $time = test($_POST['time']);
             }
 
             if(empty($_POST["description"]))
@@ -85,11 +85,19 @@ include "dbConnection.php"
                 $location = test($_POST['location']);
             }
 
+            if(empty($_POST["link"]))
+            {
+                $linkerr = "*Link is required!";
+                $validate = false;
+            }else{
+                $link = test($_POST['link']);
+            }
+
 
             if($validate == true){
 
 
-                $targetDir = "../event_pic/";
+                $targetDir = "../event_images/";
                 $filename = basename($_FILES["eventpic"]["name"]);
                 $targetFilePath = $targetDir . $filename;
                 $imagefileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
@@ -117,14 +125,16 @@ include "dbConnection.php"
                     $uploadOk = 0;
                     $em ="There was an error in uploading your file";
                 }else{
-                    $sql = "INSERT INTO event (name, start_date, end_date, description, location, eventpic) 
-                                VALUES('$name', '$start_date', '$end_date', '$description', '$location', '$targetFilePath')";
+                    $sql = "INSERT INTO events (event_name, event_date, event_time, description, event_location, event_img, event_link) 
+                                VALUES('$name', '$date', '$time', '$description', '$location', '$targetFilePath', '$link')";
                     if(mysqli_query($conn, $sql)){
                         $em = "Record successfully uploaded";
                     }else{
                         $em = "Record failed to upload";
                     }
                 }
+                $em = "Add Successful";
+                header( "Location: events.php");
             }else{
                 $em = "record not added";
             }
@@ -219,7 +229,7 @@ include "dbConnection.php"
                         <h2>Add New Event</h2>
                     </div>
 
-                    <form name="add" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                    <form name="add" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">
                         <div class="row" style="margin-top: 15px;">
                             <div class="col-25">
                                 <label for="name">Name</label>
@@ -231,20 +241,29 @@ include "dbConnection.php"
                         </div>
                         <div class="row">
                             <div class="col-25">
-                                <label for="start_date">Start Date</label>
-                                <span><?php echo $start_dateerr;?></span>
+                                <label for="date">Date</label>
+                                <span><?php echo $dateerr;?></span>
                             </div>
                             <div class="col-75">
-                                <input type="datetime-local" name="start_date" id="start_date" placeholder="Start date...">
+                                <input type="text" name="date" id="date" placeholder="Event date...">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-25">
-                                <label for="period">End Date</label>
-                                <span><?php echo $end_dateerr;?></span>
+                                <label for="period">Time</label>
+                                <span><?php echo $timeerr;?></span>
                             </div>
                             <div class="col-75">
-                                <input type="datetime-local" name="end_date" id="end_date" placeholder="End date...">
+                                <input type="text" name="time" id="time" placeholder="Event time period...">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label for="period">Link</label>
+                                <span><?php echo $linkerr;?></span>
+                            </div>
+                            <div class="col-75">
+                                <input type="text" name="link" id="link" placeholder="Event link...">
                             </div>
                         </div>
                         <div class="row">
@@ -269,7 +288,7 @@ include "dbConnection.php"
                         <br>
                         <div class="row">
                             <div class="col-25">
-                                <label for="period">Event Image</label>
+                                <label for="eventpic">Event Image</label>
                             </div>
                             <div class="col-75">
                                 <input type="file" id="eventpic" name="eventpic">

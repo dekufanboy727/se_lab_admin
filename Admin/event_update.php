@@ -21,16 +21,16 @@ include "dbConnection.php"
 
     <body>
         <?php
-            if (empty($_SESSION['logged_in']) == true)
-            {
-                echo "You are not Logged in";
-                header("Location: adminlogout.php");
-            }
+            //if (empty($_SESSION['logged_in']) == true)
+            //{
+                //echo "You are not Logged in";
+                //header("Location: adminlogout.php");
+           // }
             
             date_default_timezone_set('Asia/Kuching');
             //Adding Product Handler
-            $name = $start_date = $category_id = $end_date = $discount = $description = $shownid = $editid = $location = $eventpic = "";
-            $nameerr = $start_dateerr = $category_iderr = $end_dateerr = $calorieerr = $descriptionerr = $productpicerr = $locationerr = $em = "";
+            $name = $event_date = $event_link = $category_id = $event_time = $discount = $description = $shownid = $editid = $location = $eventpic = "";
+            $nameerr = $event_dateerr = $event_linkerr = $category_iderr = $event_timeerr = $calorieerr = $descriptionerr = $productpicerr = $locationerr = $em = "";
             $validate = true;
 
             function test($data)
@@ -44,17 +44,18 @@ include "dbConnection.php"
             // Edit Mode Initiate
             if(isset($_GET["event"])){
                 $editid = $_GET["event"];
-                $editsql = "SELECT * FROM event WHERE id = '$editid'";
+                $editsql = "SELECT * FROM events WHERE id = '$editid'";
                 $editresult = mysqli_query($conn, $editsql) or die($mysqli_error($conn));
                 if (mysqli_num_rows($editresult) > 0){
                     $editrow = mysqli_fetch_assoc($editresult);
                     $shownid = $editid;
-                    $name = $editrow["name"];
-                    $start_date = $editrow["start_date"];
-                    $end_date = $editrow["end_date"];
+                    $name = $editrow["event_name"];
+                    $event_date = $editrow["event_date"];
+                    $event_time = $editrow["event_time"];
+                    $event_link = $editrow["event_link"];
                     $description = $editrow["description"];
-                    $location = $editrow["location"];
-                    $eventpic = $editrow["eventpic"];
+                    $location = $editrow["event_location"];
+                    $eventpic = $editrow["event_img"];
                 }else{
                     $em = "0 results";
                 }
@@ -71,20 +72,28 @@ include "dbConnection.php"
                     $name = test($_POST['name']);
                 }
 
-                if(empty($_POST["start_date"]))
+                if(empty($_POST["event_date"]))
                 {
-                    $start_dateerr = "*Start date is required!";
+                    $event_dateerr = "*Date is required!";
                     $validate = false;
                 }else{
-                    $start_date = test($_POST['start_date']);
+                    $event_date = test($_POST['event_date']);
                 }
 
-                if(empty($_POST["end_date"]))
+                if(empty($_POST["event_time"]))
                 {
-                    $end_dateerr = "*End date is required!";
+                    $event_timeerr = "*Time is required!";
                     $validate = false;
                 }else{
-                    $end_date = test($_POST['end_date']);
+                    $event_time = test($_POST['event_time']);
+                }
+
+                if(empty($_POST["event_link"]))
+                {
+                    $event_linkerr = "*Link is required!";
+                    $validate = false;
+                }else{
+                    $event_link = test($_POST['event_link']);
                 }
 
                 if(empty($_POST["description"]))
@@ -106,22 +115,22 @@ include "dbConnection.php"
                 if($validate == true){
                     $shownid = $_POST['eventid'];
 
-                    $targetDir = "../event_pic/";
+                    $targetDir = "../event_images/";
 
-                    $sql = "UPDATE event SET name ='$name', start_date = '$start_date', end_date = '$end_date', description = '$description', location = '$location'
+                    $sql = "UPDATE events SET event_name ='$name', event_date = '$event_date', event_time = '$event_time', description = '$description', event_location = '$location', event_link = '$event_link'
                                 WHERE id = '$shownid'";
                     if(mysqli_query($conn, $sql)){
                         $em = "Record successfully updated";
 
-                        $name = $start_date = $category_id = $end_date = $discount = $description = $shownid = $editid ="";
-                        $nameerr = $start_dateerr = $category_iderr = $end_dateerr = $calorieerr = $descriptionerr = $productpicerr = $em = "";
+                        $name = $event_date = $event_link = $category_id = $event_time = $discount = $description = $shownid = $editid ="";
+                        $nameerr = $event_dateerr = $category_iderr = $event_linkerr = $event_timeerr = $calorieerr = $descriptionerr = $productpicerr = $em = "";
                         
                     }else{
                         $em = "Record failed to update";
                         
                     }
 
-                    if(!empty($_POST["uploadphoto"] )){
+                    if(!empty($_POST["uploadphoto"] ) ){
                         if ($_POST["uploadphoto"] === "yes"){
                             $filename = basename($_FILES["eventpic"]["name"]);
                             $targetFilePath = $targetDir . $filename;
@@ -152,21 +161,21 @@ include "dbConnection.php"
                             }else{
                                 //delete old photo
                                 $deleteid = $shownid;
-                                $deletesql = "SELECT eventpic FROM event WHERE id = '$deleteid'";
+                                $deletesql = "SELECT event_img FROM events WHERE id = '$deleteid'";
                                 $deletephoto = mysqli_query($conn,$deletesql);
                                 if (!empty($deletephoto)){
                                     $deletephotoresult = mysqli_fetch_assoc($deletephoto);
-                                    unlink($deletephotoresult["eventpic"]);
+                                    unlink($deletephotoresult["event_img"]);
                                 }
                                 
                                 //update to new photo
-                                $updatesql2 = "UPDATE event SET eventpic = '$targetFilePath' WHERE id = $shownid";
+                                $updatesql2 = "UPDATE events SET event_img = '$targetFilePath' WHERE id = $shownid";
 
                                 if(mysqli_query($conn, $updatesql2)){
                                     $em = "Picture for Event".$shownid." Updated";
 
-                                    $name = $start_date = $category_id = $end_date = $discount = $description = $shownid = $editid ="";
-                                    $nameerr = $start_dateerr = $category_iderr = $end_dateerr = $calorieerr = $descriptionerr = $productpicerr = "";
+                                    $name = $event_date = $event_link =$category_id = $event_time = $discount = $description = $shownid = $editid ="";
+                                    $nameerr = $event_dateerr = $event_linkerr =$category_iderr = $event_timeerr = $calorieerr = $descriptionerr = $productpicerr = "";
                                     
                                 }else{
                                     $em = "Update Photo Error";
@@ -174,6 +183,8 @@ include "dbConnection.php"
                             }
                         }
                     }
+                    $em = "Update Successful";
+                    header( "Location: events.php");
                 }else{
                     $em = "record not added";
                 }
@@ -269,7 +280,7 @@ include "dbConnection.php"
                                 <span><?php echo $em; ?></span>
                         </div>
 
-                        <form name="edit" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                        <form name="edit" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">
                             <input type="hidden" name="eventid" value="<?php echo $editid; ?>">
                             <div class="row" style="margin-top: 15px;">
                                 <div class="col-25">
@@ -282,20 +293,29 @@ include "dbConnection.php"
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label for="date">Start Date</label>
-                                    <span><?php echo $start_dateerr;?></span>
+                                    <label for="date">Event Date</label>
+                                    <span><?php echo $event_dateerr;?></span>
                                 </div>
                                 <div class="col-75">
-                                    <input type="datetime-local" name="start_date" id="start_date"  value = "<?php echo date("Y-m-d\TH:i:s", strtotime($start_date))?>">
+                                    <input type="text" name="event_date" id="event_date"  value = "<?php echo $event_date?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label for="period">End Date</label>
-                                    <span><?php echo $end_dateerr;?></span>
+                                    <label for="period">Event Time</label>
+                                    <span><?php echo $event_timeerr;?></span>
                                 </div>
                                 <div class="col-75">
-                                    <input type="datetime-local" name="end_date" id="end_date"   value = "<?php echo date("Y-m-d\TH:i:s", strtotime($end_date))?>">
+                                    <input type="text" name="event_time" id="event_time"   value = "<?php echo ($event_time)?>">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-25">
+                                    <label for="period">Event Link</label>
+                                    <span><?php echo $event_linkerr;?></span>
+                                </div>
+                                <div class="col-75">
+                                    <input type="text" name="event_link" id="event_link"   value = "<?php echo ($event_link)?>">
                                 </div>
                             </div>
                             <br>

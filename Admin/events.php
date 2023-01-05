@@ -22,10 +22,10 @@ include "dbConnection.php"
 
 <body>
     <?php //Session Control
-    if (empty($_SESSION['logged_in']) == true) {
-        echo "You are not Logged in";
-        header("Location: adminlogout.php");
-    }
+    //if (empty($_SESSION['logged_in']) == true) {
+        //echo "You are not Logged in";
+        //header("Location: adminlogout.php");
+    //}
 
     $notice = "";
     //Event Deletion
@@ -135,9 +135,10 @@ include "dbConnection.php"
                                     <th>ID</th>
                                     <th>Name</th>
                                     <th>Location</th>
-                                    <th>Start DateTime</th>
-                                    <th>End DateTime</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
                                     <th>Description</th>
+                                    <th>Link</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
                                 </tr>
@@ -149,7 +150,7 @@ include "dbConnection.php"
                             echo '</p>';
 
                             //Tabulating Products
-                            $sql = mysqli_query($conn, "select * from event");
+                            $sql = mysqli_query($conn, "select * from events");
                             ?>
                             <tbody>
                                 <?php
@@ -157,13 +158,14 @@ include "dbConnection.php"
                                     while ($row = mysqli_fetch_assoc($sql)) {
                                 ?>
                                         <tr>
-                                            <td><?php echo '<img src="'.$row["eventpic"].'" height ="100" width = "100">' ?></td>
+                                            <td><?php echo '<img src="'.$row["event_img"].'" height ="100" width = "100">' ?></td>
                                             <td><?php echo $row['id'] ?></td>
-                                            <td id="event_name"><?php echo $row['name'] ?></td>
-                                            <td><?php echo $row['location'] ?></td>
-                                            <td><?php echo $row['start_date'] ?></td>
-                                            <td><?php echo $row['end_date'] ?></td>
+                                            <td id="event_name"><?php echo $row['event_name'] ?></td>
+                                            <td><?php echo $row['event_location'] ?></td>
+                                            <td><?php echo $row['event_date'] ?></td>
+                                            <td><?php echo $row['event_time'] ?></td>
                                             <td><?php echo $row['description'] ?></td>
+                                            <td><?php echo $row['event_link'] ?></td>
                                             <?php
                                             echo '<td><a href="event_update.php?event=' . $row['id'] . '"><i class="fa-solid fa-pen-to-square"></i></td>';
                                             echo '<td><a href="javascript: myDeleteConfirmationFunction(' . $row['id'] . ')"  alt = "delete" class="delete-button"><i class="fa-regular fa-trash-can"></i></a></td>';
@@ -178,11 +180,12 @@ include "dbConnection.php"
                                     <th>ID</th>
                                     <th>Name</th>
                                     <th>Location</th>
-                                    <th>Start DateTime</th>
-                                    <th>End DateTime</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
                                     <th>Description</th>
-                                    <th>Action</th>
-                                    <th>Action</th>
+                                    <th>Link</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
                                 </tr>
                             </tfoot>
                         </table>
