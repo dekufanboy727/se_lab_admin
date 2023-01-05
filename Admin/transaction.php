@@ -8,17 +8,16 @@ include "dbConnection.php"
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transaction</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/transaction.css">
     <link rel="icon" type="image/jpg" href="images/profile.jpg">
+    <link rel="stylesheet" type="text/css" href="css/transaction.css">
     <script src="https://kit.fontawesome.com/4fdfa3530e.js" crossorigin="anonymous"></script>
-    <script src="js/transaction.js"></script>
 </head>
 
 <body>
@@ -31,8 +30,7 @@ include "dbConnection.php"
             echo "You are not Logged in";
             header("Location: adminlogout.php");
         }
-
-
+        
         if ($_SERVER["REQUEST_METHOD"] == "GET"){
             if(isset($_GET["latest"])){
                 $sql = mysqli_query($conn, "select * from transaction");
@@ -139,45 +137,31 @@ include "dbConnection.php"
                 </div>
             </div>
 
-            <div class="table">
+            <div class="table-box">
                 <div class="transaction-table">
                     <div class="transaction-table-header">
                         <h2>Transaction History</h2>
                     </div>
-                    <div class="grid-container">
-                        <div class="search-container">
-                            <label>
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                                <input type="text" id="myInput" onkeyup="mySearchFunction()" placeholder="Search Here..">
-                            </label>
+                    <div class="filter-dropdown">
+                        <button onclick="dropdownFunction()" class="dropbtn"><i class="fa-solid fa-filter"></i> Filter By</button>
+                        <div id="dropdownContent" class="dropdown-content">
+                            <a href="?latest=1">Latest</a>
+                            <a href="?today=1">Today</a>
+                            <a href="?this-week=1">This Week</a>
+                            <a href="?this-month=1">This Month</a>
                         </div>
-                        <div class="grid-child filter">
-                            <div class="filter-dropdown">
-                                <button onclick="dropdownFunction()" class="dropbtn">Filter By <i class="fa-solid fa-filter"></i></button>
-                                <div id="dropdownContent" class="dropdown-content">
-                                    <a href="?latest=1">Latest</a>
-                                    <a href="?today=1">Today</a>
-                                    <a href="?this-week=1">This Week</a>
-                                    <a href="?this-month=1">This Month</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!--<div class="grid-child pdf">
-                            <button class="pdf-button">PDF <i class="fa-regular fa-file-pdf"></i></button>
-                        </div>  Time constraint -->
                     </div>
                     <div class="transaction-table-content">
-                        <table class="transaction-table-data" id="transactionTable">
+                        <table id="example" class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>Date</th>
-                                    <th>Invoice No <i onclick="sortByInt(1)" class="fa-solid fa-sort"></i></th>
-                                    <th>Item <i onclick="sortByAlphabet(2)" class="fa-solid fa-sort"></i></th>
-                                    <th>Quantity <i onclick="sortByInt(3)" class="fa-solid fa-sort"></i></th>
-                                    <th>Amount (RM) <i onclick="sortByFloat(4)" class="fa-solid fa-sort"></i></th>
+                                    <th>Invoice No</th>
+                                    <th>Item</th>
+                                    <th>Quantity</th>
+                                    <th>Amount (RM)</th>
                                 </tr>
                             </thead>
-
                             <tbody>
                             <?php
                                 $i = 1;
@@ -218,6 +202,15 @@ include "dbConnection.php"
                                     }
                                 }  ?>
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Invoice No</th>
+                                    <th>Item</th>
+                                    <th>Quantity</th>
+                                    <th>Amount (RM)</th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
@@ -227,6 +220,15 @@ include "dbConnection.php"
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
+        });
+    </script>
     
     <script>
         // MenuToggle
@@ -238,36 +240,9 @@ include "dbConnection.php"
             navigation.classList.toggle('active');
             main.classList.toggle('active');
         }
-    </script>
-
-    <script>
-        //Add event listener to search box
-        searchBar.addEventListener('keyup', performSearch);
 
         function dropdownFunction() {
             document.getElementById("dropdownContent").classList.toggle("show");
-        }
-
-        function mySearchFunction() {
-            // Declare variables
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("myInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("transactionTable");
-            tr = table.getElementsByTagName("tr");
-
-            // Loop through all table rows, and hide those who don't match the search query
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[1];
-                if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-                }
-            }
         }
     </script>
 </body>
