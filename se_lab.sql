@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 05, 2023 at 05:17 PM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.0.13
+-- Generation Time: Jan 05, 2023 at 08:20 PM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -120,7 +120,7 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`id`, `event_name`, `event_date`, `event_time`, `event_location`, `description`, `event_link`, `event_img`) VALUES
-(1, 'Aespa 2nd Anniversary Event\r\n', '13th November 2022\r\n', '1:30pm - 5:00pm', 'Helf Coffee, Georgetown, Penang', '“Calling all Aespa fans in Penang: Aespa 2nd Anniversary is happening soon. Join us as we will have a celebration for them!”\r\n\r\n', 'https://www.facebook.com/helf.coffee/posts/pfbid0zPN8E2TQ873aZ2kQjjttzCdBKgWhNZt2H3rc2vG9KVqkc6Dw14M5Fy66Y1AYDZFml', '../event_images/aespa_event.png'),
+(1, 'Aespa 2nd Anniversary Event', '13th November 2022', '1:30pm - 5:00pm', 'Helf Coffee, Georgetown, Penang', '“Calling all Aespa fans in Penang: Aespa 2nd Anniversary is happening soon. Join us as we will have a celebration for them!”\r\n\r\n&quot;&quot;&quot;&quot;', 'https://www.facebook.com/helf.coffee/posts/pfbid0zPN8E2TQ873aZ2kQjjttzCdBKgWhNZt2H3rc2vG9KVqkc6Dw14M5Fy66Y1AYDZFml', '../event_images/aespa_event.png'),
 (2, 'Gong Jun 1129 Birthday Event\r\n', '26th November 2022 - 2nd December 2022\r\n', '10:00am - 5:00pm\r\n', 'Helf Coffee, Georgetown, Penang\r\n', '“Calling all GongJun fans in Penang: Helf Coffee is celebrating his 30th Birthday CS Event in collaboration with lld_eventmy. With purchase above RM15, you can get luxurious freebies set”\r\n\r\n', 'https://www.facebook.com/helf.coffee/posts/pfbid02HcCZvPd39kU5gfbV9GXYGm45HgwPHfSnSDt4aSeL9S6gG7Qmfmxmjq3DED1QTP2Ul', '../event_images/gongjun_event.png'),
 (3, 'NCTzens Special Support Event', '30th November 2023 & 3rd December 2023', '20 minutes before entering the cinema\n', 'GSC Cinema Gurney Plaza, Penang', '“Calling all NCTzens who are going for NCT DREAM THE MOVIE, we are giving out LIMITED FREEBIES”\r\n\r\n', 'https://www.facebook.com/helf.coffee/posts/pfbid02a7kjncn4w8UviGnjHJx15M8iQDrVapyRaaD57tYGJCtQBwuvscE6g2imnWJRp7ntl', '../event_images/nct_event.png'),
 (4, 'SM Idol Screening Event 2023', '1st January 2023', '11:30am - 4:30pm\r\n', 'Helf Coffee, Georgetown, Penang', '“Calling all SM Idol’s fans, we will have an offline screening event for 2023 SMTOWN Live: SMCU Palace @ Kwangya!”', 'https://www.facebook.com/helf.coffee/posts/pfbid02is31Umt7NRWGDAMSyg3u4VAoyRA5xsKiqEpdy9BNcX6iBQKjCkcytpTvEZonixi4l', '../event_images/sm_event.png');
@@ -297,6 +297,12 @@ ALTER TABLE `transaction`
 --
 
 --
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `admin_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `cart_temp`
 --
 ALTER TABLE `cart_temp`
@@ -309,10 +315,22 @@ ALTER TABLE `customer`
   MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `events`
+--
+ALTER TABLE `events`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
   MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `order_product`
+--
+ALTER TABLE `order_product`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `product`
