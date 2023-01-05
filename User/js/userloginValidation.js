@@ -14,7 +14,7 @@ form.addEventListener("submit", e => {
 });
 
 function isFormValid(){
-    const inputContainers = form.querySelectorAll(".form-control");
+    const inputContainers = form.querySelectorAll(".user_input");
     let result = true;
     inputContainers.forEach((container)=>{
         if(container.classList.contains("error")){
@@ -55,18 +55,18 @@ function setErrorFor(input, message){
     small.innerText = message;
 
     //add error class
-    formControl.className = "form-control error";
+    formControl.className = "user_input error";
 }
 
 function setSuccessFor(input){
     const formControl = input.parentElement;
-    formControl.className = "form-control success";
+    formControl.className = "user_input success";
 }
  
 function myReset(){
     document.getElementById("form").reset();
-    email.parentElement.className = "form-control";
-    password.parentElement.className = "form-control";
+    email.parentElement.className = "user_input";
+    password.parentElement.className = "user_input";
 }
 
 function isEmail(email){

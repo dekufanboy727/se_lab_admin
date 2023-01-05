@@ -4,7 +4,7 @@ body{
 }
 .nav_bar{
     background-color: #E8CBB1;
-    padding: 5px 5px;
+    padding: 5px 10px;
     font-family: 'Marhey', cursive;
     height: 70px;
 }
@@ -13,8 +13,7 @@ body{
     display: inline-block;
 }
 .pages{
-    position: relative;
-    float: right;
+    position: absolute;
 }
 .pages ul li{
     list-style: none;
@@ -92,12 +91,83 @@ body{
 .login:focus::before{
     transform: scaleX(1);
 }
+
+
+.profile_btn{
+    position: relative;
+    float: right;
+    bottom: 515;
+    background-color: #4C5D70;
+    color: #E8CBB1;
+    height: 30px;
+    border-radius: 30px;
+    text-align: right;
+    text-decoration: none;
+    margin: 17px 15px;
+    padding: 5px 5px 5px 20px;
+    box-shadow: 5px 5px 8px grey;
+    z-index: 1;
+}
+.profile_btn::before{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #E8CBB1;
+    border-radius: 30px;
+    border: 2px solid #4C5D70;
+    z-index: -1;
+    transform: scaleX(0);
+    transition: transform 0.3s ease-in-out;
+}
+.profile_btn:hover{
+    color: #4C5D70;
+}
+.profile_btn:hover::before,
+.profile_btn:focus::before{
+    transform: scaleX(1);
+}
+.profile_btn a{
+    font-size: 18px;
+    position: relative;
+    bottom: 3px;
+}
+.profile_btn i{
+    font-size: 30px;
+    margin-left: 10px;
+}
+.profile_btn:hover .dropdown-content{
+    display: block;
+}
+.dropdown-content {
+    display: none;
+    background-color: #4C5D70;
+    padding: 10px 20px;
+    box-shadow: 5px 5px 8px grey;
+    z-index: 1;
+    border-radius: 20px;
+}
+.dropdown-content a{
+    color: #E8CBB1;
+    text-decoration: none;
+    display: block;
+    padding: 5px 5px 1px;
+    border-radius: 10px;
+}
+.dropdown-content a:hover{
+    color: #4C5D70;
+    background-color: #E8CBB1;
+    transition: 0.3s ease-in;
+}
 .menu_bar img{
     width: 100%;
     height: 500px;
     position: relative;
-    bottom: 200px;
     z-index: -1;
+    object-fit: cover;
 }
 .menu_bar ul li{
     list-style: none;
@@ -108,6 +178,7 @@ body{
     position: relative;
     bottom: 248px;
     left: 255px;
+    z-index: 2;
 }
 .menu_bar ul li a{
     text-decoration: none;
@@ -126,13 +197,27 @@ body{
     padding: 10px 50px;
     border-radius: 40px 40px 0 0;
 }
-
+.blur{
+    width: 100%;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    top: 345px;
+    z-index: 1;
+    filter: blur(10px);
+}
+.content_container{
+    width: 100%;
+    background-color: #E8CBB1;
+    padding: 30px 0px;
+    position: absolute;
+    top: 380px;
+    z-index: 2;
+}
 .item_container{
     width: 100%;
     margin: auto;
     text-align: center;
-    position: absolute;
-    top: 400px;
 }
 .item{
     display: inline-block;
@@ -222,7 +307,7 @@ body{
 }
 .popup .content{
     position: absolute;
-    top: 60%;
+    top: 10%;
     left: 50%;
     width: 100%;
     transform: translate(-50%,-50%) scale(0);
@@ -372,6 +457,8 @@ input[type="radio"]:checked + .lb1-radio{
     transition: 0.3s ease-in-out;
 }
 .add_to_cart_btn{
+    font-family: 'Marhey', cursive;
+    font-size: 18px;
     position: absolute;
     bottom: 5px;
     right: 0;
@@ -380,10 +467,9 @@ input[type="radio"]:checked + .lb1-radio{
     border: 2px solid #4C5D70;
     box-shadow: 5px 5px 8px grey;
     width: 180px;
-    height: 35px;
+    height: 40px;
     padding-top: 5px;
     border-radius: 30px;
-    font-size: 20px;
     text-align: center;
     z-index: 1;
 }
@@ -391,7 +477,7 @@ input[type="radio"]:checked + .lb1-radio{
     content: "";
     display: block;
     width: 180px;
-    height: 35px;
+    height: 30px;
     padding-top: 5px;
     position: absolute;
     bottom: -1px;

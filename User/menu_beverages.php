@@ -5,6 +5,7 @@
     if(!empty($_GET['status'])){
         session_destroy();
         unset($_SESSION['email']);
+        unset($_SESSION['id']);
         header('Location: index.php');
     }
 
@@ -28,7 +29,7 @@
                     
                     $product_name = $result['product_name'];
                     $price = $result['price'];
-                    if($temp = 'Cold'){
+                    if($temp == 'Cold'){
                         $price+=0.40;
                     }
                     $total_price = $quantity * $price;
@@ -62,7 +63,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/menu_style.css">
     <link href="https://fonts.googleapis.com/css2?family=Marhey:wght@300;400&display=swap" rel="stylesheet">
-    <!-- <script src="js/menu.js"></script> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Helf Coffee Official Website</title>
 </head>
 <body>
@@ -76,21 +77,34 @@
         <?php endif ?>
 
         <?php if(isset($_SESSION['logged_in'])) : ?>
-        <a href="index.php?status=loggedout " class="login">Logout</a>
-        <a href="profile.php" class="login">Profile</a> 
+        <div class="profile_btn">
+            <?php
+            $email = $_SESSION['email'];
+           
+            ?>
+            <a><?php echo $email ?></a>
+            <i class="fa fa-user-circle" aria-hidden="true"></i>
+            <div class="dropdown-content">
+                <a href="profile.php">User Profile</i><i class="fa fa-id-card" aria-hidden="true"></i></a>
+                <a href="#">My Orders<i class="fa fa-cutlery" aria-hidden="true"></i></a>
+                <a href="index.php?status=loggedout">Logout<i class="fa fa-sign-out" aria-hidden="true"></i></a>
+            </div>
+            
+        </div>
         <?php endif ?>
 
         <nav class="pages">
             <ul>
                 <li><a href="#">About Us</a></li>
                 <li><a class="active" href="menu_best_seller.php">Menu</a></li>
-                <li><a href="#">Events</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="events.php">Events</a></li>
+                <li><a href="contact_us.php">Contact</a></li>
             </ul>
         </nav>        
     </div>
     <div class="menu_bar" id="scroll">
-        <img src="images/beverages_bg.jpg" alt="Best Seller Bg">
+        <img src="images/beverages_bg.jpg" alt="Best Seller Bg" style="bottom: 180px;">
+        <div class="blur"></div>
 
         <ul>
             <li><a class="unactive" href="menu_best_seller.php">Best Seller</a></li>
@@ -101,7 +115,7 @@
         </ul>
     </div>
 
-
+    <div class="content_container">
     <div class="item_container">
 
     <?php
@@ -235,6 +249,6 @@
             }
         }
     ?>
-    
+    </div>
 </body>
 </html>

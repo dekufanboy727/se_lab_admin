@@ -1,30 +1,21 @@
 <?php
     session_start();
-    
- ?>
- 
+    include 'dbConnection.php';
+?>
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/home_style.css">
-    <link rel="stylesheet" href="css/form_style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" >  
-    <title>Helf Coffee Official Website</title>
-    <style>
-        body{
-            background-color: #e6d2c1;
-        }
-
-    </style>  
-    
-</head>
-<body>
-
-<?php   
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/form_style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Marhey:wght@300;400&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <title>Helf Coffee Official Website</title>
+    </head>
+    <body>
+    <?php   
     include 'dbConnection.php'; //include connection to the db
 
     //Declarations
@@ -60,7 +51,7 @@
     if (!empty($_POST["email"]) && !empty($_POST["pass"])) {
         $sql = "SELECT * FROM customer WHERE email ='$email' AND password ='$pass'"; //Find the customer acc
         $result = mysqli_query($conn,$sql); //Check is it exists
-        
+        $_SESSION['email'] = $email;  
         if (mysqli_num_rows($result) == 1) {
 
             while($result2 = mysqli_fetch_assoc($result)){
@@ -76,69 +67,49 @@
         }
     }
 
+    ?>
 
-
-?>
-
-    <div class="nav_bar">
         <div class="logo">
-            <a href="index.php"><img src="images/helf_coffee_logo.png" alt="Helf Coffee Logo" style="width: 130px" href="index.html"></a>
+            <a href="index.php"><img src="images/helf_coffee_logo.png" alt="Helf Coffee Logo" style="width: 250px" href="index.php"></a>
         </div>
 
-        <a href="user_login.php" class="login">Login</a>
-
-        <nav class="pages">
-            <ul>
-                <li><a href="#">About Us</a></li>
-                <li><a href="menu_best_seller.php">Menu</a></li>
-                <li><a href="#">Events</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>        
-    </div>
-    <div class="container">
+        <div class="container">
             <div class="title">Log In</div>
+            
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" class="form" id="form">
-                <div class="form-control">
-                    <label>Email</label>
-                    <input type="text" id="email" name="email" placeholder="Enter your email">
-                    <div class="icon">
-                        
-                    </div>
-                    <i class="fa fa-check-circle" aria-hidden="true"></i>
-                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-                    <small>Error Message</small>
-                    <span style="color:#e74c3c;font-size: smaller;"><?php echo $emailErr; ?></span>
-                </div>
-                <div class="form-control">
-                    <label>Password</label>
-                    <input type="password" id="pass" name="pass" placeholder="Enter your password" title="Must contain one uppercase, one lower case, one special character ( ! @ # $ % ^ & * ), numbers and no space, and at least 6 digits length">
-                    
-                    <i class="fa fa-eye" id="togglePassword" onclick="togglePassword()"></i>
-                    <i class="fa fa-check-circle" aria-hidden="true"></i>
-                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-                    <small>Error Message</small>
-                    <span style="color:#e74c3c;font-size: smaller;"><?php echo $passErr; ?></span>
-                </div>
-                <div class="form-control" style="margin: 0;">
-                    <small>Error Message</small>
-                    <span style="color:#e74c3c;font-size: smaller;"><?php echo $error; ?></span>
-                </div>
 
-                <div class="button" id="button">
-                    <input type="submit" value="Log In">
-                </div>
-                <div class="form-control"></div>
-                <div class="form-control"></div>
-            </form>
-            <p>Don't have an account? <a href="user_register.php">Sign up now</a>  </p>
+                    <div class="user_input">
+                        <label class="input_field">&nbsp; Email &nbsp;</label>
+                        <input type="text" id="email" name="email" placeholder="Enter your email">
+                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                        <br>
+                        <small>Error Message</small>
+                        <span style="color:#e74c3c;font-size: smaller;"><?php echo $emailErr; ?></span>
+                    </div>
+
+                    <div class="user_input">
+                        <label class="input_field">&nbsp; Password &nbsp;</label>
+                        <input type="password" id="pass" name="pass" placeholder="Enter your password" title="Must contain one uppercase, one lower case, one special character ( ! @ # $ % ^ & * ), numbers and no space, and at least 6 digits length">
+                        <i class="fa fa-eye" id="togglePassword" onclick="togglePassword()"></i>
+                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                        <br>
+                        <small>Error Message</small>
+                        <span style="color:#e74c3c;font-size: smaller;"><?php echo $passErr; ?></span>
+                    </div>
+
+                    <div class="user_input" style="margin: 0;">
+                        <small>Error Message</small>
+                        <span style="color:#e74c3c;font-size: smaller;"><?php echo $error; ?></span>
+                    </div>
+
+                    <button class="submit" type="submit" value="Log In">Log In</button>
+
+                    <p>Don't have an account? <a href="user_register.php">Sign up now</a></p>
+			    </form>
 
         </div>
-
-
-
-
-
-    <script type="text/javascript" src="js/userloginValidation.js"></script>
-</body>
+        <script type="text/javascript" src="js/userloginValidation.js"></script>
+    </body>
 </html>

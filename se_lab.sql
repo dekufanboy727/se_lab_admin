@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 02, 2023 at 04:35 PM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 8.0.12
+-- Generation Time: Jan 05, 2023 at 05:17 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -65,7 +65,10 @@ CREATE TABLE `cart_temp` (
 --
 
 INSERT INTO `cart_temp` (`cart_id`, `product_id`, `product_name`, `price`, `quantity`, `total_price`) VALUES
-(1, 1, 'Gu Mor Kak', 4.9, 1, 5);
+(1, 1, 'Gu Mor Kak', 4.9, 1, 5),
+(4, 7, 'Peanut Ice Cream', 4.7, 1, 5),
+(5, 7, 'Peanut Ice Cream', 4.7, 1, 5),
+(6, 1, 'Gu Mor Kak', 4.9, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -89,49 +92,38 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`id`, `name`, `email`, `address`, `password`, `phone`, `payment_method`, `credit_score`) VALUES
-(1, 'Derrick Koay Jia Yung', 'koayjyderrick@gmail.com', '31 Lakeside', 'blackwinds', 1133030519, '', 0);
+(1, 'Derrick Koay Jia Yung', 'koayjyderrick@gmail.com', '31 Lakeside', 'blackwinds', 1133030519, '', 0),
+(4, 'Neoh Jin Ming', 'neohjinming@yahoo.com', 'Block 99, Jalan Bukit Kukus, Paya Terubong', 'lol123', 129858775, '', 0),
+(5, 'Neoh Jin Ming', 'neohjinming1@yahoo.com', 'Block 99, Jalan Bukit Kukus, Paya Terubong', 'lol123', 129858775, '', 0),
+(6, 'Neoh Jin Ming', 'neohjinming2@yahoo.com', 'Block 99, Jalan Bukit Kukus, Paya Terubong', 'lol123', 129858775, '', 0),
+(7, 'Neoh Jin Ming', 'neohjinming3@yahoo.com', 'Block 99, Jalan Bukit Kukus, Paya Terubong', 'lol123', 129858775, '', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `event`
+-- Table structure for table `events`
 --
 
-CREATE TABLE `event` (
+CREATE TABLE `events` (
   `id` int(100) NOT NULL,
-  `name` text NOT NULL,
-  `start_date` datetime(6) NOT NULL,
-  `end_date` datetime(6) NOT NULL,
+  `event_name` text NOT NULL,
+  `event_date` varchar(200) NOT NULL,
+  `event_time` varchar(200) NOT NULL,
+  `event_location` varchar(200) NOT NULL,
   `description` text NOT NULL,
-  `location` varchar(100) NOT NULL,
-  `eventpic` varchar(100) NOT NULL
+  `event_link` varchar(200) NOT NULL,
+  `event_img` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `event`
+-- Dumping data for table `events`
 --
 
-INSERT INTO `event` (`id`, `name`, `start_date`, `end_date`, `description`, `location`, `eventpic`) VALUES
-(1, '11/11 Sales!', '2022-11-11 05:49:19.000000', '2022-12-12 05:49:19.000000', 'It is an event of splendor and wonder for adults and kids galore!', 'Penang', '');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `event_prodtype`
---
-
-CREATE TABLE `event_prodtype` (
-  `event_id` int(100) NOT NULL,
-  `product_type_id` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `event_prodtype`
---
-
-INSERT INTO `event_prodtype` (`event_id`, `product_type_id`) VALUES
-(1, 1),
-(1, 2);
+INSERT INTO `events` (`id`, `event_name`, `event_date`, `event_time`, `event_location`, `description`, `event_link`, `event_img`) VALUES
+(1, 'Aespa 2nd Anniversary Event\r\n', '13th November 2022\r\n', '1:30pm - 5:00pm', 'Helf Coffee, Georgetown, Penang', '“Calling all Aespa fans in Penang: Aespa 2nd Anniversary is happening soon. Join us as we will have a celebration for them!”\r\n\r\n', 'https://www.facebook.com/helf.coffee/posts/pfbid0zPN8E2TQ873aZ2kQjjttzCdBKgWhNZt2H3rc2vG9KVqkc6Dw14M5Fy66Y1AYDZFml', '../event_images/aespa_event.png'),
+(2, 'Gong Jun 1129 Birthday Event\r\n', '26th November 2022 - 2nd December 2022\r\n', '10:00am - 5:00pm\r\n', 'Helf Coffee, Georgetown, Penang\r\n', '“Calling all GongJun fans in Penang: Helf Coffee is celebrating his 30th Birthday CS Event in collaboration with lld_eventmy. With purchase above RM15, you can get luxurious freebies set”\r\n\r\n', 'https://www.facebook.com/helf.coffee/posts/pfbid02HcCZvPd39kU5gfbV9GXYGm45HgwPHfSnSDt4aSeL9S6gG7Qmfmxmjq3DED1QTP2Ul', '../event_images/gongjun_event.png'),
+(3, 'NCTzens Special Support Event', '30th November 2023 & 3rd December 2023', '20 minutes before entering the cinema\n', 'GSC Cinema Gurney Plaza, Penang', '“Calling all NCTzens who are going for NCT DREAM THE MOVIE, we are giving out LIMITED FREEBIES”\r\n\r\n', 'https://www.facebook.com/helf.coffee/posts/pfbid02a7kjncn4w8UviGnjHJx15M8iQDrVapyRaaD57tYGJCtQBwuvscE6g2imnWJRp7ntl', '../event_images/nct_event.png'),
+(4, 'SM Idol Screening Event 2023', '1st January 2023', '11:30am - 4:30pm\r\n', 'Helf Coffee, Georgetown, Penang', '“Calling all SM Idol’s fans, we will have an offline screening event for 2023 SMTOWN Live: SMCU Palace @ Kwangya!”', 'https://www.facebook.com/helf.coffee/posts/pfbid02is31Umt7NRWGDAMSyg3u4VAoyRA5xsKiqEpdy9BNcX6iBQKjCkcytpTvEZonixi4l', '../event_images/sm_event.png');
 
 -- --------------------------------------------------------
 
@@ -202,7 +194,8 @@ INSERT INTO `product` (`product_id`, `product_name`, `price`, `product_type`, `p
 (14, 'Hazelnut', 6.9, 3, 'Our Hazelnut Coffee is an earthy, full-bodied blend that lets the intense aroma shine through.\r\n\r\n', 50, 87, 0, '../product_images/hazelnut.JPG', 85),
 (15, 'Latte', 6.9, 3, 'Milk coffee that is a made up of one or two shots of espresso, steamed milk and a final, thin layer of frothed milk on top.', 50, 189, 0, '../product_images/latte.JPG', 105),
 (16, 'Mocha', 6.9, 3, 'Our rich, full-bodied espresso combined with bittersweet mocha sauce and steamed milk, then topped with sweetened whipped cream.', 50, 371, 0, '../product_images/mocha.JPG', 200),
-(17, 'Tiramisu', 6.9, 3, 'Tiramisù is a velvety mélange of savoiardi cookies dipped in an espresso, layered with delicately sweetened whipped eggs and mascarpone cheese, and topped with a dusting of cocoa powder.', 50, 345, 0, '../product_images/tiramisu.JPG', 60);
+(17, 'Tiramisu', 6.9, 3, 'Tiramisù is a velvety mélange of savoiardi cookies dipped in an espresso, layered with delicately sweetened whipped eggs and mascarpone cheese, and topped with a dusting of cocoa powder.', 50, 345, 0, '../product_images/tiramisu.JPG', 60),
+(18, 'Tea Time Set', 38.8, 4, 'This delectable, dainty meal, often referred to as \"high tea\", is the perfect set menu for a small party.', 20, 1000, 0, '../product_images/tea_time_set.png', 95);
 
 -- --------------------------------------------------------
 
@@ -223,7 +216,8 @@ CREATE TABLE `product_type` (
 INSERT INTO `product_type` (`id`, `type_name`, `type_desc`) VALUES
 (1, 'pastry', 'Stiff dough made from flour, salt, a relatively high proportion of fat, and a small proportion of liquid.'),
 (2, 'dessert', 'A usually sweet course or dish (as of pastry or ice cream) usually served at the end of a meal.'),
-(3, 'drinks', 'A liquid intended for human consumption.');
+(3, 'drinks', 'A liquid intended for human consumption.'),
+(4, 'set', 'This delectable, dainty meal, often referred to as \"high tea\", is the perfect set menu for a small party');
 
 -- --------------------------------------------------------
 
@@ -235,14 +229,6 @@ CREATE TABLE `transaction` (
   `trans_id` int(100) NOT NULL,
   `order_id` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `transaction`
---
-
-INSERT INTO `transaction` (`trans_id`, `order_id`) VALUES
-(2000000001, 1),
-(2000000002, 2);
 
 --
 -- Indexes for dumped tables
@@ -267,17 +253,10 @@ ALTER TABLE `customer`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `event`
+-- Indexes for table `events`
 --
-ALTER TABLE `event`
+ALTER TABLE `events`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `event_prodtype`
---
-ALTER TABLE `event_prodtype`
-  ADD PRIMARY KEY (`event_id`,`product_type_id`),
-  ADD KEY `product_type_id` (`product_type_id`);
 
 --
 -- Indexes for table `orders`
@@ -321,13 +300,13 @@ ALTER TABLE `transaction`
 -- AUTO_INCREMENT for table `cart_temp`
 --
 ALTER TABLE `cart_temp`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -344,13 +323,6 @@ ALTER TABLE `product`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `event_prodtype`
---
-ALTER TABLE `event_prodtype`
-  ADD CONSTRAINT `event_id` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `product_type_id` FOREIGN KEY (`product_type_id`) REFERENCES `product_type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `orders`

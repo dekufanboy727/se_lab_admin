@@ -3,7 +3,7 @@ body{
 }
 .nav_bar{
     background-color: #E8CBB1;
-    padding: 5px 5px;
+    padding: 5px 10px;
     font-family: 'Marhey', cursive;
     height: 70px;
 }
@@ -12,8 +12,7 @@ body{
     display: inline-block;
 }
 .pages{
-    position: relative;
-    float: right;
+    position: absolute;
 }
 .pages ul li{
     list-style: none;
@@ -24,7 +23,7 @@ body{
 }
 .pages ul li a{
     position: relative;
-	text-decoration: none;
+    text-decoration: none;
     color: black;
     width: 0;
 }
@@ -90,4 +89,121 @@ body{
 .login:hover::before,
 .login:focus::before{
     transform: scaleX(1);
+}
+
+
+.profile_btn{
+    position: relative;
+    float: right;
+    bottom: 515;
+    background-color: #4C5D70;
+    color: #E8CBB1;
+    height: 30px;
+    border-radius: 30px;
+    text-align: right;
+    text-decoration: none;
+    margin: 17px 15px;
+    padding: 5px 5px 5px 20px;
+    box-shadow: 5px 5px 8px grey;
+    z-index: 1;
+}
+.profile_btn::before{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #E8CBB1;
+    border-radius: 30px;
+    border: 2px solid #4C5D70;
+    z-index: -1;
+    transform: scaleX(0);
+    transition: transform 0.3s ease-in-out;
+}
+.profile_btn:hover{
+    color: #4C5D70;
+}
+.profile_btn:hover::before,
+.profile_btn:focus::before{
+    transform: scaleX(1);
+}
+.profile_btn a{
+    font-size: 18px;
+    position: relative;
+    bottom: 3px;
+}
+.profile_btn i{
+    font-size: 30px;
+    margin-left: 10px;
+}
+.profile_btn:hover .dropdown-content{
+    display: block;
+}
+.dropdown-content {
+    display: none;
+    background-color: #4C5D70;
+    padding: 10px 20px;
+    box-shadow: 5px 5px 8px grey;
+    z-index: 1;
+    border-radius: 20px;
+}
+.dropdown-content a{
+    color: #E8CBB1;
+    text-decoration: none;
+    display: block;
+    padding: 5px 5px 1px;
+    border-radius: 10px;
+}
+.dropdown-content a:hover{
+    color: #4C5D70;
+    background-color: #E8CBB1;
+    transition: 0.3s ease-in;
+}
+
+footer{
+    width: 100%;
+    background-color: #E8CBB1;
+    color: #4C5D70;
+    text-align: center;
+    font-size: 20px;
+    padding: 20px 0 0;
+    position: absolute;
+    bottom: 0;
+    font-family: 'Marhey', cursive;
+}
+.social{
+    font-size: 30px;
+}
+footer a{
+    text-decoration: none;
+    display: inline-block;
+    margin: 0 20px;
+    cursor: pointer;
+    color: #4C5D70;
+}
+
+footer .deco{
+    font-weight: 600;
+    font-size: 20px;
+}
+footer .deco::before,
+footer .deco::after{
+    content: "";
+    display: block;
+    width: 200px;
+    height: 5px;
+    border-radius: 20px;
+    background-color: #4C5D70;
+}
+footer .deco::before{
+    position: absolute;
+    left: 425px;
+    top: 33px;
+}
+footer .deco::after{
+    position: absolute;
+    right: 425px;
+    top: 33px;
 }
