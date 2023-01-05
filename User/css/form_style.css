@@ -1,0 +1,146 @@
+body{
+    margin: 0;
+    background-color: #E8CBB1;
+    font-family: 'Marhey', cursive;
+}
+.logo{
+    margin: 30px 0 20px;
+    text-align: center;
+}
+.logo::after{
+    content: "a";
+    display: block;
+    background-color: rgba(0, 0, 0, 0.35);
+    width: 220px;
+    position: absolute;
+    left: 655px;
+    top: 155px;
+    border-radius: 50%;
+    filter: blur(10px);
+}
+.container{
+    background-color: white;
+    border-radius: 30px;
+    margin: 50px auto 30px;
+    width: 400px;
+    max-width: 100%;
+    overflow: hidden;
+    box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.2);
+}
+.title{
+    background-color: #4C5D70;;
+    color: white;
+    text-align: center;
+    font-size: 25px;
+    padding: 8px 0px 6px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+form{
+    width: 400px;
+    margin: auto;
+    text-align: center;
+}
+.user_input{
+	margin: 0;
+    position: relative;
+}
+.user_input input{
+	background-color: white;
+	border: 2px solid #f0f0f0;
+	border-radius: 5px;
+	font-size: 15px;
+	width: 330px;
+    margin: auto;
+    padding: 13px 10px;
+}
+.user_input label{
+	padding: 1px;
+	background-color: white;
+}
+.input_field{
+    display: inline-block;
+    position: relative;
+    top: 15px;
+    float: left;
+    left: 30px;
+}
+.submit{
+    font-family: 'Marhey', cursive;
+    font-size: 18px;
+    position: relative;
+    background-color: #4C5D70;
+    color: white;
+    width: 150px;
+    height: 40px;
+    border-radius: 30px;
+    text-align: center;
+    padding: 5px 5px 0;
+    box-shadow: 4px 4px 3px grey;
+    z-index: 1;
+    border: none;
+    margin: 40px 0 30px;
+    cursor: pointer;
+}
+.submit::before{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: white;
+    border-radius: 30px;
+    border: 2px solid #4C5D70;
+    z-index: -1;
+    transform: scaleX(0);
+    transition: transform 0.3s ease-in-out;
+}
+.submit:hover{
+    color: #4C5D70;
+}
+.submit:hover::before,
+.submit:focus::before{
+    transform: scaleX(1);
+}
+
+.user_input.success input{
+    border-color: #2ecc71;
+}
+.user_input.error input{
+    border-color: #e74c3c;
+}
+.user_input i{
+    visibility: hidden;
+    margin-top: 2px;
+    position: absolute;
+    bottom: 45px;
+    right: 35px;
+}
+.user_input i.fa-eye{
+    visibility: visible;
+    color: #000000;
+}
+.user_input.success i.fa-eye{
+    right: 65px;
+}
+.user_input.error i.fa-eye{
+    right: 65px;
+}
+.user_input.success i.fa-check-circle{
+    color: #2ecc71;
+    visibility: visible;
+}
+.user_input.error i.fa-exclamation-circle{
+    color: #e74c3c;
+    visibility: visible;
+}
+.user_input small{
+    visibility: hidden;
+}
+.user_input.error small{
+    color: #e74c3c;
+    visibility: visible;
+}
+
