@@ -272,52 +272,44 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>12/12/2022 12:00</td>
-                        <td>Delivery</td>
-                        <td>13:00</td>
-                        <td>Delivered</td>
-                        <td>RM50</td>
-                        <td><div onclick="togglePopup_1()"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></div></td>
-                    </tr>
+                    <?php
+                    $customerid = $_SESSION['id'];
+                    $sql = $conn->query("SELECT * FROM orders WHERE customer_id = $customerid ORDER by order_id ");
+                    if($sql->num_rows > 0 ){
 
-                    <tr>
-                        <td>1</td>
-                        <td>12/12/2022 12:00</td>
-                        <td>Delivery</td>
-                        <td>13:00</td>
-                        <td>Delivered</td>
-                        <td>RM50</td>
-                        <td><i class="fa fa-chevron-circle-right" onclick="togglePopup_1()" aria-hidden="true"></i></td>
-                    </tr>
+                        while($data=$sql->fetch_assoc()){
 
+                    ?>
                     <tr>
-                        <td>1</td>
-                        <td>12/12/2022 12:00</td>
-                        <td>Delivery</td>
-                        <td>13:00</td>
-                        <td>Delivered</td>
-                        <td>RM50</td>
-                        <td><i class="fa fa-chevron-circle-right" onclick="togglePopup_1()" aria-hidden="true"></i></td>
+                        <td><?php echo $data['order_id'] ?></td>
+                        <td><?php echo $data['order_date'] ?></td>
+                        <td><?php echo $data['order_collection'] ?></td>
+                        <td><?php echo $data['pickup_time'] ?></td>
+                        <td><?php echo $data['Status'] ?></td>
+                        <td>RM<?php echo $data['order_amount'] ?></td>
+                        <td><div onclick="togglePopup_<?php echo $data['order_id']?>()"><i class="fa fa-chevron-circle-right" aria-hidden="true"></i></div></td>
                     </tr>
+                    <?php
+                        }}
+                    
+                    ?>
 
-                    <tr>
-                        <td>1</td>
-                        <td>12/12/2022 12:00</td>
-                        <td>Delivery</td>
-                        <td>13:00</td>
-                        <td>Delivered</td>
-                        <td>RM50</td>
-                        <td><i class="fa fa-chevron-circle-right"  onclick="togglePopup_1()" aria-hidden="true"></i></td>
-                    </tr>
                 </tbody>
         </table>     
     </div>
+         
+    <?php
+       
+        $sql = $conn->query("SELECT * FROM orders WHERE customer_id = $customerid ORDER by order_id ");
+        if($sql->num_rows > 0 ){
 
-    <div class="popup" id="popup-1">
+            while($data=$sql->fetch_assoc()){ 
+                           
+    ?>
 
-        <div class="overlay" onclick="togglePopup_1()"></div>
+    <div class="popup" id="popup-<?php echo $data['order_id'] ?>">
+
+        <div class="overlay" onclick="togglePopup_<?php echo $data['order_id'] ?>()"></div>
         <div class="content">
             <table class="popup_items">
                 <thead>
@@ -330,37 +322,31 @@
                 </thead>
                 
                 <tbody>
-                    <tr>
-                        <td><img src="images/Gu_Mor_Kak.JPG" ></td>
-                        <td>happy</td>
-                        <td>RM10</td>
-                        <td>2</td>
-                        <td>RM20</td>
-                    </tr>
-                    <tr>
-                        <td><img src="images/Gu_Mor_Kak.JPG" ></td>
-                        <td>happy</td>
-                        <td>RM10</td>
-                        <td>2</td>
-                        <td>RM20</td>
-                    </tr>		
-                    <tr>
-                        <td colspan="4" style="text-align: right;">Subtotal</td>
-                        <td>
-                            RM20
-                        </td>
-                    </tr> 
-                    <tr>
-                        <td colspan="4" style="text-align: right;">Delivery Fee</td>
-                        <td id= "delivery_fee">
-                            RM8
-                        </td>
-                    </tr> 
-                        <tr>
-                        <td colspan="4" style="text-align: right;">Total</td>
-                        <td>
-                            RM20
-                        </td>
+                        <?php 
+                            $orderid = $data['order_id'];
+                            $sql2 = "SELECT * FROM product WHERE product_id in (SELECT product_id FROM order_product WHERE order_id = $orderid) ";
+                            $sql3 = "SELECT * FROM order_product WHERE order_id = $orderid";
+                            $result = $conn->query($sql2);
+                            $result2 = $conn->query($sql3);
+                               while($data2 = mysqli_fetch_array($result)) 
+							 	{
+                                    $data3 = mysqli_fetch_array($result2);
+                                    
+                            ?>
+                    <tr>   
+                        <td><?php echo  '<img src="'.$data2['product_img'].'"/>';?></td>
+                        <td><?php echo $data2['product_name'] ?></td>
+                        <td><?php echo $data2['price'] ?></td>
+                        <td><?php echo $data3['quantity'] ?></td>
+                        <?php
+                        $price = $data2['price'];
+                        $quantity = $data3['quantity'];
+                        $subtotal = $price * $quantity;
+                        ?>
+                        <td>RM <?php echo $subtotal ?></td>
+                        <?php
+                           }
+                        ?>
                     </tr>
                 </tbody>
             </table>            
@@ -368,12 +354,20 @@
 
     </div>
 
+    
+
     <script>
-        function togglePopup_1(){
+        function togglePopup_<?php echo $data['order_id'] ?>(){
             document.getElementById("scroll").scrollIntoView();
-            document.getElementById("popup-1").classList.toggle("active");
+            document.getElementById("popup-<?php echo $data['order_id'] ?>").classList.toggle("active");
         }
     </script>
+
+    <?php
+    }}
+
+
+    ?>
     <script type="text/javascript" src="js/userEditValidation.js"></script>
 </body>
 </html>
