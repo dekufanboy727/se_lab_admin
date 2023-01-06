@@ -316,12 +316,12 @@ include "dbConnection.php"
 
     <?php
 
-    $sql = "SELECT product_type.type_name, COUNT(order_product.order_id) as num FROM `product_type` JOIN `product` ON product_type.id=product.product_type JOIN `order_product` on product.product_id=order_product.product_id GROUP BY type_name ORDER BY product_type.id ASC";
+    $sql = "SELECT category.name, COUNT(order_product.order_id) as num FROM `category` JOIN `category_product` ON category.category_id=category_product.category_id JOIN `order_product` on category_product.product_id=order_product.product_id GROUP BY name ORDER BY category.category_id ASC";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            $category[] = $row["type_name"];
+            $category[] = $row["name"];
             $amount[] = $row["num"];
         }
     } else {

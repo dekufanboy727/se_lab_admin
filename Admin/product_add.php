@@ -23,7 +23,7 @@ include "dbConnection.php"
     <?php //Session Control
         if (empty($_SESSION['logged_in']) == true)
         {
-            echo "You are not Logged in";
+           echo "You are not Logged in";
             header("Location: adminlogout.php");
         }
 

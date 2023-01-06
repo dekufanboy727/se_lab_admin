@@ -22,10 +22,10 @@ include "dbConnection.php"
 
 <body>
     <?php //Session Control
-    //if (empty($_SESSION['logged_in']) == true) {
-        //echo "You are not Logged in";
-        //header("Location: adminlogout.php");
-    //}
+    if (empty($_SESSION['logged_in']) == true) {
+        echo "You are not Logged in";
+        header("Location: adminlogout.php");
+    }
 
     $notice = "";
     //Event Deletion
@@ -36,6 +36,7 @@ include "dbConnection.php"
             $result = mysqli_query($conn, $sql3);
             if ($result === true)
                 $notice = "The event is deleted!";
+                unlink($result["event_img"]);
             header("Location: events.php");
         }
     }

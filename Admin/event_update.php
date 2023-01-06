@@ -21,11 +21,11 @@ include "dbConnection.php"
 
     <body>
         <?php
-            //if (empty($_SESSION['logged_in']) == true)
-            //{
-                //echo "You are not Logged in";
-                //header("Location: adminlogout.php");
-           // }
+            if (empty($_SESSION['logged_in']) == true)
+            {
+                echo "You are not Logged in";
+                header("Location: adminlogout.php");
+            }
             
             date_default_timezone_set('Asia/Kuching');
             //Adding Product Handler

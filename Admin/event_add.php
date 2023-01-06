@@ -23,11 +23,11 @@ include "dbConnection.php"
 
 <body>
     <?php //Session Control
-       // if (empty($_SESSION['logged_in']) == true)
-      //  {
-      //      echo "You are not Logged in";
-      //      header("Location: adminlogout.php");
-      //  }
+       if (empty($_SESSION['logged_in']) == true)
+        {
+          echo "You are not Logged in";
+          header("Location: adminlogout.php");
+        }
         
         //Adding Product Handler
         $name = $date = $category_id = $time = $discount = $description = $location = $link = "";
