@@ -49,7 +49,7 @@ include "dbConnection.php"
                         <span class="icon">
                             <ion-icon name="cafe-outline"></ion-icon>
                         </span>
-                        <span class="title">HelffCoffee</span>
+                        <span class="title">HelfCoffee</span>
                     </a>
                 </li>
                 <li>
