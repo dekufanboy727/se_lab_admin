@@ -65,6 +65,23 @@
             //echo "Login unsuccessful";
             $error = "Incorrect email or password! Please try again.";
         }
+
+        $sql1 = "SELECT * FROM admin WHERE email ='$email' AND pass ='$pass'"; //Find the admin acc
+        $isFound = mysqli_query($conn, $sql1); //Check is it exists
+
+        //Found the admin
+        if (mysqli_num_rows($isFound) == 1) {
+            //echo "Login successful";
+            //Redirecting admin to home menu
+            $_SESSION['logged_in'] = true;
+            $record = mysqli_fetch_assoc($isFound);
+            $_SESSION['admin_id'] = $record['admin_id'];
+            header("Location: ../Admin/index.php");
+            
+        } else {
+            //echo "Login unsuccessful";
+            $error = "Incorrect email or password! Please try again.";
+        }
     }
 
     ?>
