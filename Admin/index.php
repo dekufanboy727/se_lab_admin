@@ -17,6 +17,8 @@ include "dbConnection.php"
     <title>Admin Dashboard</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="icon" type="image/jpg" href="images/profile.jpg">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </head>
 
 <body>
@@ -300,6 +302,18 @@ include "dbConnection.php"
         </div>
     </div>
 
+    <script>
+        // MenuToggle
+        let toggle = document.querySelector('.toggle');
+        let navigation = document.querySelector('.navigation');
+        let main = document.querySelector('.main');
+
+        toggle.onclick = function() {
+            navigation.classList.toggle('active');
+            main.classList.toggle('active');
+        }
+    </script>
+
     <?php
 
     $sql = "SELECT category.name, COUNT(order_product.order_id) as num FROM `category` JOIN `category_product` ON category.category_id=category_product.category_id JOIN `order_product` on category_product.product_id=order_product.product_id GROUP BY name ORDER BY category.category_id ASC";
@@ -327,21 +341,7 @@ include "dbConnection.php"
     }
     ?>
 
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <script>
-        // MenuToggle
-        let toggle = document.querySelector('.toggle');
-        let navigation = document.querySelector('.navigation');
-        let main = document.querySelector('.main');
-
-        toggle.onclick = function() {
-            navigation.classList.toggle('active');
-            main.classList.toggle('active');
-        }
-    </script>
 
     <script>
         const ctx = document.getElementById('myChart');
