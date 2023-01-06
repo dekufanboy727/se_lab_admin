@@ -145,7 +145,7 @@
                 <li><a href="#">About Us</a></li>
                 <li><a href="menu_best_seller.php">Menu</a></li>
                 <li><a href="events.php">Events</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="contact_us.php">Contact</a></li>
             </ul>
         </nav>        
     </div>
