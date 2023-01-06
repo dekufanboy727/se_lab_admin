@@ -2,6 +2,64 @@
     session_start();
     include 'dbConnection.php';
 
+    if(!empty($_GET['status'])){
+        session_destroy();
+        unset($_SESSION['email']);
+        unset($_SESSION['id']);
+        header('Location: index.php');
+    }
+
+    if (isset($_GET['return'])) {
+    
+  
+        $email = $_SESSION['email'];    
+        
+
+            $to = 'helfcoffee1@gmail.com';
+            $subject = 'New Order Notification';         
+            $headers = "From: helfcoffee1@gmail.com";
+            $content =" New order has been placed by customer:" .$email.  "\n Please proceed to admin's dashboard to update order status";
+            
+            $to2 =  $email;
+            $subject2 = 'Order Successfully Placed';         
+            $headers2 = "From: helfcoffee1@gmail.com";
+            $content2 =" Dear :" .$email. "\n Your order has been successfully placed on Helf Coffee and admin has been notified, please await for your order's arrival.\n Thank you";
+
+
+            
+
+
+            if (mail($to, $subject, $content, $headers) && mail($to2, $subject2, $content2, $headers2)){
+
+                echo("<script> alert('Order successfully placed!')  </script>");
+
+            }else{
+                echo ("<script> alert('There was an error in placing your order, please try again ')  </script>");
+            }
+
+            $orderid = $_SESSION['orderid'];
+            $sql2 = "INSERT INTO transaction(order_id) VALUES('$orderid')";
+
+            if ($conn->query($sql2) === FALSE) {
+                echo "Error: " . $sql . "<br>" . $conn->error;
+                return false;
+            }
+            
+            unset($_SESSION['orderid']);
+            unset($_SESSION['datetime']);
+            unset($_SESSION['dmethod']);
+            unset($_SESSION['total_amount']);
+
+            $sql = "DELETE FROM cart_temp";
+            if ($conn->query($sql) === FALSE) {
+                   echo "Error: " . $sql . "<br>" . $conn->error;
+                   return false;
+             }else{
+                header('Location: index.php');
+             }
+
+    
+    }
     
 ?>
 
@@ -24,22 +82,24 @@
             <h2>Customer Receipt</h2>
         </div>
 
-        <div  class="receipt_container">
+        <div class="receipt_container">
             <div class="details">
-                <div class="delivery_dt">
-                    <h2>12/12/2022 12:00</h2>
-                    <small>Delivery Date Time</small>
-                </div>
-                <div class="order_num">
                 <?php   
                     $sql = "SELECT * FROM orders";
                     $result = $conn->query($sql);
                     while($data = mysqli_fetch_array($result)) 
                     {
-                        $receipt = $data['order_id'];
-                    }    
 
+                        $receipt = $data['order_id'];
+                        $_SESSION['orderid'] = $receipt;
+                        $date = $data['order_date'];
+                    }
                 ?>
+                <div class="delivery_dt">
+                    <h2><?php echo $date; ?></h2>
+                    <small>Delivery Date Time</small>
+                </div>
+                <div class="order_num">
                     <h2>#<?php echo $receipt?></h2>
                     <small>Order Number</small>
                 </div>   
@@ -60,7 +120,7 @@
                     $sql= "SELECT * FROM cart_temp";
                     $result = $conn->query($sql);
                     $sub_order = 0;
-                    $fee = 8;
+                    $dmethod = $_SESSION['dmethod'];
                     $total_order = 0;
 
                     while($data = mysqli_fetch_array($result)) 
@@ -78,6 +138,12 @@
                         </tr>
 
                         <?php
+
+                        if($dmethod == "Self-Pickup"){                       
+                            $fee = 0;
+                        }else{
+                            $fee = 8;
+                        }    
                         
                         $total_order = $sub_order + $fee;
                     }
@@ -106,7 +172,7 @@
             </table>
         </div>
         <div class="container">
-            <button class="confirm" type="submit">Confirm</button>
+            <button class="confirm"><a href="receipt.php?return='1'">Confirm</a></button>
         </div>
     </body>
 </html>
