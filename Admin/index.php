@@ -17,6 +17,8 @@ include "dbConnection.php"
     <title>Admin Dashboard</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="icon" type="image/jpg" href="images/profile.jpg">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </head>
 
 <body>
@@ -327,8 +329,6 @@ include "dbConnection.php"
     }
     ?>
 
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
