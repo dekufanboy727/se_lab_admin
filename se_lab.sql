@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 05, 2023 at 08:20 PM
+-- Generation Time: Jan 06, 2023 at 07:43 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -93,10 +93,8 @@ CREATE TABLE `customer` (
 
 INSERT INTO `customer` (`id`, `name`, `email`, `address`, `password`, `phone`, `payment_method`, `credit_score`) VALUES
 (1, 'Derrick Koay Jia Yung', 'koayjyderrick@gmail.com', '31 Lakeside', 'blackwinds', 1133030519, '', 0),
-(4, 'Neoh Jin Ming', 'neohjinming@yahoo.com', 'Block 99, Jalan Bukit Kukus, Paya Terubong', 'lol123', 129858775, '', 0),
-(5, 'Neoh Jin Ming', 'neohjinming1@yahoo.com', 'Block 99, Jalan Bukit Kukus, Paya Terubong', 'lol123', 129858775, '', 0),
-(6, 'Neoh Jin Ming', 'neohjinming2@yahoo.com', 'Block 99, Jalan Bukit Kukus, Paya Terubong', 'lol123', 129858775, '', 0),
-(7, 'Neoh Jin Ming', 'neohjinming3@yahoo.com', 'Block 99, Jalan Bukit Kukus, Paya Terubong', 'lol123', 129858775, '', 0);
+(2, 'Neoh Jin Ming', 'neohjinming@yahoo.com', 'Block 99, Jalan Bukit Kukus, Paya Terubong', 'lol123', 129858775, '', 0),
+(3, 'Neoh Jin Ming', 'neohjinming1@yahoo.com', 'Block 99, Jalan Bukit Kukus, Paya Terubong', 'lol123', 129858775, '', 0);
 
 -- --------------------------------------------------------
 
@@ -312,7 +310,7 @@ ALTER TABLE `cart_temp`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `events`

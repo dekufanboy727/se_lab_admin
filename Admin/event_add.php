@@ -134,7 +134,6 @@ include "dbConnection.php"
                     }
                 }
                 $em = "Add Successful";
-                header( "Location: events.php");
             }else{
                 $em = "record not added";
             }

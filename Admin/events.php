@@ -32,11 +32,14 @@ include "dbConnection.php"
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
         if (isset($_GET['event']) == true) {
             $deleteid = $_GET['event'];
+            $sql4 = "SELECT * FROM events WHERE id = '$deleteid'";
+            $result_img = mysqli_fetch_assoc(mysqli_query($conn, $sql4));
+            unlink($result_img["event_img"]);
             $sql3 = "DELETE FROM events WHERE id = '$deleteid'";
             $result = mysqli_query($conn, $sql3);
             if ($result === true)
                 $notice = "The event is deleted!";
-                unlink($result["event_img"]);
+                
             header("Location: events.php");
         }
     }

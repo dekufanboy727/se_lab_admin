@@ -34,6 +34,9 @@ include "dbConnection.php"
         {
             if(isset($_GET['product']) == true){
                 $deleteid = $_GET['product'];
+                $sql4 = "SELECT * FROM product WHERE id = '$deleteid'";
+                $result_img = mysqli_fetch_assoc(mysqli_query($conn, $sql4));
+                unlink($result_img["product_img"]);
                 $sql3 = "DELETE FROM product WHERE product_id = '$deleteid'";
                 $result = mysqli_query($conn,$sql3);
                 if($result === true)
