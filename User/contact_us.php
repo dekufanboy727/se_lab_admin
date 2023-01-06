@@ -69,7 +69,7 @@
             <div class="form_container">
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <textarea name="message" placeholder="Write us a message here and we will get back to you as soon as possible!" ></textarea>
-                    <button class="submit" type="submit" value="send" onclick="alert('Enquiry message has been sent to Helf Coffee Admin')">Submit</button>
+                    <button class="submit" type="submit" value="send" onclick="alert('Enquiry message has been sent to Helf Coffee Admin')">Send Message</button>
                 </form>
             </div>
         </div>
