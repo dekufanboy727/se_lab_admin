@@ -58,15 +58,15 @@ body{
 .login{
     position: relative;
     float: right;
-    bottom: 515;
     background-color: #4C5D70;
     color: #E8CBB1;
+    width: 120px;
     height: 30px;
     border-radius: 30px;
-    text-align: right;
+    text-align: center;
     text-decoration: none;
     margin: 17px 15px;
-    padding: 5px 5px 5px 20px;
+    padding: 5px 5px 0;
     box-shadow: 5px 5px 8px grey;
     z-index: 1;
 }
@@ -92,16 +92,55 @@ body{
 .login:focus::before{
     transform: scaleX(1);
 }
-.login a{
+
+
+.profile_btn{
+    position: relative;
+    float: right;
+    bottom: 515;
+    background-color: #4C5D70;
+    color: #E8CBB1;
+    height: 30px;
+    border-radius: 30px;
+    text-align: right;
+    text-decoration: none;
+    margin: 17px 15px;
+    padding: 5px 5px 5px 20px;
+    box-shadow: 5px 5px 8px grey;
+    z-index: 1;
+}
+.profile_btn::before{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #E8CBB1;
+    border-radius: 30px;
+    border: 2px solid #4C5D70;
+    z-index: -1;
+    transform: scaleX(0);
+    transition: transform 0.3s ease-in-out;
+}
+.profile_btn:hover{
+    color: #4C5D70;
+}
+.profile_btn:hover::before,
+.profile_btn:focus::before{
+    transform: scaleX(1);
+}
+.profile_btn a{
     font-size: 18px;
     position: relative;
     bottom: 3px;
 }
-.login i{
+.profile_btn i{
     font-size: 30px;
     margin-left: 10px;
 }
-.login:hover .dropdown-content{
+.profile_btn:hover .dropdown-content{
     display: block;
 }
 .dropdown-content {
@@ -112,7 +151,7 @@ body{
     z-index: 1;
     border-radius: 20px;
 }
-.dropdown-content a {
+.dropdown-content a{
     color: #E8CBB1;
     text-decoration: none;
     display: block;
@@ -286,7 +325,7 @@ form{
     margin-top: 2px;
     position: absolute;
     bottom: 43px;
-    right: 55px;
+    right: 40px;
 }
 .user_input i.fa-eye{
     visibility: visible;
