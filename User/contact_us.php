@@ -7,6 +7,7 @@
         unset($_SESSION['email']);
         unset($_SESSION['id']);
         header('Location: index.php');
+
     }
 ?>
 
@@ -66,9 +67,9 @@
                 <img src="images/message.png">
             </div>
             <div class="form_container">
-                <form action="contact_us.php">
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <textarea name="message" placeholder="Write us a message here and we will get back to you as soon as possible!" ></textarea>
-                    <button class="submit" type="submit" value="send">Send Message</button>
+                    <button class="submit" type="submit" value="send" onclick="alert('Enquiry message has been sent to Helf Coffee Admin')">Submit</button>
                 </form>
             </div>
         </div>
