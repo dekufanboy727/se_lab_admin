@@ -277,7 +277,7 @@ include "dbConnection.php"
                         </div>
                         <br>
                         <div class="row">
-                            <input type="submit" name="edit" value = "update">
+                            <input type="submit" name="edit" value = "Update">
                         </div>
                     </form>
                     
