@@ -55,7 +55,7 @@
                    echo "Error: " . $sql . "<br>" . $conn->error;
                    return false;
              }else{
-                header('Location: index.php');
+                header('Location: index.php?success=yes');
              }
 
     
