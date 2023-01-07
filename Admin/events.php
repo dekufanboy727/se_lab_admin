@@ -129,7 +129,7 @@ include "dbConnection.php"
                 <div class="events-table">
                     <div class="events-table-header">
                         <h2>Events</h2>
-                        <a href="event_add.php" class="btn"><i class="fa-solid fa-plus"></i> Add new event</a>
+                        <a href="event_add.php" class="btn"><i class="fa-solid fa-plus"></i> Add New Event</a>
                     </div>
                     <div class="events-table-content">
                         <table id="example" class="table table-striped">
