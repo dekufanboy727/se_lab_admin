@@ -41,7 +41,6 @@ include "dbConnection.php"
                 $result = mysqli_query($conn,$sql3);
                 if($result === true)
                     $notice = "A product is deleted!";
-                    unlink($result["product_img"]);
                     header("Location: products.php");
             }
         }
