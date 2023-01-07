@@ -8,6 +8,11 @@
         unset($_SESSION['id']);
         header('Location: index.php');
     }
+
+    if(!empty($_GET['success'])){
+
+        echo("<script> alert('Order successfully placed and email has been sent out')  </script>");
+    }
     
  ?>
 
