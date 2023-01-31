@@ -151,7 +151,7 @@ include "dbConnection.php"
                     if($bestseller == "true"){
                         // Insert into Database
                         $updatesql = "UPDATE product SET product_name = '$name', price= '$price', product_type = '$category', product_desc = '$description', product_quan = '$quantity',
-                        product_cal = '$calorie', pixel = '$pixel', bestseller = '1' WHERE product_id = $shownid";
+                        product_cal = '$calorie', pixel = '$pixel', best_seller = '1' WHERE product_id = $shownid";
 
                         if(mysqli_query($conn, $updatesql)){
                             $em = "Record ".$shownid." Updated";
